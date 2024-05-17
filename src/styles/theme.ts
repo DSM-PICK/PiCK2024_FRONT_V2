@@ -4,8 +4,12 @@ export const theme = {
       white: "#fff",
       black: "#141414",
     },
-    bg: "#000",
-    error: "#ff3b32",
+    error: {
+      50: "#ffe7e6",
+      300: "#ff7679",
+      500: "#ff3b32",
+      800: "#ff261f",
+    },
     main: {
       50: "#f2eafe",
       100: "#e0cbfe",
@@ -19,7 +23,7 @@ export const theme = {
       900: "#6827f6",
     },
     gray: {
-      50: "#f2eafe",
+      50: "#F1F1F2",
       100: "#dddcdd",
       200: "#c6c5c7",
       300: "#afadb1",
@@ -66,45 +70,45 @@ export const theme = {
     },
     body: {
       1: {
-        size: "14px",
+        size: "20px",
         fontweight: "500",
       },
       2: {
-        size: "12px",
+        size: "16px",
         fontweight: "500",
       },
       3: {
-        size: "10px",
+        size: "14px",
         fontweight: "500",
       },
     },
     caption: {
       1: {
-        size: "16px",
+        size: "20px",
         fontweight: "400",
       },
       2: {
-        size: "12px",
+        size: "16px",
         fontweight: "400",
       },
     },
     label: {
       1: {
-        size: "16px",
+        size: "20px",
         fontweight: "500",
       },
       2: {
-        size: "12px",
+        size: "16px",
         fontweight: "500",
       },
     },
     button: {
       1: {
-        size: "16px",
+        size: "24px",
         fontweight: "600",
       },
       2: {
-        size: "12px",
+        size: "18px",
         fontweight: "600",
       },
     },
