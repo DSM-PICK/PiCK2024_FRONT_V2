@@ -53,7 +53,7 @@ const typeVariants = {
     background-color: ${theme.color.gray[50]};
     color: ${theme.color.normal.black};
     &:hover {
-      border: 1px solid black;
+      border: 1px solid ${theme.color.normal.black};
     }
     &:active {
       background-color: ${theme.color.gray[50]};
@@ -64,9 +64,9 @@ const typeVariants = {
   `,
   error2: css`
     background-color: ${theme.color.gray[50]};
-    color: ${theme.color.error};
+    color: ${theme.color.error[500]};
     &:hover {
-      border: 1px solid red;
+      border: 1px solid ${theme.color.error[500]};
     }
     &:active {
       background-color: ${theme.color.gray};
