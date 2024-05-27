@@ -4,102 +4,82 @@ import { theme } from "../../styles/theme";
 interface ButtonProps {
   type: "main" | "error" | "black" | "error2";
   size: "standard" | "small";
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 const sizeVariants = {
-  standard: {
-    width: "180px",
-    height: "54px",
-    fontSize: theme.font.button[1].size,
-    fontWeight: theme.font.button[1].fontweight,
-  },
-  small: {
-    width: "98px",
-    height: "48px",
-    fontSize: theme.font.button[2].size,
-    fontWeight: theme.font.button[2].fontweight,
-  },
+  standard: css`
+    width: 180px;
+    height: 54px;
+    font-size: ${theme.font.button[1].size};
+    font-weight: ${theme.font.button[1].fontweight};
+  `,
+  small: css`
+    width: 98px;
+    height: 48px;
+    font-size: ${theme.font.button[2].size};
+    font-weight: ${theme.font.button[2].fontweight};
+  `,
 };
 
 const typeVariants = {
-  main: {
-    backgroundColor: theme.color.main[500],
-    color: theme.color.normal.white,
-    hover: {
-      backgroundColor: theme.color.main[300],
-    },
-    pressed: {
-      backgroundColor: theme.color.main[800],
-    },
-    disabled: {
-      backgroundColor: theme.color.main[50],
-    },
-    border: "1px solid transparent",
-  },
-  error: {
-    backgroundColor: theme.color.error[500],
-    color: theme.color.normal.white,
-    hover: {
-      backgroundColor: theme.color.error[300],
-    },
-    pressed: {
-      backgroundColor: theme.color.error[800],
-    },
-    disabled: {
-      backgroundColor: theme.color.error[50],
-    },
-    border: "1px solid transparent",
-  },
-  black: {
-    backgroundColor: theme.color.gray[50],
-    color: theme.color.normal.black,
-    hover: {
-      backgroundColor: theme.color.gray[50],
-    },
-    pressed: {
-      backgroundColor: theme.color.gray[50],
-    },
-    border: "1px solid black",
-  },
-  error2: {
-    backgroundColor: theme.color.gray[50],
-    color: theme.color.error,
-    hover: {
-      backgroundColor: theme.color.gray,
-    },
-    pressed: {
-      backgroundColor: theme.color.gray,
-    },
-    border: "1px solid red",
-  },
+  main: css`
+    background-color: ${theme.color.main[500]};
+    color: ${theme.color.normal.white};
+    &:hover {
+      background-color: ${theme.color.main[300]};
+    }
+    &:active {
+      background-color: ${theme.color.main[800]};
+    }
+    &:disabled {
+      background-color: ${theme.color.main[50]};
+    }
+  `,
+  error: css`
+    background-color: ${theme.color.error[500]};
+    color: ${theme.color.normal.white};
+    &:hover {
+      background-color: ${theme.color.error[300]};
+    }
+    &:active {
+      background-color: ${theme.color.error[800]};
+    }
+    &:disabled {
+      background-color: ${theme.color.error[50]};
+    }
+  `,
+  black: css`
+    background-color: ${theme.color.gray[50]};
+    color: ${theme.color.normal.black};
+    &:hover {
+      border: 1px solid black;
+    }
+    &:active {
+      background-color: ${theme.color.gray[50]};
+    }
+    &:disabled {
+      background-color: ${theme.color.gray[200]};
+    }
+  `,
+  error2: css`
+    background-color: ${theme.color.gray[50]};
+    color: ${theme.color.error};
+    &:hover {
+      border: 1px solid red;
+    }
+    &:active {
+      background-color: ${theme.color.gray};
+    }
+    &:disabled {
+      background-color: ${theme.color.gray[200]};
+    }
+  `,
 };
 
 export const Button = styled.button<ButtonProps>`
-  ${({ type }) => {
-    const { backgroundColor, color, hover, pressed, border } =
-      typeVariants[type];
-    return css`
-      background-color: ${backgroundColor};
-      color: ${color};
-      border: none;
-      &:hover {
-        ${hover &&
-        css`
-          background-color: ${hover.backgroundColor};
-          border: ${border};
-        `}
-      }
-      &:active {
-        ${pressed &&
-        css`
-          background-color: ${pressed.backgroundColor};
-          border: ${border};
-        `}
-      }
-    `;
-  }}
-  ${({ size }) => sizeVariants[size]};
+  ${({ size }) => sizeVariants[size]}
+  ${({ type }) => typeVariants[type]}
   border-radius: 12px;
   border: none;
 `;
