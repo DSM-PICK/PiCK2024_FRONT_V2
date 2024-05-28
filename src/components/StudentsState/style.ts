@@ -16,8 +16,8 @@ export const StudentsStateContainer = styled.div`
 
 export const StudentsStateText = styled.p`
   color: ${theme.color.normal.black};
-  font-size: 20px; //theme에 있는걸로 바꾸기
-  font-weight: 600;
+  font-size: ${theme.font.heading[4].size};
+  font-weight: ${theme.font.heading[4].fontweight};
   text-align: center;
   white-space: nowrap;
   margin: 0;
