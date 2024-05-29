@@ -7,7 +7,6 @@ export const MainContainer = styled.div`
   flex-direction: column;
   gap: 120px;
   margin-top: 80px;
-  user-select: none;
 `;
 
 export const ButtonBox = styled.div`
