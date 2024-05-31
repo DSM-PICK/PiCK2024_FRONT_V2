@@ -9,6 +9,7 @@ export const MainRouterButtonContainer = styled(Link)`
   align-items: center;
   gap: 8px;
   width: 14%;
+  margin-bottom: 52px;
 `;
 
 export const MainRouterImgContainer = styled.div`
