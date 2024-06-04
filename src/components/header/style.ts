@@ -9,10 +9,10 @@ export const HeaderWrap = styled.header`
 `;
 
 export const nameText = styled.p`
-  margin: 0;
+  user-select: none;
   white-space: nowrap;
-  font-size: ${theme.font.heading[2].size};
-  font-weight: ${theme.font.heading[2].fontweight};
+  font-size: ${theme.font.heading[3].size};
+  font-weight: ${theme.font.heading[3].fontweight};
 `;
 
 export const HeaderIconWrap = styled.div`
