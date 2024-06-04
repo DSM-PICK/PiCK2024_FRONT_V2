@@ -56,14 +56,12 @@ export const AlarmContent = styled.div`
 `;
 
 export const AlarmContentTitle = styled.p`
-  margin: 0;
   font-size: ${theme.font.body[3].size};
   font-weight: ${theme.font.body[3].fontweight};
   color: ${theme.color.normal.black};
 `;
 
 export const AlarmContentDate = styled.p`
-  margin: 0;
   font-size: ${theme.font.body[3].size};
   font-weight: ${theme.font.body[3].fontweight};
   color: ${theme.color.gray[500]};
