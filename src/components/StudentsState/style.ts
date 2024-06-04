@@ -20,7 +20,6 @@ export const StudentsStateText = styled.p`
   font-weight: ${theme.font.heading[4].fontweight};
   text-align: center;
   white-space: nowrap;
-  margin: 0;
 `;
 
 export const StudentsStatePointText = styled.span`

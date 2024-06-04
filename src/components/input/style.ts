@@ -17,7 +17,6 @@ export const inputContent = styled.input`
   }
   outline: none;
   caret-color: ${theme.color.main[500]};
-  margin: 0;
 `;
 export const InputWrap = styled.div`
   display: flex;
@@ -26,7 +25,6 @@ export const InputWrap = styled.div`
 `;
 
 export const inputLabel = styled.p`
-  margin: 0;
   font-size: ${theme.font.label[1].size};
   font-weight: ${theme.font.label[1].fontweight};
 `;
@@ -38,7 +36,8 @@ export const InputContainer = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ type }) => (type === "long" ? "76%" : "32%")};
+  width: ${({ type }) => (type === "long" ? "1440px" : "600px")};
+  height: 48px;
   background-color: ${theme.color.gray[50]};
   border-radius: 12px;
   &:hover {
