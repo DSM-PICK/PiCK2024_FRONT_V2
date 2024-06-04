@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Test from "./pages/test";
+import Main from "pages/Main/index";
 import { GlobalStyle } from "styles/theme";
 import Login from 'pages/login';
 import Header from "components/header";
