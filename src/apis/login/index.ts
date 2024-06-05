@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { cookie } from "utils/auth";
 import { Login } from "./request";
 

@@ -54,6 +54,7 @@ export const StudentsStateFlexbox = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
 `;
 
 export const StudentsStateImg = styled.img`
