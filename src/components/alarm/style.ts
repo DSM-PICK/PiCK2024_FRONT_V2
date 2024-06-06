@@ -6,9 +6,11 @@ export const AlarmWrap = styled.div`
   width: 400px;
   height: 412px;
   overflow-y: scroll;
+  right: 10%;
   border-radius: 12px;
   background-color: ${theme.color.normal.white};
   border: 1px solid ${theme.color.gray[50]};
+  box-shadow: ${theme["box-shadow"]};
   &::-webkit-scrollbar {
     width: 5px;
   }

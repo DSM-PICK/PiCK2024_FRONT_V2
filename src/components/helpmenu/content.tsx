@@ -7,9 +7,9 @@ interface HelpContentProp {
   onClick: () => void;
 }
 
-export const HelpContent = ({ icon, content }: HelpContentProp) => {
+export const HelpContent = ({ icon, content, onClick }: HelpContentProp) => {
   return (
-    <S.helpMenuContent>
+    <S.helpMenuContent onClick={onClick}>
       {icon}
       {content}
     </S.helpMenuContent>
