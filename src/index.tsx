@@ -22,6 +22,7 @@ root.render(
           <Route path="d" element={<Header />} />
           <Route path="/test" element={<Test />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/main" element={<Main/>}/>
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
