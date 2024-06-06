@@ -15,6 +15,7 @@ export const DropdownClickContainer = styled.div<DropdownClickProp>`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   background-color: ${theme.color.normal.white};
+  z-index: 1;
 `;
 
 export const DropdownClick = styled.div<DropdownClickProp>`
