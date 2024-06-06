@@ -25,10 +25,11 @@ export const DropdownClick = styled.div<DropdownClickProp>`
   box-sizing: border-box;
   border-radius: 12px;
   background-color: ${theme.color.normal.white};
+  border: 1px solid ${theme.color.normal.white};
 
-  /* &:hover {
-    border: 1px solid ${theme.color.normal.black};
-  } */
+  &:hover {
+    border: 1px solid ${theme.color.main[300]};
+  }
 `;
 
 export const DropdownTitle = styled.div`
@@ -37,7 +38,6 @@ export const DropdownTitle = styled.div`
   border: 2px solid ${theme.color.gray[300]};
   border-radius: 12px;
   box-sizing: border-box;
-  position: relative;
 
   display: flex;
   align-items: center;
@@ -54,4 +54,5 @@ export const DropdownTitle = styled.div`
 
 export const PositionDiv = styled.div`
   position: relative;
+  user-select: none;
 `;
