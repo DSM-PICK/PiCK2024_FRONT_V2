@@ -8,9 +8,9 @@ interface DropdownProps {
 
 const Dropdown = ({ type }: DropdownProps) => {
   const [dropdownArray, setDropdownArray] = useState<string[]>([]);
-  const [dropdownImg, setDropdownImg] = useState(dropdownArrowImg);
+  const [dropdownImg, setDropdownImg] = useState<string>(dropdownArrowImg);
   const [dropdownTitle, setDropdownTitle] = useState<string>();
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const floorArray = ["1층", "2층", "3층", "4층", "5층"];
@@ -63,13 +63,14 @@ const Dropdown = ({ type }: DropdownProps) => {
         {dropdownTitle}
         <img src={dropdownImg} alt="" />
       </S.DropdownTitle>
-      <S.DropdownClickContainer isActive={isActive}>
+      <S.DropdownClickContainer isActive={isActive} ref={dropdownRef}>
         {dropdownArray.map((element, index) => (
           <S.DropdownClick
             key={index}
             isActive={isActive}
             onClick={() => {
               setDropdownTitle(element);
+              setIsActive(false);
             }}
           >
             {element}
