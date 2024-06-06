@@ -1,6 +1,6 @@
 import Input from "components/input";
 import * as S from "./style";
-import { Button } from "components/Button";
+import { Button } from "components/Button/index";
 import { useState } from "react";
 import pickman from "assets/svg/pickman.svg";
 import picksick from "assets/svg/picksick.svg";
@@ -37,6 +37,12 @@ const Login = () => {
     }
   };
 
+  const Btn = () => {
+    if (data.admin_id === "" || data.password === "") {
+      return true;
+    } else return false;
+  };
+
   const navigate = useNavigate();
 
   const onClickBtn = async () => {
@@ -50,9 +56,9 @@ const Login = () => {
         },
         onError: (error) => {
           console.error("Login error:", error);
-          if (error === "Request failed with status code 500") {
+          if (error.message === "Request failed with status code 500") {
             alert("아이디 혹은 비밀번호가 일치하지 않습니다");
-          } else if (error === "Request failed with status code 401") {
+          } else if (error.message === "Request failed with status code 401") {
             alert("아이디 혹은 비밀번호가 일치하지 않습니다");
           }
         },
@@ -84,7 +90,12 @@ const Login = () => {
           name="password"
           onKeyDown={handleKeyDown}
         />
-        <Button onClick={onClickBtn} type="main" size="standard">
+        <Button
+          onClick={onClickBtn}
+          type="main"
+          size="standard"
+          disabled={Btn()}
+        >
           로그인
         </Button>
       </S.ContentWrap>
