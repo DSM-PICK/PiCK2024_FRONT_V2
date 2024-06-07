@@ -29,7 +29,7 @@ export const DropdownClick = styled.div<DropdownClickProp>`
   border: 1px solid ${theme.color.normal.white};
 
   &:hover {
-    border: 1px solid ${theme.color.main[300]};
+    background-color: ${theme.color.main[50]};
   }
 `;
 
@@ -49,6 +49,10 @@ export const DropdownTitle = styled.div`
   font-size: ${theme.font.button[2].size};
 
   &:hover {
+    border: 2px solid ${theme.color.main[300]};
+  }
+
+  &:active {
     border: 2px solid ${theme.color.main[500]};
   }
 `;
