@@ -4,7 +4,7 @@ import classroomMovementImg from "assets/svg/classroomMovement.svg";
 
 interface StudentsStateType {
   type: "outing" | "classroomMovement";
-  person: string;
+  person: number;
 }
 
 const StudentsState = ({ type, person }: StudentsStateType) => {
@@ -19,7 +19,8 @@ const StudentsState = ({ type, person }: StudentsStateType) => {
       <S.StudentsStateFlexbox>
         <S.StudentsStateText>
           {mainText}
-          <br />총<S.StudentsStatePointText> {person}</S.StudentsStatePointText>
+          <br />총
+          <S.StudentsStatePointText> {person}명</S.StudentsStatePointText>
           입니다.
         </S.StudentsStateText>
         <S.StudentsStateButton to={rout}>{buttonText}</S.StudentsStateButton>

@@ -9,6 +9,12 @@ export const helpMenuContent = styled.div`
   font-weight: ${theme.font.body[2].fontweight};
   color: ${theme.color.normal.black};
   cursor: pointer;
+  &:hover {
+    background-color: ${theme.color.main[50]};
+  }
+  &:active {
+    background-color: ${theme.color.main[100]};
+  }
 `;
 
 export const TestTitle = styled.div`
@@ -23,7 +29,9 @@ export const TestTitle = styled.div`
 export const AlarmWrap = styled.div`
   position: absolute;
   width: 400px;
+  right: 12%;
   border-radius: 12px;
   background-color: ${theme.color.normal.white};
   border: 1px solid ${theme.color.gray[50]};
+  box-shadow: ${theme["box-shadow"]};
 `;
