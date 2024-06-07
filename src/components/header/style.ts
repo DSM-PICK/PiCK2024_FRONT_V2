@@ -19,3 +19,7 @@ export const HeaderIconWrap = styled.div`
   display: flex;
   gap: 40px;
 `;
+
+export const IconStyle = styled.img`
+  position: relative;
+`;
