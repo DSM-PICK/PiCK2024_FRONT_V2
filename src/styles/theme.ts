@@ -115,6 +115,7 @@ export const theme = {
       },
     },
   },
+  "box-shadow": "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
 };
 
 export const GlobalStyle = createGlobalStyle`
@@ -123,6 +124,16 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     border: 0;
-    //user-select: none;
+    user-select: none;
+  }
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${theme.color.gray[400]};
+    border-radius: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: none;
   }
 `;
