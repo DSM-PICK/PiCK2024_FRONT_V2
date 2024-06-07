@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as S from "./style";
 import dropdownArrowImg from "assets/svg/dropdownImg.svg";
+import dropdownArrowImg2 from "assets/svg/dropdownArrowImg2.svg";
 
 interface DropdownProps {
   type: "floor" | "grade" | "class";
@@ -8,8 +9,8 @@ interface DropdownProps {
 
 const Dropdown = ({ type }: DropdownProps) => {
   const [dropdownArray, setDropdownArray] = useState<string[]>([]);
-  const [dropdownImg, setDropdownImg] = useState<string>(dropdownArrowImg);
-  const [dropdownTitle, setDropdownTitle] = useState<string>();
+  const [dropdownImg, setDropdownImg] = useState<string>(dropdownArrowImg2);
+  const [dropdownTitle, setDropdownTitle] = useState<string>("전체");
   const [isActive, setIsActive] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -25,11 +26,9 @@ const Dropdown = ({ type }: DropdownProps) => {
         break;
       case "grade":
         setDropdownArray(gradeArray);
-        setDropdownTitle(gradeArray[0]);
         break;
       case "class":
         setDropdownArray(classArray);
-        setDropdownTitle(classArray[0]);
         break;
     }
   }, []);
@@ -42,6 +41,7 @@ const Dropdown = ({ type }: DropdownProps) => {
         !dropdownRef.current.contains(e.target as Node)
       ) {
         setIsActive(false);
+        setDropdownImg(dropdownArrowImg2);
       }
     };
 
