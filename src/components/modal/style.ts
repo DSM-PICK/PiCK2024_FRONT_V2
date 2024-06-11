@@ -6,10 +6,10 @@ export const ModalWrap = styled.div`
   top: 0;
   display: flex;
   justify-content: center;
-  background-color: ${theme.color.normal.black};
   align-items: center;
   width: 100%;
-  opacity: 0.7;
+  background-color: #0000008c;
+  backdrop-filter: blur(1px);
   height: 100%;
 `;
 
