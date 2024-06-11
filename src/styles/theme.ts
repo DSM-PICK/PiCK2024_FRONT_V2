@@ -73,15 +73,19 @@ export const theme = {
     body: {
       1: {
         size: "20px",
-        fontweight: "500",
+        fontweight: "400",
       },
       2: {
         size: "16px",
-        fontweight: "500",
+        fontweight: "400",
       },
       3: {
         size: "14px",
-        fontweight: "500",
+        fontweight: "400",
+      },
+      4: {
+        size: "12px",
+        fontWeight: "400",
       },
     },
     caption: {
