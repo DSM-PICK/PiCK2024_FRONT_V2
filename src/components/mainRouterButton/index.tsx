@@ -47,7 +47,7 @@ const MainRouterButton = () => {
     {
       img: notification,
       text: "공지",
-      router: "/",
+      router: "/notice",
     },
     {
       img: classAttendance,
