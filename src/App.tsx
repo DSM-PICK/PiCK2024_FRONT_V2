@@ -1,22 +1,21 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Test from "./pages/test";
 import Main from "pages/Main/index";
 import { GlobalStyle } from "styles/theme";
 import Login from "pages/login";
-import Header from "components/header";
-import Menu from "components/menu";
-
+import NoticePage from "pages/notice";
+import NoticeDetail from "pages/notice/detail.tsx";
+import NoticeWrite from "pages/notice/write";
 function App() {
   return (
     <>
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route path="d" element={<Header />} />
-          <Route path="/test" element={<Test />} />
           <Route path="/login" element={<Login />} />
-          <Route path="main" element={<Main />} />
+          <Route path="/main" element={<Main />} />
+          <Route path="/notice" element={<NoticePage />} />
+          <Route path="/notice/write" element={<NoticeWrite />} />
+          <Route path="/notice/:id" element={<NoticeDetail />} />
         </Routes>
       </BrowserRouter>
     </>
