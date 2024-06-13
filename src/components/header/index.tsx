@@ -7,12 +7,15 @@ import MenuSvg from "assets/svg/menu.svg";
 import HelfMenu from "components/helpmenu";
 import Alarm from "components/alarm";
 import Menu from "components/menu";
+import { MyName } from "apis/admin";
 
 interface HeaderIconType {
   type: "help" | "alarm" | "menu";
 }
 
 const Header = () => {
+  const { mutate: MynameMutate } = MyName();
+
   const [name, setName] = useState<string>("");
   const [helpModalOpen, setHelpModalOpen] = useState<boolean>(false);
   const [alarmModalOpen, setAlarmModalOpen] = useState<boolean>(false);
@@ -23,8 +26,27 @@ const Header = () => {
   const menuModalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setName(cookie.get("name"));
+    const name = localStorage.getItem("name");
+    if (name) {
+      setName(name);
+    } else {
+      SaveName();
+    }
   }, []);
+
+  const SaveName = async () => {
+    await MynameMutate(null, {
+      onSuccess: (data) => {
+        localStorage.setItem("name", data.name || "");
+        localStorage.setItem("grade", JSON.stringify(data.grade) || "0");
+        localStorage.setItem(
+          "class_num",
+          JSON.stringify(data.class_num) || "0"
+        );
+        setName(data.name);
+      },
+    });
+  };
 
   const handleIconClick = (type: HeaderIconType["type"]) => {
     switch (type) {
