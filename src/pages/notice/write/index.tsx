@@ -38,6 +38,7 @@ const NoticeWrite = () => {
       {
         onSuccess: () => {
           //성공시 토스트
+          router(-1);
         },
         onError: () => {
           //에러시 토스트
