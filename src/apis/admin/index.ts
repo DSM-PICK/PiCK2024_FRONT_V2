@@ -1,8 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
 import { cookie } from "utils/auth";
 import { Login } from "./request";
+import { instance } from "apis";
+import { MynameType } from "apis/type";
+
+const router = "admin";
 
 export const useLogin = () => {
   const BASEURL = process.env.REACT_APP_BASE_URL;
@@ -13,7 +17,7 @@ export const useLogin = () => {
   const loginMutation = useMutation({
     mutationFn: (param: Login) => {
       return axios
-        .post(`${BASEURL}/admin/login`, {
+        .post(`${BASEURL}/${router}/login`, {
           ...param,
         })
         .then((response) => {
@@ -42,4 +46,13 @@ export const useLogin = () => {
     accessToken,
     refreshToken,
   };
+};
+
+export const MyName = () => {
+  return useMutation<MynameType, Error, null>({
+    mutationFn: async () => {
+      const { data } = await instance.get(`${router}/my-name`);
+      return data;
+    },
+  });
 };
