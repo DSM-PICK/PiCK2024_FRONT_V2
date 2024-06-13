@@ -6,7 +6,7 @@ import pickman from "assets/svg/pickman.svg";
 import picksick from "assets/svg/picksick.svg";
 import pickme from "assets/svg/pickme.svg";
 import pickgod from "assets/svg/pickgod.svg";
-import { useLogin } from "apis/login";
+import { MyName, useLogin } from "apis/admin";
 import { saveToken } from "utils/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -21,6 +21,7 @@ interface LoginType {
 }
 
 const Login = () => {
+  const { mutate: MynameMutate } = MyName();
   const { mutate: Login } = useLogin();
   const [data, setData] = useState<LoginType>({
     admin_id: "",
@@ -31,7 +32,9 @@ const Login = () => {
     setData({ ...data, [name]: text });
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     if (event.key === "Enter") {
       onClickBtn();
     }
@@ -52,6 +55,7 @@ const Login = () => {
           const accessToken = res.access_token;
           const refreshToken = res.refresh_token;
           saveToken(accessToken, refreshToken);
+          localStorage.clear();
           navigate("/main");
         },
         onError: (error) => {
