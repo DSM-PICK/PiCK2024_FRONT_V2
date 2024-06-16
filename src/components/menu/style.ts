@@ -12,6 +12,7 @@ export const MenuWrap = styled.div`
   top: 0;
   right: 0;
   background-color: ${theme.color.normal.white};
+  z-index: 1;
 `;
 
 export const MenuContentWrap = styled.div`
