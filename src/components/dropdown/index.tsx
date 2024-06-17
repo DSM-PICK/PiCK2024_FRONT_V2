@@ -1,83 +1,163 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import arrow from "assets/svg/dropdownImg.svg";
+import downarrow from "assets/svg/dropdownArrowImg2.svg";
 import * as S from "./style";
-import dropdownArrowImg from "assets/svg/dropdownImg.svg";
-import dropdownArrowImg2 from "assets/svg/dropdownArrowImg2.svg";
 
-interface DropdownProps {
-  type: "floor" | "grade" | "class";
+interface Option {
+  value: number;
+  label: string;
 }
 
-const Dropdown = ({ type }: DropdownProps) => {
-  const [dropdownArray, setDropdownArray] = useState<string[]>([]);
-  const [dropdownImg, setDropdownImg] = useState<string>(dropdownArrowImg2);
-  const [dropdownTitle, setDropdownTitle] = useState<string>("전체");
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
+interface DropProps {
+  type: "floor" | "grade" | "class" | "club" | "all";
+  onChange?: (selectedOption: Option) => void;
+}
 
-  const floorArray = ["1층", "2층", "3층", "4층", "5층"];
-  const gradeArray = ["1학년", "2학년", "3학년"];
-  const classArray = ["1반", "2반", "3반", "4반"];
+const Dropdown: React.FC<DropProps> = ({ type, onChange }) => {
+  const [selectedGradeOption, setSelectedGradeOption] = useState<number>(5);
+  const [selectedClassOption, setSelectedClassOption] = useState<number>(5);
+  const [selectedFloorOption, setSelectedFloorOption] = useState<number>(2);
+  // const [selectedClubOption, setSelectedClubOption] =
+  //   useState<string>("세미나실 2-1(대동여지도)");
+  const [selectedAllOption, setSelectedAllOption] = useState<number>(1);
+  const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    switch (type) {
-      case "floor":
-        setDropdownArray(floorArray);
-        setDropdownTitle(floorArray[0]);
-        break;
-      case "grade":
-        setDropdownArray(gradeArray);
-        break;
-      case "class":
-        setDropdownArray(classArray);
-        break;
-    }
-  }, []);
-
-  useEffect(() => {
-    const clickOutside = (e: MouseEvent) => {
-      if (
-        isActive &&
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsActive(false);
-        setDropdownImg(dropdownArrowImg2);
-      }
-    };
-
-    document.addEventListener("mousedown", clickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", clickOutside);
-    };
-  }, [isActive]);
-
-  const handleDropdown = () => {
-    setIsActive(!isActive);
-    setDropdownImg(dropdownArrowImg);
+  const toggleDropdown = () => {
+    setIsDropdownVisible(!isDropdownVisible);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownVisible(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleOptionClick = (option: Option) => {
+    if (onChange) {
+      onChange(option);
+      switch (type) {
+        case "grade":
+          setSelectedGradeOption(option.value);
+          break;
+        case "class":
+          setSelectedClassOption(option.value);
+          break;
+        case "floor":
+          setSelectedFloorOption(option.value);
+          break;
+        // case "club":
+        //   setSelectedClubOption(option.label);
+        //   break;
+        case "all":
+          setSelectedAllOption(option.value);
+          break;
+        default:
+          break;
+      }
+    }
+    setIsDropdownVisible(false);
+  };
+
+  const title = () => {
+    switch (type) {
+      case "grade":
+        return `${selectedGradeOption}학년`;
+
+      case "class":
+        return `${selectedClassOption}반`;
+
+      case "floor":
+        return `${selectedFloorOption}층`;
+
+      case "all":
+        return selectedAllOption === 5 ? `전체` : `${selectedAllOption}학년`;
+
+      // case "club":
+      //   return selectedClubOption;
+      default:
+        return "";
+    }
+  };
+
+  const options =
+    type === "floor"
+      ? [
+          { value: 2, label: "2층" },
+          { value: 3, label: "3층" },
+          { value: 4, label: "4층" },
+        ]
+      : type === "grade"
+      ? [
+          { value: 1, label: "1학년" },
+          { value: 2, label: "2학년" },
+          { value: 3, label: "3학년" },
+        ]
+      : type === "class"
+      ? [
+          { value: 1, label: "1반" },
+          { value: 2, label: "2반" },
+          { value: 3, label: "3반" },
+          { value: 4, label: "4반" },
+        ]
+      : // type === "club"
+      // ? [
+      //     { value: "대동여지도", label: "세미나실 2-1(대동여지도)" },
+      //     { value: "DMS", label: "세미나실 2-2(DMS)" },
+      //     { value: "gram", label: "세미나실 2-3(gram)" },
+      //     { value: "Lift", label: "소개2실(Lift)" },
+      //     { value: "Log", label: "세미나실 3-1(Log)" },
+      //     { value: "은하", label: "세미나실 3-2(은하)" },
+      //     { value: "PiCK", label: "세미나실 3-3(PiCK)" },
+      //     { value: "어게인", label: "보안 1실(어게인)" },
+      //     { value: "info", label: "보안 2실(info)" },
+      //     { value: "TeamQSS", label: "세미나실 4-1(TeamQSS)" },
+      //     { value: "NoNamed", label: "세미나실 4-2(NoNamed)" },
+      //     { value: "Modeep", label: "세미나실 4-3(Modeep)" },
+      //     { value: "자습", label: "자습" },
+      //   ]
+      // :
+      type === "all"
+      ? [
+          { value: 1, label: "1학년" },
+          { value: 2, label: "2학년" },
+          { value: 3, label: "3학년" },
+          { value: 5, label: "전체" },
+        ]
+      : [];
+
   return (
-    <S.PositionDiv>
-      <S.DropdownTitle onClick={handleDropdown} ref={dropdownRef}>
-        {dropdownTitle}
-        <img src={dropdownImg} alt="" />
-      </S.DropdownTitle>
-      <S.DropdownClickContainer isActive={isActive} ref={dropdownRef}>
-        {dropdownArray.map((element, index) => (
-          <S.DropdownClick
-            key={index}
-            isActive={isActive}
-            onClick={() => {
-              setDropdownTitle(element);
-              setIsActive(false);
-            }}
-          >
-            {element}
-          </S.DropdownClick>
-        ))}
-      </S.DropdownClickContainer>
-    </S.PositionDiv>
+    <S.DropdownTitle ref={dropdownRef} onClick={toggleDropdown}>
+      {title()}
+      <img
+        src={isDropdownVisible ? `${downarrow}` : `${arrow}`}
+        alt="arrow"
+        width={16}
+        height={16}
+      />
+      {isDropdownVisible && (
+        <S.DropdownClickContainer isActive>
+          {options.map((option) => (
+            <S.DropdownClick
+              isActive
+              key={option.value.toString()}
+              onClick={() => handleOptionClick(option)}
+            >
+              {option.label}
+            </S.DropdownClick>
+          ))}
+        </S.DropdownClickContainer>
+      )}
+    </S.DropdownTitle>
   );
 };
 
