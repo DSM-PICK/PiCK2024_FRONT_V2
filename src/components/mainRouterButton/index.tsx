@@ -27,7 +27,7 @@ const MainRouterButton = () => {
     {
       img: outingAllow,
       text: "외출 수락",
-      router: "/",
+      router: "/outAccept",
     },
     {
       img: goingOutList,

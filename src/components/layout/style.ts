@@ -6,6 +6,7 @@ export const LayoutStyle = styled.div`
   flex-direction: column;
   gap: 20px;
   padding: 32px 240px;
+  margin-bottom: 200px;
 `;
 
 export const Nav = styled.div`
