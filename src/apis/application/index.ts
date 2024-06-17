@@ -19,18 +19,6 @@ export const StudentStateCount = () => {
   });
 };
 
-// export const OutRequest = (grade: number, class_num: number) => {
-//   return useQuery<applicationDataProp[], Error>({
-//     queryKey: ["OutRequest"],
-//     queryFn: async () => {
-//       const { data } = await instance.get(
-//         `${router}/grade?grade=${grade}&class_num=${class_num}`
-//       );
-//       return data;
-//     },
-//   });
-// };
-
 export const OutRequest = () => {
   return useMutation<applicationDataProp[], Error, ClassProp>({
     mutationFn: async (param: ClassProp) => {
