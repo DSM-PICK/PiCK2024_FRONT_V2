@@ -9,6 +9,7 @@ export const DropdownClickContainer = styled.div<DropdownClickProp>`
   display: ${({ isActive }) => (isActive ? "flex" : "none")};
   position: absolute;
   flex-direction: column;
+  top: 120%;
   width: 140px;
   border-radius: 12px;
   background-color: ${theme.color.normal.white};
@@ -34,6 +35,7 @@ export const DropdownClick = styled.div<DropdownClickProp>`
 `;
 
 export const DropdownTitle = styled.div`
+  position: relative;
   width: 140px;
   height: 49px;
   border: 2px solid ${theme.color.gray[300]};
@@ -55,9 +57,4 @@ export const DropdownTitle = styled.div`
   &:active {
     border: 2px solid ${theme.color.main[500]};
   }
-`;
-
-export const PositionDiv = styled.div`
-  position: relative;
-  user-select: none;
 `;
