@@ -54,7 +54,6 @@ export const BottomButton = styled.div`
   bottom: 0;
   padding: 60px 240px;
   justify-content: end;
-  //backdrop-filter: blur(10px);
   gap: 32px;
   background: linear-gradient(
     174deg,
