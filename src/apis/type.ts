@@ -48,3 +48,15 @@ export interface UploadNoticeType {
   content: string;
   grade: number[];
 }
+
+export interface applicationDataProp {
+  class_num: number;
+  end_time: string;
+  grade: number;
+  id: string;
+  num: number;
+  reason: string;
+  start_time: string;
+  user_id: string;
+  username: string;
+}
