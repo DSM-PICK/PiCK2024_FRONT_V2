@@ -93,6 +93,7 @@ const NoticeWrite = () => {
         </S.TextareaWrap>
       </Layout>
       <BottomButtonWrap
+        firstContent="공지작성"
         firstDisabled={false}
         firstOnclick={Upload}
         firstSize="standard"
