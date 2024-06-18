@@ -7,10 +7,17 @@ import change from "assets/svg/change.svg";
 import out from "assets/svg/out.svg";
 import { useNavigate } from "react-router-dom";
 import Modal from "components/modal";
+import { cookie } from "utils/auth";
 
 const HelfMenu = () => {
   const navigate = useNavigate();
   const [logoutModal, setLogoutModal] = useState<boolean>(false);
+
+  const Logout = () => {
+    cookie.remove("access_token");
+    cookie.remove("refresh_token");
+    navigate("/login");
+  };
 
   return (
     <>
@@ -53,7 +60,9 @@ const HelfMenu = () => {
           onCancel={() => {
             setLogoutModal(false);
           }}
-          onConfirm={() => {}}
+          onConfirm={() => {
+            Logout();
+          }}
           title="로그아웃 하시겠습니까?"
           subTitle="다음 접속 시 다시 로그인 해야합니다."
         />
