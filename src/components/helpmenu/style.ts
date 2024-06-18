@@ -34,4 +34,5 @@ export const AlarmWrap = styled.div`
   background-color: ${theme.color.normal.white};
   border: 1px solid ${theme.color.gray[50]};
   box-shadow: ${theme["box-shadow"]};
+  z-index: 1;
 `;
