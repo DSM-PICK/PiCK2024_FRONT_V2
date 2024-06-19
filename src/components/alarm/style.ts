@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { theme } from "styles/theme";
 
 export const AlarmWrap = styled.div`
+  z-index: 1;
   position: absolute;
   width: 400px;
   height: 412px;
