@@ -60,3 +60,19 @@ export interface applicationDataProp {
   user_id: string;
   username: string;
 }
+
+export interface OutListProp {
+  id: string;
+  username: string;
+  end_time: string;
+  grade: number;
+  class_num: number;
+  num: number;
+  reason: string;
+}
+
+export interface data {
+  floor: number;
+  teacher: string;
+  date: string;
+}

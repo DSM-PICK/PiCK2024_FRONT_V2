@@ -16,7 +16,7 @@ const NoticeWrite = () => {
 
   const { mutate: UploadNoticeMutate } = UploadNotice();
 
-  const handleTitleChange = ({ text, name }: ChangeProps) => {
+  const handleTitleChange = ({ text }: ChangeProps) => {
     setTitle(text);
   };
 

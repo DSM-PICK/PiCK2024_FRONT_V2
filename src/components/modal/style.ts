@@ -11,6 +11,7 @@ export const ModalWrap = styled.div`
   background-color: #0000008c;
   backdrop-filter: blur(1px);
   height: 100%;
+  z-index: 1;
 `;
 
 export const ModalStyle = styled.div`
