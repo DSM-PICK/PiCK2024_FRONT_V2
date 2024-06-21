@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { instance } from "apis";
-import { StateCountType, applicationDataProp } from "apis/type";
+import { OutListProp, StateCountType, applicationDataProp } from "apis/type";
 
 const router = `/application`;
 
@@ -45,6 +45,16 @@ export const useOutAccept = () => {
       } catch (error) {
         console.log(error);
       }
+    },
+  });
+};
+
+export const GetOutList = () => {
+  return useQuery<OutListProp[]>({
+    queryKey: ["GetOutList"],
+    queryFn: async () => {
+      const { data } = await instance.get(`${router}/non-return`);
+      return data;
     },
   });
 };

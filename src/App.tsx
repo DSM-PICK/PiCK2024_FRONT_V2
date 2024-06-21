@@ -8,6 +8,7 @@ import NoticeWrite from "pages/notice/write";
 import OutAccept from "pages/outAccept";
 import Header from "components/header";
 import Menu from "components/menu";
+import OutList from "pages/outList";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/notice/write" element={<NoticeWrite />} />
           <Route path="/notice/:id" element={<NoticeDetail />} />
           <Route path="/outAccept" element={<OutAccept />} />
+          <Route path="/outList" element={<OutList />} />
         </Routes>
       </BrowserRouter>
     </>
