@@ -58,3 +58,15 @@ export const GetOutList = () => {
     },
   });
 };
+
+export const ReturnSchool = () => {
+  return useMutation<void, Error, string[]>({
+    mutationFn: async (...param) => {
+      try {
+        await instance.patch(`${router}/return`, ...param);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
+};
