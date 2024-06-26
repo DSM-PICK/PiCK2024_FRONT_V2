@@ -6,8 +6,9 @@ import NoticePage from "pages/notice";
 import NoticeDetail from "pages/notice/detail";
 import NoticeWrite from "pages/notice/write";
 import OutAccept from "pages/outAccept";
-import Header from "components/header";
-import Menu from "components/menu";
+import OutList from "pages/outList";
+import RequestClass from "pages/RequestClass";
+import MoveClass from "pages/moveClass";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           <Route path="/notice/write" element={<NoticeWrite />} />
           <Route path="/notice/:id" element={<NoticeDetail />} />
           <Route path="/outAccept" element={<OutAccept />} />
+          <Route path="/outList" element={<OutList />} />
+          <Route path="/ClassChange" element={<RequestClass />} />
+          <Route path="/ClassChange/ok" element={<MoveClass />} />
         </Routes>
       </BrowserRouter>
     </>

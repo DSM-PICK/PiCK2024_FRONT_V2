@@ -22,7 +22,7 @@ const MainRouterButton = () => {
     {
       img: classMoveImg,
       text: "교실이동",
-      router: "/",
+      router: "/classChange",
     },
     {
       img: outingAllow,
