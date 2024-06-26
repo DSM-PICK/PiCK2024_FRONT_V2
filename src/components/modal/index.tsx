@@ -16,8 +16,8 @@ export const Modal = ({ title, subTitle, onCancel, onConfirm }: ModalProp) => {
           <S.ModalSubTitle>{subTitle}</S.ModalSubTitle>
         </S.TextWrap>
         <S.ButtonWrap>
-          <S.ConfirmButton onClick={onConfirm}>확인</S.ConfirmButton>
           <S.CancelButton onClick={onCancel}>취소</S.CancelButton>
+          <S.ConfirmButton onClick={onConfirm}>확인</S.ConfirmButton>
         </S.ButtonWrap>
       </S.ModalStyle>
     </S.ModalWrap>

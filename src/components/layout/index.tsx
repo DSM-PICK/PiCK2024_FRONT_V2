@@ -4,15 +4,17 @@ import nextSvg from "assets/svg/next.svg";
 import { useNavigate } from "react-router-dom";
 import * as S from "./style";
 import Header from "components/header";
+import { getFullToday } from "utils/date";
 
 interface LayoutProp {
   children: React.ReactNode;
   now: React.ReactNode;
   title: string;
   right?: React.ReactNode;
+  date?: boolean;
 }
 
-export const Layout = ({ children, now, right, title }: LayoutProp) => {
+export const Layout = ({ children, now, right, title, date }: LayoutProp) => {
   const nav = useNavigate();
   return (
     <>
@@ -32,7 +34,10 @@ export const Layout = ({ children, now, right, title }: LayoutProp) => {
           <S.NowText>{now}</S.NowText>
         </S.Nav>
         <S.Top>
-          <S.TitleText>{title}</S.TitleText>
+          <S.Left>
+            <S.TitleText>{title}</S.TitleText>
+            {date ? <S.Date>{getFullToday()}</S.Date> : <></>}
+          </S.Left>
           <S.Right>{right}</S.Right>
         </S.Top>
         <S.Line />
