@@ -14,8 +14,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "baseUrl": ".",
     "jsx": "react-jsx",
-    "baseUrl": "src"
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src", "src/custom.d.ts"]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

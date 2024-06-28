@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import NoticeList from "components/noticeList";
+import NoticeList from "@/components/noticeList";
 import * as S from "./style";
-import { Layout } from "components/layout";
-import { Button } from "components/Button";
+import { Layout } from "@/components/layout";
+import { Button } from "@/components/Button";
 import { useNavigate } from "react-router-dom";
-import SearchInput from "components/input/search";
-import { SimpleNotice } from "apis/notice";
-import { SimpleNoticeType } from "apis/type";
+import { SimpleNotice } from "@/apis/notice";
+import { SimpleNoticeType } from "@/apis/type";
+import SearchInput from "@/components/input/search";
 
 const NoticePage = () => {
   const { data } = SimpleNotice();

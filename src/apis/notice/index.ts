@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { instance } from "apis";
+import { instance } from "@/apis";
 import {
   NoticeDetailType,
   SimpleNoticeType,
   UploadNoticeType,
-} from "apis/type";
+} from "@/apis/type";
 import { useMutation } from "@tanstack/react-query";
 
 const router = "/notice";

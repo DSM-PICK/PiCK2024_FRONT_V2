@@ -1,7 +1,7 @@
 import axios from "axios";
-import { cookie } from "utils/auth";
+import { cookie } from "@/utils/auth";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export const instance = axios.create({
   baseURL: BASE_URL,

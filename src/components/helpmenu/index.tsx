@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import HelpContent from "./content";
 import * as S from "./style";
-import light from "assets/svg/light.svg";
-import bug from "assets/svg/bug.svg";
-import change from "assets/svg/change.svg";
-import out from "assets/svg/out.svg";
+import light from "@/assets/svg/light.svg";
+import bug from "@/assets/svg/bug.svg";
+import change from "@/assets/svg/change.svg";
+import out from "@/assets/svg/out.svg";
 import { useNavigate } from "react-router-dom";
-import Modal from "components/modal";
-import { cookie } from "utils/auth";
+import Modal from "@/components/modal";
+import { cookie } from "@/utils/auth";
 
 const HelfMenu = () => {
   const navigate = useNavigate();
