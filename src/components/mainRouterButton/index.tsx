@@ -32,7 +32,7 @@ const MainRouterButton = () => {
     {
       img: goingOutList,
       text: "외출자 목록",
-      router: "/",
+      router: "/outList",
     },
     {
       img: outingHistory,

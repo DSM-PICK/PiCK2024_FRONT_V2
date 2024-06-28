@@ -48,3 +48,25 @@ export const useOutAccept = () => {
     },
   });
 };
+
+export const GetOutList = () => {
+  return useQuery<OutListProp[]>({
+    queryKey: ["GetOutList"],
+    queryFn: async () => {
+      const { data } = await instance.get(`${router}/non-return`);
+      return data;
+    },
+  });
+};
+
+export const ReturnSchool = () => {
+  return useMutation<void, Error, string[]>({
+    mutationFn: async (...param) => {
+      try {
+        await instance.patch(`${router}/return`, ...param);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
+};
