@@ -8,11 +8,6 @@ import { applicationDataProp } from "@/apis/type";
 import { OutRequest, useOutAccept } from "@/apis/application";
 import useAcceptListSelection from "@/hook/selectHook";
 
-interface Option {
-  value: number;
-  label: string;
-}
-
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
@@ -22,14 +17,14 @@ const OutAccept = () => {
   const { selectedStudents, selectedStudentName, handleAcceptListClick } =
     useAcceptListSelection();
 
-  const handleGradeChange = (selectedOption: Option) => {
-    setSelectedGrade(selectedOption.value);
-    if (selectedOption.value === 5) {
+  const handleGradeChange = (selectedOption: number) => {
+    setSelectedGrade(selectedOption);
+    if (selectedOption === 5) {
       setSelectedClass(5);
     }
   };
-  const handleClassChange = (selectedOption: Option) => {
-    setSelectedClass(selectedOption.value);
+  const handleClassChange = (selectedOption: number) => {
+    setSelectedClass(selectedOption);
   };
   const GetData = () => {
     if (selectedGrade !== null && selectedClass !== null) {

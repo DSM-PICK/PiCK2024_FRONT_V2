@@ -17,6 +17,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <GlobalStyle />
+
       <RouterProvider router={Router} />
     </QueryClientProvider>
   );

@@ -10,13 +10,13 @@ interface Option {
 
 interface DropProps {
   type: "floor" | "grade" | "class" | "club" | "all";
-  onChange?: (selectedOption: Option) => void;
+  onChange?: (selectedOption: number) => void;
 }
 
 const Dropdown: React.FC<DropProps> = ({ type, onChange }) => {
   const [selectedGradeOption, setSelectedGradeOption] = useState<number>(5);
   const [selectedClassOption, setSelectedClassOption] = useState<number>(5);
-  const [selectedFloorOption, setSelectedFloorOption] = useState<number>(2);
+  const [selectedFloorOption, setSelectedFloorOption] = useState<number>(5);
   // const [selectedClubOption, setSelectedClubOption] =
   //   useState<string>("세미나실 2-1(대동여지도)");
   const [selectedAllOption, setSelectedAllOption] = useState<number>(1);
@@ -42,24 +42,24 @@ const Dropdown: React.FC<DropProps> = ({ type, onChange }) => {
     };
   }, []);
 
-  const handleOptionClick = (option: Option) => {
+  const handleOptionClick = (option: number) => {
     if (onChange) {
       onChange(option);
       switch (type) {
         case "grade":
-          setSelectedGradeOption(option.value);
+          setSelectedGradeOption(option);
           break;
         case "class":
-          setSelectedClassOption(option.value);
+          setSelectedClassOption(option);
           break;
         case "floor":
-          setSelectedFloorOption(option.value);
+          setSelectedFloorOption(option);
           break;
         // case "club":
         //   setSelectedClubOption(option.label);
         //   break;
         case "all":
-          setSelectedAllOption(option.value);
+          setSelectedAllOption(option);
           break;
         default:
           break;
@@ -76,8 +76,13 @@ const Dropdown: React.FC<DropProps> = ({ type, onChange }) => {
       case "class":
         return `${selectedClassOption}반`;
 
-      case "floor":
-        return `${selectedFloorOption}층`;
+      case "floor": {
+        if (selectedFloorOption === 5) {
+          return `전체`;
+        } else {
+          return `${selectedFloorOption}층`;
+        }
+      }
 
       case "all":
         return selectedAllOption === 5 ? `전체` : `${selectedAllOption}학년`;
@@ -95,6 +100,7 @@ const Dropdown: React.FC<DropProps> = ({ type, onChange }) => {
           { value: 2, label: "2층" },
           { value: 3, label: "3층" },
           { value: 4, label: "4층" },
+          { value: 5, label: "전체" },
         ]
       : type === "grade"
       ? [
@@ -150,7 +156,7 @@ const Dropdown: React.FC<DropProps> = ({ type, onChange }) => {
             <S.DropdownClick
               isActive
               key={option.value.toString()}
-              onClick={() => handleOptionClick(option)}
+              onClick={() => handleOptionClick(option.value)}
             >
               {option.label}
             </S.DropdownClick>
