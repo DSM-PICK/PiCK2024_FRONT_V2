@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { instance } from "apis";
-import { StateCountType, applicationDataProp } from "apis/type";
+import { instance } from "@/apis";
+import { StateCountType, applicationDataProp } from "@/apis/type";
 
 const router = `/application`;
 

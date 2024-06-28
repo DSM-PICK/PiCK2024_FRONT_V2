@@ -1,13 +1,13 @@
-import Input from "components/input";
+import Input from "@/components/input";
 import * as S from "./style";
-import { Button } from "components/Button/index";
+import { Button } from "@/components/Button/index";
 import { useState } from "react";
-import pickman from "assets/svg/pickman.svg";
-import picksick from "assets/svg/picksick.svg";
-import pickme from "assets/svg/pickme.svg";
-import pickgod from "assets/svg/pickgod.svg";
-import { MyName, useLogin } from "apis/admin";
-import { saveToken } from "utils/auth";
+import pickman from "@/assets/svg/pickman.svg";
+import picksick from "@/assets/svg/picksick.svg";
+import pickme from "@/assets/svg/pickme.svg";
+import pickgod from "@/assets/svg/pickgod.svg";
+import { MyName, useLogin } from "@/apis/admin";
+import { saveToken } from "@/utils/auth";
 import { useNavigate } from "react-router-dom";
 
 interface ChangeProps {
@@ -21,7 +21,6 @@ interface LoginType {
 }
 
 const Login = () => {
-  const { mutate: MynameMutate } = MyName();
   const { mutate: Login } = useLogin();
   const [data, setData] = useState<LoginType>({
     admin_id: "",

@@ -1,7 +1,7 @@
 import * as S from "./style";
 import React, { useState } from "react";
-import eyeOff from "assets/svg/eye.svg";
-import eye from "assets/svg/eyesOpen.svg";
+import eyeOff from "@/assets/svg/eye.svg";
+import eye from "@/assets/svg/eyesOpen.svg";
 
 interface ChangeProps {
   text: string;
