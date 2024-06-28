@@ -1,15 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
-import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
-import { cookie } from "utils/auth";
+import { useMutation } from "@tanstack/react-query";
+import { cookie } from "@/utils/auth";
 import { Login } from "./request";
-import { instance } from "apis";
-import { MynameType } from "apis/type";
+import { instance } from "@/apis";
+import { MynameType } from "@/apis/type";
 
 const router = "admin";
 
 export const useLogin = () => {
-  const BASEURL = process.env.REACT_APP_BASE_URL;
+  const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);

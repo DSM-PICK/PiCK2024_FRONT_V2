@@ -1,34 +1,26 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Main from "pages/Main/index";
-import { GlobalStyle } from "styles/theme";
-import Login from "pages/login";
-import NoticePage from "pages/notice";
-import NoticeDetail from "pages/notice/detail";
-import NoticeWrite from "pages/notice/write";
-import OutAccept from "pages/outAccept";
-import OutList from "pages/outList";
-import RequestClass from "pages/RequestClass";
-import MoveClass from "pages/moveClass";
+import { RouterProvider } from "react-router-dom";
+import { Router } from "./router/router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { GlobalStyle } from "./styles/theme";
 
-function App() {
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 5000,
+      retry: 1,
+    },
+  },
+});
+
+const App = () => {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/main" element={<Main />} />
-          <Route path="/notice" element={<NoticePage />} />
-          <Route path="/notice/write" element={<NoticeWrite />} />
-          <Route path="/notice/:id" element={<NoticeDetail />} />
-          <Route path="/outAccept" element={<OutAccept />} />
-          <Route path="/outList" element={<OutList />} />
-          <Route path="/ClassChange" element={<RequestClass />} />
-          <Route path="/ClassChange/ok" element={<MoveClass />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+
+      <RouterProvider router={Router} />
+    </QueryClientProvider>
   );
-}
+};
 
 export default App;

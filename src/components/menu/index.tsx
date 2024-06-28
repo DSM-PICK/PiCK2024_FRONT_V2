@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { getToday } from "utils/date";
+import { getToday } from "@/utils/date";
 import * as S from "./style";
-import StudentsState from "components/StudentsState";
-import MealInfo from "components/meal";
-import closeIcon from "assets/svg/close.svg";
-import SelfStudyList from "components/selfStudyTeacher";
-import { TodaySelfStudy } from "apis/self-study";
-import { TodayMeals } from "apis/meal";
-import { StudentStateCount } from "apis/application";
+import StudentsState from "@/components/StudentsState";
+import MealInfo from "@/components/meal";
+import closeIcon from "@/assets/svg/close.svg";
+import SelfStudyList from "@/components/selfStudyTeacher";
+import { TodaySelfStudy } from "@/apis/self-study";
+import { TodayMeals } from "@/apis/meal";
+import { StudentStateCount } from "@/apis/application";
 
 interface MenuProp {
   closeOnClick: () => void;
