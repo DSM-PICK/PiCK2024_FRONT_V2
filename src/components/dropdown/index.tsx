@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import arrow from "assets/svg/dropdownImg.svg";
-import downarrow from "assets/svg/dropdownArrowImg2.svg";
+import arrow from "@/assets/svg/dropdownImg.svg";
+import downarrow from "@/assets/svg/dropdownArrowImg2.svg";
 import * as S from "./style";
 
 interface Option {
