@@ -1,6 +1,6 @@
 import * as S from "./style";
 import React from "react";
-import search from "assets/svg/search.svg";
+import search from "@/assets/svg/search.svg";
 
 interface ChangeProps {
   text: string;

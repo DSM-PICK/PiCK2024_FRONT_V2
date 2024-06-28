@@ -1,6 +1,6 @@
 import * as S from "./style";
-import outingImg from "assets/svg/outing.svg";
-import classroomMovementImg from "assets/svg/classroomMovement.svg";
+import outingImg from "@/assets/svg/outing.svg";
+import classroomMovementImg from "@/assets/svg/classroomMovement.svg";
 
 interface StudentsStateType {
   type: "outing" | "classroomMovement";

@@ -1,16 +1,16 @@
 import * as S from "./style";
-import classMoveImg from "assets/svg/classroomMovementImg.svg";
-import academicCalendar from "assets/svg/academicCalendar.svg";
-import afterSchool from "assets/svg/afterSchool.svg";
-import changeTeacher from "assets/svg/changeTeacher.svg";
-import weekendMeals from "assets/svg/weekendMeals.svg";
-import timetableChange from "assets/svg/timetableChange.svg";
-import outingHistory from "assets/svg/outingHistory.svg";
-import outingAllow from "assets/svg/outingAllow.svg";
-import notification from "assets/svg/notification.svg";
-import goingOutList from "assets/svg/goingOutList.svg";
-import clubManagement from "assets/svg/clubManagement.svg";
-import classAttendance from "assets/svg/classAttendance.svg";
+import classMoveImg from "@/assets/svg/classroomMovementImg.svg";
+import academicCalendar from "@/assets/svg/academicCalendar.svg";
+import afterSchool from "@/assets/svg/afterSchool.svg";
+import changeTeacher from "@/assets/svg/changeTeacher.svg";
+import weekendMeals from "@/assets/svg/weekendMeals.svg";
+import timetableChange from "@/assets/svg/timetableChange.svg";
+import outingHistory from "@/assets/svg/outingHistory.svg";
+import outingAllow from "@/assets/svg/outingAllow.svg";
+import notification from "@/assets/svg/notification.svg";
+import goingOutList from "@/assets/svg/goingOutList.svg";
+import clubManagement from "@/assets/svg/clubManagement.svg";
+import classAttendance from "@/assets/svg/classAttendance.svg";
 
 interface MainRouterButtonType {
   img: string;

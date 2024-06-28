@@ -1,13 +1,13 @@
-import { Layout } from "components/layout";
+import { Layout } from "@/components/layout";
 import { useNavigate } from "react-router-dom";
-import nextSvg from "assets/svg/next.svg";
-import Input from "components/input";
+import nextSvg from "@/assets/svg/next.svg";
+import Input from "@/components/input";
 import * as S from "../style";
-import { getFullToday } from "utils/date";
-import BottomButtonWrap from "components/Button/bottom";
+import { getFullToday } from "@/utils/date";
+import BottomButtonWrap from "@/components/Button/bottom";
 import { useState } from "react";
-import { ChangeProps } from "apis/type";
-import { UploadNotice } from "apis/notice";
+import { ChangeProps } from "@/apis/type";
+import { UploadNotice } from "@/apis/notice";
 
 const NoticeWrite = () => {
   const router = useNavigate();
@@ -16,7 +16,7 @@ const NoticeWrite = () => {
 
   const { mutate: UploadNoticeMutate } = UploadNotice();
 
-  const handleTitleChange = ({ text, name }: ChangeProps) => {
+  const handleTitleChange = ({ text }: ChangeProps) => {
     setTitle(text);
   };
 

@@ -1,13 +1,12 @@
-import { cookie } from "utils/auth";
 import React, { useEffect, useState, useRef } from "react";
 import * as S from "./style";
-import AlarmSvg from "assets/svg/alarm.svg";
-import FaceSvg from "assets/svg/face.svg";
-import MenuSvg from "assets/svg/menu.svg";
-import HelfMenu from "components/helpmenu";
-import Alarm from "components/alarm";
-import Menu from "components/menu";
-import { MyName } from "apis/admin";
+import AlarmSvg from "@/assets/svg/alarm.svg";
+import FaceSvg from "@/assets/svg/face.svg";
+import MenuSvg from "@/assets/svg/menu.svg";
+import HelfMenu from "@/components/helpmenu";
+import Alarm from "@/components/alarm";
+import Menu from "@/components/menu";
+import { MyName } from "@/apis/admin";
 
 interface HeaderIconType {
   type: "help" | "alarm" | "menu";

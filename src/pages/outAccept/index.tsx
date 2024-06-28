@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Dropdown from "components/dropdown";
-import { Layout } from "components/layout";
-import OutAcceptList from "components/outAccept";
+import Dropdown from "@/components/dropdown";
+import { Layout } from "@/components/layout";
+import OutAcceptList from "@/components/outAccept";
 import * as S from "./style";
-import BottomButtonWrap from "components/Button/bottom";
-import { applicationDataProp } from "apis/type";
-import { OutRequest, useOutAccept } from "apis/application";
-import useAcceptListSelection from "hook/selectHook";
+import BottomButtonWrap from "@/components/Button/bottom";
+import { applicationDataProp } from "@/apis/type";
+import { OutRequest, useOutAccept } from "@/apis/application";
+import useAcceptListSelection from "@/hook/selectHook";
 
 interface Option {
   value: number;
