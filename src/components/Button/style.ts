@@ -16,8 +16,8 @@ const sizeVariants = {
   `,
   small: css`
     padding: 14px 20px;
+    white-space: nowrap;
     font-size: ${theme.font.button[2].size};
-    font-weight: ${theme.font.button[2].fontweight};
   `,
 };
 

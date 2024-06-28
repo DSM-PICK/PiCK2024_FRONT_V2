@@ -4,6 +4,7 @@ import { theme } from "@/styles/theme";
 export const MenuWrap = styled.div`
   position: absolute;
   width: min-content;
+  animation: fadein 0.5s;
   display: flex;
   flex-direction: column;
   padding: 48px 38px;
@@ -13,6 +14,14 @@ export const MenuWrap = styled.div`
   right: 0;
   background-color: ${theme.color.normal.white};
   z-index: 1;
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 export const MenuContentWrap = styled.div`

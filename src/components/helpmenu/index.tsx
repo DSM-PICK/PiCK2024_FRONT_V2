@@ -16,6 +16,7 @@ const HelfMenu = () => {
   const Logout = () => {
     cookie.remove("access_token");
     cookie.remove("refresh_token");
+    localStorage.clear();
     navigate("/login");
   };
 

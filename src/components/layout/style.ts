@@ -44,3 +44,13 @@ export const Top = styled.div`
   justify-content: space-between;
   align-items: end;
 `;
+
+export const Date = styled.p`
+  font-size: ${theme.font.heading[2].size};
+`;
+
+export const Left = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
