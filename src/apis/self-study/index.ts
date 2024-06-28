@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { instance } from "apis";
-import { todaySelfStudTeacher } from "apis/type";
-import { getFullToday } from "utils/date";
+import { instance } from "@/apis";
+import { todaySelfStudTeacher } from "@/apis/type";
+import { getFullToday } from "@/utils/date";
 
 const router = `/self-study`;
 
