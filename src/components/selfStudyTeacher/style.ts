@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { theme } from "styles/theme";
+import { theme } from "@/styles/theme";
 
 export const FloorText = styled.p`
   font-size: ${theme.font.heading[4].size};
