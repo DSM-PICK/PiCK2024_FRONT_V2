@@ -42,7 +42,7 @@ const MainRouterButton = () => {
     {
       img: weekendMeals,
       text: "주말 급식 신청",
-      router: "/",
+      router: "/weekendMeal",
     },
     {
       img: notification,

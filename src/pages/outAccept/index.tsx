@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from "@/components/dropdown";
 import { Layout } from "@/components/layout";
-import OutAcceptList from "@/components/outAccept";
+import OutAcceptList from "@/components/list";
 import * as S from "./style";
 import BottomButtonWrap from "@/components/Button/bottom";
 import { applicationDataProp } from "@/apis/type";
