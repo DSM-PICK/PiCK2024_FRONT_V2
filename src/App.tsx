@@ -1,7 +1,8 @@
 import { RouterProvider } from "react-router-dom";
 import { Router } from "./router/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { GlobalStyle } from "./styles/theme";
+import { GlobalStyle, theme } from "./styles/theme";
+import { ThemeProvider } from "styled-components";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,11 +16,12 @@ const queryClient = new QueryClient({
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <GlobalStyle />
-
-      <RouterProvider router={Router} />
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <RouterProvider router={Router} />
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 };
 
