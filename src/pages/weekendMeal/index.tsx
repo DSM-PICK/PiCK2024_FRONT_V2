@@ -5,6 +5,7 @@ import { Layout } from "@/components/layout";
 import { GetAllMeals } from "@/apis/weekend-meals";
 import { styled } from "styled-components";
 import { theme } from "@/styles/theme";
+import { DownLoad } from "@/apis/meal";
 
 interface Option {
   value: number;
@@ -13,6 +14,7 @@ interface Option {
 
 const WeekedMeal = () => {
   const { data: GetAllList } = GetAllMeals();
+  const { downloadExcel } = DownLoad();
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
 
@@ -30,7 +32,7 @@ const WeekedMeal = () => {
       now="주말 급식 신청"
       right={
         <>
-          <Button onClick={() => {}} type="main" size="small">
+          <Button onClick={downloadExcel} type="main" size="small">
             엑셀 출력하기
           </Button>
           <Dropdown type="grade" onChange={handleGradeChange} />
