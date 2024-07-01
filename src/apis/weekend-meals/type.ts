@@ -6,3 +6,8 @@ export interface GetAllMealsType {
   class_num: number;
   num: number;
 }
+
+export interface ChangeStateParams {
+  status: "OK" | "NO";
+  userId: string;
+}
