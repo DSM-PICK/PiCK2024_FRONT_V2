@@ -4,6 +4,7 @@ import NoticePage from "@/pages/notice";
 import NoticeDetail from "@/pages/notice/detail";
 import NoticeWrite from "@/pages/notice/write";
 import OutAccept from "@/pages/outAccept";
+import WeekedMeal from "@/pages/weekendMeal";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -39,6 +40,10 @@ export const Router = createBrowserRouter([
             element: <NoticeDetail />,
           },
         ],
+      },
+      {
+        path: "weekendMeal",
+        element: <WeekedMeal />,
       },
     ],
   },

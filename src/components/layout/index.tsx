@@ -4,7 +4,7 @@ import nextSvg from "@/assets/svg/next.svg";
 import { useNavigate } from "react-router-dom";
 import * as S from "./style";
 import Header from "@/components/header";
-import { getFullToday } from "utils/date";
+import { getFullToday } from "@/utils/date";
 
 interface LayoutProp {
   children: React.ReactNode;
