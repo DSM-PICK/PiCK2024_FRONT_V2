@@ -1,11 +1,11 @@
-import { Layout } from "components/layout";
+import { Layout } from "@/components/layout";
 import * as S from "./style";
-import { GetOutList, ReturnSchool } from "apis/application";
-import OutAcceptList from "components/list";
-import BottomButtonWrap from "components/Button/bottom";
-import useAcceptListSelection from "hook/selectHook";
+import { GetOutList, ReturnSchool } from "@/apis/application";
+import OutAcceptList from "@/components/list";
+import BottomButtonWrap from "@/components/Button/bottom";
+import useAcceptListSelection from "@/hook/selectHook";
 import { useState } from "react";
-import Modal from "components/modal";
+import Modal from "@/components/modal";
 
 const OutList = () => {
   const { data: nonreturnStuden } = GetOutList();

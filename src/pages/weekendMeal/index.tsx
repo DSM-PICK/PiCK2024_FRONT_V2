@@ -44,7 +44,7 @@ const WeekedMeal = () => {
             </Button>
           )}
 
-          <Dropdown type="grade" onChange={handleGradeChange} />
+          <Dropdown type="all" onChange={handleGradeChange} />
           <Dropdown type="class" onChange={handleClassChange} />
         </>
       }

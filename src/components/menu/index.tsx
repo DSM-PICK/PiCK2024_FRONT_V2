@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { getToday } from "@/utils/date";
 import * as S from "./style";
 import StudentsState from "@/components/StudentsState";
