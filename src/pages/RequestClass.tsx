@@ -1,17 +1,17 @@
-import { AccpetListApi, RequestChange } from "apis/class-room";
-import { ClassChangeType } from "apis/class-room/type";
-import { Button } from "components/Button";
-import BottomButtonWrap from "components/Button/bottom";
-import Dropdown from "components/dropdown";
-import { Layout } from "components/layout";
-import { ClassMoveList } from "components/list/classmove";
-import Modal from "components/modal";
-import useAcceptListSelection from "hook/selectHook";
+import { AccpetListApi, RequestChange } from "@/apis/class-room";
+import { ClassChangeType } from "@/apis/class-room/type";
+import { Button } from "@/components/Button";
+import BottomButtonWrap from "@/components/Button/bottom";
+import Dropdown from "@/components/dropdown";
+import { Layout } from "@/components/layout";
+import { ClassMoveList } from "@/components/list/classmove";
+import Modal from "@/components/modal";
+import useAcceptListSelection from "@/hook/selectHook";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import { theme } from "styles/theme";
-import { getStudentString } from "utils/utils";
+import { theme } from "@/styles/theme";
+import { getStudentString } from "@/utils/utils";
 
 const RequestClass = () => {
   const nav = useNavigate();
@@ -62,7 +62,7 @@ const RequestClass = () => {
           <>
             <Button
               onClick={() => {
-                nav("ok");
+                nav("accpet");
               }}
               size="small"
               type="main"

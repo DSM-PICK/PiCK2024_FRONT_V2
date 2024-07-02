@@ -14,12 +14,12 @@ interface DropProps {
 }
 
 const Dropdown: React.FC<DropProps> = ({ type, onChange }) => {
-  const [selectedGradeOption, setSelectedGradeOption] = useState<number>(5);
+  const [selectedGradeOption, setSelectedGradeOption] = useState<number>(1);
   const [selectedClassOption, setSelectedClassOption] = useState<number>(5);
   const [selectedFloorOption, setSelectedFloorOption] = useState<number>(5);
   // const [selectedClubOption, setSelectedClubOption] =
   //   useState<string>("세미나실 2-1(대동여지도)");
-  const [selectedAllOption, setSelectedAllOption] = useState<number>(1);
+  const [selectedAllOption, setSelectedAllOption] = useState<number>(5);
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
