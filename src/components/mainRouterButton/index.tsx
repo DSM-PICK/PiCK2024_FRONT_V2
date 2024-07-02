@@ -22,7 +22,7 @@ const MainRouterButton = () => {
     {
       img: classMoveImg,
       text: "교실이동",
-      router: "/classChange",
+      router: "/classMove",
     },
     {
       img: outingAllow,
@@ -52,7 +52,7 @@ const MainRouterButton = () => {
     {
       img: classAttendance,
       text: "학급 출석",
-      router: "/",
+      router: "/classManage",
     },
     {
       img: afterSchool,
