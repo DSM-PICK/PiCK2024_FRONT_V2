@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { instance } from "apis";
+import { instance } from "@/apis";
 import { ClassChangeType } from "./type";
 
 const router = `class-room`;
