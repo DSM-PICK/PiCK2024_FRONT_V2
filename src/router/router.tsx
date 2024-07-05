@@ -1,4 +1,4 @@
-import Login from "@/pages/Login/page";
+import Login from "@/pages/login/page";
 import Main from "@/pages/Main";
 import RequestClass from "@/pages/RequestClass";
 import ClassManage from "@/pages/classManage";
@@ -11,6 +11,10 @@ import OutList from "@/pages/outList";
 import WeekedMeal from "@/pages/weekendMeal";
 
 import { createBrowserRouter } from "react-router-dom";
+import PreviousList from "@/pages/previousList";
+import Calendar from "@/components/calendar";
+import SelfStudy from "@/pages/self-study";
+import ChangePassword from "@/pages/changePassword";
 
 export const Router = createBrowserRouter([
   {
@@ -73,6 +77,18 @@ export const Router = createBrowserRouter([
       {
         path: "classManage",
         element: <ClassManage />,
+      },
+      {
+        path: "previousList",
+        element: <PreviousList />,
+      },
+      {
+        path: "self-study",
+        element: <SelfStudy />,
+      },
+      {
+        path: "passwordChange",
+        element: <ChangePassword />,
       },
     ],
   },
