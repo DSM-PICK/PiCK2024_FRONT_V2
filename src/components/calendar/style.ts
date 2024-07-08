@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
-import "styles/theme";
-import { theme } from "styles/theme";
+import "@/styles/theme";
+import { theme } from "@/styles/theme";
 
 export const Container = styled.section`
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,4 +100,24 @@ export const SelfStudyListWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+`;
+
+export const ScheduleLine = styled.div`
+  min-width: 2px;
+  height: 100%;
+  background-color: ${theme.color.main[500]};
+  border-radius: 20px;
+`;
+
+export const ScheduleContent = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const ScheduleList = styled.p`
+  font-size: ${theme.font.heading[4].size};
+  color: ${theme.color.normal.black};
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;

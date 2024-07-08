@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { cookie } from "@/utils/auth";
 import { Login } from "./request";
 import { instance } from "@/apis";
@@ -53,6 +53,20 @@ export const MyName = () => {
     mutationFn: async () => {
       const { data } = await instance.get(`${router}/my-name`);
       return data;
+    },
+  });
+};
+
+export const GetAllTeacher = () => {
+  return useQuery<string[]>({
+    queryKey: ["GetAllTeacher"],
+    queryFn: async () => {
+      try {
+        const { data } = await instance.get(`${router}/all`);
+        return data;
+      } catch (error) {
+        console.log("");
+      }
     },
   });
 };
