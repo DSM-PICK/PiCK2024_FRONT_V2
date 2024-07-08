@@ -19,7 +19,7 @@ export const ChangeState = () => {
     mutationFn: async (params) => {
       try {
         await instance.patch(
-          `weekend-meal/status?userId=${params.userId}&status=${params.status}`
+          `weekend-meal/status?id=${params.userId}&status=${params.status}`
         );
       } catch (error) {
         console.log(error);
