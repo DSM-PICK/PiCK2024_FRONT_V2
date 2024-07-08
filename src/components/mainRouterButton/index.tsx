@@ -11,6 +11,7 @@ import notification from "@/assets/svg/notification.svg";
 import goingOutList from "@/assets/svg/goingOutList.svg";
 import clubManagement from "@/assets/svg/clubManagement.svg";
 import classAttendance from "@/assets/svg/classAttendance.svg";
+import selfStudyImg from "@/assets/svg/selfStudy.svg";
 
 interface MainRouterButtonType {
   img: string;
@@ -37,7 +38,7 @@ const MainRouterButton = () => {
     {
       img: outingHistory,
       text: "이전 외출 기록",
-      router: "/",
+      router: "/previousList",
     },
     {
       img: weekendMeals,
@@ -67,7 +68,7 @@ const MainRouterButton = () => {
     {
       img: changeTeacher,
       text: "자습감독 변경",
-      router: "/",
+      router: "/self-study",
     },
     {
       img: academicCalendar,
@@ -77,6 +78,11 @@ const MainRouterButton = () => {
     {
       img: timetableChange,
       text: "시간표 변경",
+      router: "/",
+    },
+    {
+      img: selfStudyImg,
+      text: "자습시간 출결",
       router: "/",
     },
   ];
