@@ -100,6 +100,7 @@ const RequestClass = () => {
       />
       {modal && (
         <Modal
+          type="check"
           onCancel={() => {
             setModal(false);
           }}

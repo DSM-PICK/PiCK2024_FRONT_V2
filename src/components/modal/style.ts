@@ -44,10 +44,20 @@ export const ModalSubTitle = styled.p`
   color: ${theme.color.gray[900]};
 `;
 
-export const ConfirmButton = styled.button`
+export const RedButton = styled.button`
   width: 100%;
   height: 100%;
   color: ${theme.color.error[500]};
+  background-color: ${theme.color.normal.white};
+  border-radius: 0px 0px 12px 0px;
+  font-size: ${theme.font.button[1].size};
+  font-weight: ${theme.font.button[1].fontweight};
+`;
+
+export const ConfirmButton = styled.button`
+  width: 100%;
+  height: 100%;
+  color: ${theme.color.main[500]};
   background-color: ${theme.color.normal.white};
   border-radius: 0px 0px 12px 0px;
   font-size: ${theme.font.button[1].size};

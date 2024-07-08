@@ -50,6 +50,7 @@ const OutList = () => {
       />
       {modal && (
         <Modal
+          type="red"
           title={`${
             selectedStudentName.length > 1
               ? `${selectedStudentName[0]} 학생 외 ${

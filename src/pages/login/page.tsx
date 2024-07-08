@@ -1,12 +1,12 @@
 import Input from "@/components/input";
-import * as S from "./style";
+import * as S from "@/pages/login/style";
 import { Button } from "@/components/Button/index";
 import { useState } from "react";
 import pickman from "@/assets/svg/pickman.svg";
 import picksick from "@/assets/svg/picksick.svg";
 import pickme from "@/assets/svg/pickme.svg";
 import pickgod from "@/assets/svg/pickgod.svg";
-import { MyName, useLogin } from "@/apis/admin";
+import { useLogin } from "@/apis/admin";
 import { saveToken } from "@/utils/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -103,9 +103,6 @@ const Login = () => {
         </Button>
       </S.ContentWrap>
       <S.Pickman>
-        <img src={pickgod} width={100} height={100} />
-        <img src={picksick} width={180} height={180} />
-        <img src={pickme} width={220} height={220} />
         <img src={pickman} />
       </S.Pickman>
     </S.LoginWrap>
