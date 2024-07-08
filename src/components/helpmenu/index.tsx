@@ -64,6 +64,7 @@ const HelfMenu = () => {
           onConfirm={() => {
             Logout();
           }}
+          type="red"
           title="로그아웃 하시겠습니까?"
           subTitle="다음 접속 시 다시 로그인 해야합니다."
         />
