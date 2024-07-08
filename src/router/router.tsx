@@ -1,4 +1,4 @@
-import Login from "@/pages/Login/page";
+import Login from "@/pages/login/page";
 import Main from "@/pages/Main";
 import RequestClass from "@/pages/RequestClass";
 import ClassManage from "@/pages/classManage";
@@ -8,9 +8,11 @@ import NoticeDetail from "@/pages/notice/detail";
 import NoticeWrite from "@/pages/notice/write";
 import OutAccept from "@/pages/outAccept";
 import OutList from "@/pages/outList";
+import PreviousList from "@/pages/previousList";
 import WeekedMeal from "@/pages/weekendMeal";
 
 import { createBrowserRouter } from "react-router-dom";
+import PreviousDetail from "@/pages/previousList/detail";
 
 export const Router = createBrowserRouter([
   {
@@ -73,6 +75,19 @@ export const Router = createBrowserRouter([
       {
         path: "classManage",
         element: <ClassManage />,
+      },
+      {
+        path: "previousList",
+        children: [
+          {
+            path: "",
+            element: <PreviousList />,
+          },
+          {
+            path: ":detail",
+            element: <PreviousDetail />,
+          },
+        ],
       },
     ],
   },
