@@ -108,3 +108,33 @@ export const FloorBedge = styled.p`
   border-radius: 12px;
   font-size: ${theme.font.heading[4].size};
 `;
+
+export const ScheduleWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 44px 36px;
+  gap: 60px;
+  width: 600px;
+  background-color: ${theme.color.normal.white};
+  border-radius: 12px;
+`;
+
+export const ScheduleTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ScheduleItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 24px 20px;
+  background-color: ${theme.color.main[50]};
+  border-radius: 12px;
+`;
+
+export const ScheduleItemText = styled.p`
+  font-size: ${theme.font.heading[3].size};
+`;
