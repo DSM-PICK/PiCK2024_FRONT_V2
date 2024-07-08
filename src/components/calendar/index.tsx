@@ -3,13 +3,13 @@ import * as S from "./style";
 import lArrow from "@/assets/svg/leftArrow.svg";
 import rArrow from "@/assets/svg/rightArrow.svg";
 import { SelfstudyGet } from "@/apis/self-study";
-import { MonthSchedule } from "@/apis/schedule";
 import { data as dataType } from "@/apis/type";
 import { MonthScheduleData } from "@/apis/schedule/type";
 import { format } from "date-fns";
 import { enUS, ko } from "date-fns/locale";
 import { styled } from "styled-components";
 import Modal from "../modal";
+import { MonthSchedule } from "@/apis/schedule";
 
 interface CalendarProp {
   type: "selfStudy" | "schedule";
