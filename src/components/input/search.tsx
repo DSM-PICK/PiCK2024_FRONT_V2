@@ -15,7 +15,7 @@ interface InputProp {
   name?: string;
   value: string;
   password?: boolean;
-  type: "Search" | "self";
+  type: "Search" | "self" | "schedule";
 }
 
 const SearchInput = ({

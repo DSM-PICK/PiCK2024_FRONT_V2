@@ -73,7 +73,7 @@ const MainRouterButton = () => {
     {
       img: academicCalendar,
       text: "학사 일정 변경",
-      router: "/",
+      router: "/schedule",
     },
     {
       img: timetableChange,
