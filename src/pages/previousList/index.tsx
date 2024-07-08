@@ -35,6 +35,7 @@ const PreviousList = () => {
       now="이전 외출 기록"
       right={
         <SearchInput
+          type="Search"
           onChange={handleSearchChange}
           value={searchTerm}
           placeholder="외출 기록을 볼 학생의 이름 또는 학번"

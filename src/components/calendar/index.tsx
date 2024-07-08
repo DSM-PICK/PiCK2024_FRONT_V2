@@ -1,13 +1,21 @@
 import { useCallback, useState, useEffect } from "react";
 import * as S from "./style";
-import lArrow from "assets/svg/leftArrow.svg";
-import rArrow from "assets/svg/rightArrow.svg";
-import { SelfstudyGet } from "apis/selfStudy";
-import { data as dataType } from "apis/type";
+import lArrow from "@/assets/svg/leftArrow.svg";
+import rArrow from "@/assets/svg/rightArrow.svg";
+import { SelfstudyGet } from "@/apis/self-study";
+import { MonthSchedule } from "@/apis/schedule";
+import { data as dataType } from "@/apis/type";
+import { MonthScheduleData } from "@/apis/schedule/type";
 import { format } from "date-fns";
 import { enUS, ko } from "date-fns/locale";
+import { styled } from "styled-components";
+import Modal from "../modal";
 
-const Calendar = () => {
+interface CalendarProp {
+  type: "selfStudy" | "schedule";
+}
+
+const Calendar = ({ type }: CalendarProp) => {
   const today = {
     year: new Date().getFullYear(),
     month: new Date().getMonth() + 1,
@@ -16,9 +24,13 @@ const Calendar = () => {
 
   const [selectedYear, setSelectedYear] = useState(today.year);
   const [selectedMonth, setSelectedMonth] = useState(today.month);
+  const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [data, setData] = useState<dataType[]>([]);
+  const [scheduleData, setScheduleData] = useState<MonthScheduleData[]>([]);
+  const [modal, setModal] = useState<boolean>(false);
 
   const { mutate: selfstudyMutate } = SelfstudyGet();
+  const { mutate: ScheduleMutate } = MonthSchedule();
 
   const formattedDate = format(
     new Date(selectedYear, selectedMonth - 1),
@@ -37,14 +49,24 @@ const Calendar = () => {
   }, [selectedYear, selectedMonth]);
 
   const Get = async () => {
-    await selfstudyMutate(
-      { month: formattedMonth, year: "2024" },
+    if (type === "selfStudy") {
+      await selfstudyMutate(
+        { month: formattedMonth, year: selectedYear.toString() },
+        {
+          onSuccess: (data) => {
+            setData(data);
+          },
+          onError: (error) => {
+            console.log(error);
+          },
+        }
+      );
+    }
+    await ScheduleMutate(
+      { month: formattedMonth, year: selectedYear.toString() },
       {
         onSuccess: (data) => {
-          setData(data);
-        },
-        onError: (error) => {
-          console.log(error);
+          setScheduleData(data);
         },
       }
     );
@@ -109,12 +131,18 @@ const Calendar = () => {
       const currentDate = new Date(selectedYear, selectedMonth - 1, i);
       const day = currentDate.getDay();
       const dateStr = format(currentDate, "yyyy-MM-dd");
+
       const currentData = data.filter(
         (item) => format(new Date(item.date), "yyyy-MM-dd") === dateStr
       );
 
+      const currentSchedule = scheduleData.filter(
+        (item) => item.day === i && item.month === selectedMonth
+      );
+
       dayArr.push(
         <button
+          key={`day-${i}`}
           className={
             day === 0
               ? "weekday sunday"
@@ -122,10 +150,13 @@ const Calendar = () => {
               ? "weekday saturday"
               : "weekday"
           }
-          onClick={() => {}}
+          onClick={() => {
+            setSelectedDay(i);
+            setModal(true);
+          }}
         >
           {i}
-          {currentData.length > 0 && (
+          {type === "selfStudy" && currentData.length > 0 && (
             <S.SelfStudyListWrap>
               {currentData
                 .slice()
@@ -133,13 +164,23 @@ const Calendar = () => {
                   return j.floor - i.floor;
                 })
                 .map((item, idx) => (
-                  <S.SelfStudyList>
+                  <S.SelfStudyList key={`selfstudy-${idx}`}>
                     <S.FloorTitle>{item.floor}층</S.FloorTitle>
-                    <S.TeacherTitle key={idx} className="teacher">
+                    <S.TeacherTitle className="teacher">
                       {item.teacher}
                     </S.TeacherTitle>
                   </S.SelfStudyList>
                 ))}
+            </S.SelfStudyListWrap>
+          )}
+          {type === "schedule" && currentSchedule.length > 0 && (
+            <S.SelfStudyListWrap>
+              {currentSchedule.map((item) => (
+                <S.ScheduleList key={item.id}>
+                  <S.ScheduleLine />
+                  {item.event_name}
+                </S.ScheduleList>
+              ))}
             </S.SelfStudyListWrap>
           )}
         </button>
@@ -147,7 +188,12 @@ const Calendar = () => {
     }
 
     return dayArr;
-  }, [selectedYear, selectedMonth, lastDay, data]);
+  }, [selectedYear, selectedMonth, lastDay, data, scheduleData, type]);
+
+  const selectedDate = selectedDay
+    ? new Date(selectedYear, selectedMonth - 1, selectedDay)
+    : null;
+  const selectedWeekday = selectedDate ? week[selectedDate.getDay()] : "";
 
   return (
     <S.Container>
@@ -162,12 +208,26 @@ const Calendar = () => {
           </S.ArrowButtons>
         </div>
       </S.StHeader>
-      <div>
+      <Width>
         <S.StWeek>{returnWeek()}</S.StWeek>
         <S.StDate>{returnDay()}</S.StDate>
-      </div>
+      </Width>
+      {modal && selectedDate && (
+        <Modal
+          type={type}
+          title={`${selectedMonth}월 ${selectedDay}일 ${selectedWeekday}`}
+          subTitle="오늘의 자습감독 선생님"
+          onCancel={() => setModal(false)}
+          onConfirm={() => {}}
+          initialDate={`${selectedYear}-${selectedMonth}-${selectedDay}`}
+        />
+      )}
     </S.Container>
   );
 };
 
 export default Calendar;
+
+const Width = styled.div`
+  width: 100%;
+`;
