@@ -67,6 +67,7 @@ export const SearchWidth = styled.div`
     border: 1px solid ${theme.color.main[500]};
     outline: none;
   }
+  position: relative;
 `;
 
 export const SearchInput = styled.input`
@@ -85,4 +86,25 @@ export const SearchInput = styled.input`
   }
   outline: none;
   caret-color: ${theme.color.main[500]};
+`;
+
+export const TeacherList = styled.div`
+  position: absolute;
+  background-color: ${theme.color.normal.white};
+  width: 100%;
+  top: 110%;
+  z-index: 1;
+  max-height: 256px;
+  min-height: fit-content;
+  overflow-y: scroll;
+  border: 1px solid ${theme.color.gray[100]};
+  border-radius: 12px;
+`;
+
+export const TeacherText = styled.p`
+  font-size: ${theme.font.subTitle[2].size};
+  padding: 6px 12px;
+  &:hover {
+    background-color: ${theme.color.main[50]};
+  }
 `;

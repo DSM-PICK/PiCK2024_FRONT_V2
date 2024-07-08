@@ -9,13 +9,12 @@ import NoticeDetail from "@/pages/notice/detail";
 import NoticeWrite from "@/pages/notice/write";
 import OutAccept from "@/pages/outAccept";
 import OutList from "@/pages/outList";
-import PreviousList from "@/pages/previousList";
+import PreviousList from "@/pages/previousList/index";
 import WeekedMeal from "@/pages/weekendMeal";
 import Calendar from "@/components/calendar";
-import SelfStudy from "@/pages/self-study";
 import ChangePassword from "@/pages/changePassword";
 import PreviousDetail from "@/pages/previousList/detail";
-
+import SelfStudy from "@/pages/self-study";
 
 export const Router = createBrowserRouter([
   {
@@ -80,7 +79,7 @@ export const Router = createBrowserRouter([
         element: <ClassManage />,
       },
       {
-         path: "passwordChange",
+        path: "passwordChange",
         element: <ChangePassword />,
       },
       {
@@ -88,7 +87,7 @@ export const Router = createBrowserRouter([
         element: <SelfStudy />,
       },
       {
-         path: "previousList",
+        path: "previousList",
         children: [
           {
             path: "",

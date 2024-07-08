@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import { theme } from "@/styles/theme";
 
 export const ModalWrap = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   display: flex;
   justify-content: center;
@@ -80,4 +80,31 @@ export const TextWrap = styled.div`
   flex-direction: column;
   width: 100%;
   padding: 48px 62px;
+`;
+
+export const SelfInputWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0px 72px 38px 72px;
+`;
+
+export const SelfContentWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const InputWrap = styled.div`
+  display: flex;
+  gap: 16px;
+`;
+
+export const FloorBedge = styled.p`
+  padding: 10px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${theme.color.main[50]};
+  border-radius: 12px;
+  font-size: ${theme.font.heading[4].size};
 `;
