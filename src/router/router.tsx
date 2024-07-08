@@ -15,6 +15,7 @@ import Calendar from "@/components/calendar";
 import ChangePassword from "@/pages/changePassword";
 import PreviousDetail from "@/pages/previousList/detail";
 import SelfStudy from "@/pages/self-study";
+import Schedule from "@/pages/schedule";
 
 export const Router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ export const Router = createBrowserRouter([
             element: <PreviousDetail />,
           },
         ],
+      },
+      {
+        path: "schedule",
+        element: <Schedule />,
       },
     ],
   },

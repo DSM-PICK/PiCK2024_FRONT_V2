@@ -4,6 +4,9 @@ import SearchInput from "../input/search";
 import * as S from "./style";
 import { format } from "date-fns";
 import { SelectTeacher, PostTeacher } from "@/apis/self-study";
+import closeIcon from "@/assets/svg/close.svg";
+import plusIcon from "@/assets/svg/plus.svg";
+import { AddSchedule, DaySchedule, DeleteSchedule } from "@/apis/schedule";
 
 interface ModalProp {
   type?: "check" | "red" | "selfStudy" | "schedule";
@@ -25,6 +28,11 @@ interface DataItem {
   date: string;
 }
 
+interface ScheduleData {
+  event_name: string;
+  date: string;
+}
+
 export const Modal = ({
   title,
   subTitle,
@@ -36,6 +44,12 @@ export const Modal = ({
   const [secondData, setSecondData] = useState({ floor: 2, teacher: "" });
   const [thirdData, setThirdData] = useState({ floor: 3, teacher: "" });
   const [fourthData, setFourthData] = useState({ floor: 4, teacher: "" });
+  const [addSchedule, setAddSchedule] = useState<ScheduleData>({
+    event_name: "",
+    date: initialDate
+      ? format(new Date(initialDate), "yyyy-MM-dd")
+      : format(new Date(), "yyyy-MM-dd"),
+  });
 
   const date = initialDate
     ? format(new Date(initialDate), "yyyy-MM-dd")
@@ -43,6 +57,9 @@ export const Modal = ({
 
   const { data: SelectSelfList } = SelectTeacher(date);
   const { mutate: postTeacherMutate } = PostTeacher();
+  const { mutate: addScheduleMutate } = AddSchedule();
+  const { mutate: Delete } = DeleteSchedule();
+  const { data: Schedule } = DaySchedule(date);
 
   useEffect(() => {
     if (SelectSelfList) {
@@ -61,6 +78,18 @@ export const Modal = ({
       });
     }
   }, [SelectSelfList]);
+
+  const onClickDelete = async (id: string) => {
+    await Delete(
+      { id: id },
+      {
+        onSuccess: () => {
+          alert("삭제에 성공하셨습니다");
+          window.location.reload();
+        },
+      }
+    );
+  };
 
   const submitTeachers = async () => {
     try {
@@ -83,6 +112,18 @@ export const Modal = ({
     }
   };
 
+  const handleModalConfirm = async () => {
+    await addScheduleMutate(addSchedule, {
+      onSuccess: () => {
+        location.reload();
+        alert("일정이 추가되었습니다");
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
+  };
+
   const SecondhandleChange = ({ text, name }: ChangeProps) => {
     setSecondData({ ...secondData, [name]: text });
   };
@@ -95,13 +136,19 @@ export const Modal = ({
     setFourthData({ ...fourthData, [name]: text });
   };
 
+  const SchedulehandleChange = ({ text, name }: ChangeProps) => {
+    setAddSchedule({ ...addSchedule, [name]: text });
+  };
+
   return (
     <S.ModalWrap>
       <S.ModalStyle>
-        <S.TextWrap>
-          <S.ModalTitle>{title}</S.ModalTitle>
-          <S.ModalSubTitle>{subTitle}</S.ModalSubTitle>
-        </S.TextWrap>
+        {type !== "schedule" && (
+          <S.TextWrap>
+            <S.ModalTitle>{title}</S.ModalTitle>
+            <S.ModalSubTitle>{subTitle}</S.ModalSubTitle>
+          </S.TextWrap>
+        )}
         {type === "red" || type === "check" ? (
           <S.ButtonWrap>
             <S.CancelButton onClick={onCancel}>취소</S.CancelButton>
@@ -147,6 +194,44 @@ export const Modal = ({
             </S.ButtonWrap>
           </>
         ) : null}
+        {type === "schedule" && (
+          <S.ScheduleWrap>
+            <S.ScheduleTitle>
+              <S.ModalTitle>{title}의 일정</S.ModalTitle>
+              <img src={closeIcon} width={40} height={40} onClick={onCancel} />
+            </S.ScheduleTitle>
+            {Schedule && (
+              <S.ScheduleItem key={Schedule.id}>
+                <S.ScheduleItemText>{Schedule.event_name}</S.ScheduleItemText>
+                <img
+                  src={closeIcon}
+                  alt=""
+                  width={20}
+                  height={20}
+                  onClick={() => onClickDelete(Schedule.id)}
+                />
+              </S.ScheduleItem>
+            )}
+            <S.ScheduleItem>
+              <S.ScheduleItemText>
+                <SearchInput
+                  onChange={SchedulehandleChange}
+                  value={addSchedule.event_name}
+                  type="schedule"
+                  name="event_name"
+                  placeholder="새로운 일정을 입력해주세요"
+                />
+              </S.ScheduleItemText>
+              <img
+                src={plusIcon}
+                alt=""
+                width={20}
+                height={20}
+                onClick={handleModalConfirm}
+              />
+            </S.ScheduleItem>
+          </S.ScheduleWrap>
+        )}
       </S.ModalStyle>
     </S.ModalWrap>
   );
