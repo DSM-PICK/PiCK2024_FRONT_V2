@@ -9,7 +9,7 @@ import { getFullToday } from "@/utils/date";
 interface LayoutProp {
   children: React.ReactNode;
   now: React.ReactNode;
-  title: string;
+  title?: string;
   right?: React.ReactNode;
   date?: boolean;
 }
@@ -40,7 +40,7 @@ export const Layout = ({ children, now, right, title, date }: LayoutProp) => {
           </S.Left>
           <S.Right>{right}</S.Right>
         </S.Top>
-        <S.Line />
+        {title && <S.Line />}
         {children}
       </S.LayoutStyle>
     </>

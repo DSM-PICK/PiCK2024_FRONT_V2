@@ -1,3 +1,4 @@
+import { createBrowserRouter } from "react-router-dom";
 import Login from "@/pages/login/page";
 import Main from "@/pages/Main";
 import RequestClass from "@/pages/RequestClass";
@@ -8,13 +9,13 @@ import NoticeDetail from "@/pages/notice/detail";
 import NoticeWrite from "@/pages/notice/write";
 import OutAccept from "@/pages/outAccept";
 import OutList from "@/pages/outList";
-import WeekedMeal from "@/pages/weekendMeal";
-
-import { createBrowserRouter } from "react-router-dom";
 import PreviousList from "@/pages/previousList";
+import WeekedMeal from "@/pages/weekendMeal";
 import Calendar from "@/components/calendar";
 import SelfStudy from "@/pages/self-study";
 import ChangePassword from "@/pages/changePassword";
+import PreviousDetail from "@/pages/previousList/detail";
+
 
 export const Router = createBrowserRouter([
   {
@@ -79,16 +80,25 @@ export const Router = createBrowserRouter([
         element: <ClassManage />,
       },
       {
-        path: "previousList",
-        element: <PreviousList />,
+         path: "passwordChange",
+        element: <ChangePassword />,
       },
       {
         path: "self-study",
         element: <SelfStudy />,
       },
       {
-        path: "passwordChange",
-        element: <ChangePassword />,
+         path: "previousList",
+        children: [
+          {
+            path: "",
+            element: <PreviousList />,
+          },
+          {
+            path: ":detail",
+            element: <PreviousDetail />,
+          },
+        ],
       },
     ],
   },
