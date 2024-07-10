@@ -37,7 +37,7 @@ export const AddSchedule = () => {
 };
 
 export const DaySchedule = (date: string) => {
-  return useQuery<MonthScheduleData>({
+  return useQuery<MonthScheduleData[]>({
     queryKey: ["DaySchedule"],
     queryFn: async () => {
       const { data } = await instance.get(`${router}/date?date=${date}`);

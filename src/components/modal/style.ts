@@ -138,3 +138,9 @@ export const ScheduleItem = styled.div`
 export const ScheduleItemText = styled.p`
   font-size: ${theme.font.heading[3].size};
 `;
+
+export const FixContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
