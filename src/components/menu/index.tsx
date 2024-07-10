@@ -13,7 +13,7 @@ interface MenuProp {
   closeOnClick: () => void;
 }
 
-const Menu: React.FC<MenuProp> = ({ closeOnClick }) => {
+const Menu = ({ closeOnClick }: MenuProp) => {
   const { data: selfStudyData } = TodaySelfStudy();
   const { data: mealsData } = TodayMeals();
   const { data: StudentStateCountData } = StudentStateCount();
