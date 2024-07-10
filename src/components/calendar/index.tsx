@@ -174,14 +174,16 @@ const Calendar = ({ type }: CalendarProp) => {
             </S.SelfStudyListWrap>
           )}
           {type === "schedule" && currentSchedule.length > 0 && (
-            <S.SelfStudyListWrap>
-              {currentSchedule.map((item) => (
-                <S.ScheduleList key={item.id}>
-                  <S.ScheduleLine />
-                  {item.event_name}
-                </S.ScheduleList>
+            <>
+              {currentSchedule.map((item, index) => (
+                <S.SelfStudyListWrap key={index}>
+                  <S.ScheduleList key={item.id}>
+                    <S.ScheduleLine />
+                    {item.event_name}
+                  </S.ScheduleList>
+                </S.SelfStudyListWrap>
               ))}
-            </S.SelfStudyListWrap>
+            </>
           )}
         </button>
       );

@@ -200,18 +200,20 @@ export const Modal = ({
               <S.ModalTitle>{title}의 일정</S.ModalTitle>
               <img src={closeIcon} width={40} height={40} onClick={onCancel} />
             </S.ScheduleTitle>
-            {Schedule && (
-              <S.ScheduleItem key={Schedule.id}>
-                <S.ScheduleItemText>{Schedule.event_name}</S.ScheduleItemText>
-                <img
-                  src={closeIcon}
-                  alt=""
-                  width={20}
-                  height={20}
-                  onClick={() => onClickDelete(Schedule.id)}
-                />
-              </S.ScheduleItem>
-            )}
+            <S.FixContent>
+              {Schedule?.map((item) => (
+                <S.ScheduleItem>
+                  <S.ScheduleItemText>{item.event_name}</S.ScheduleItemText>
+                  <img
+                    src={closeIcon}
+                    alt=""
+                    width={20}
+                    height={20}
+                    onClick={() => onClickDelete(item.id)}
+                  />
+                </S.ScheduleItem>
+              ))}
+            </S.FixContent>
             <S.ScheduleItem>
               <S.ScheduleItemText>
                 <SearchInput

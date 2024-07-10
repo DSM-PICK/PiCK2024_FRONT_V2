@@ -16,6 +16,7 @@ import ChangePassword from "@/pages/changePassword";
 import PreviousDetail from "@/pages/previousList/detail";
 import SelfStudy from "@/pages/self-study";
 import Schedule from "@/pages/schedule";
+import NotFound from "@/pages/404Page";
 
 export const Router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const Router = createBrowserRouter([
       {
         path: "main",
         element: <Main />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
       {
         path: "login",

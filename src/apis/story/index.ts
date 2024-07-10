@@ -8,9 +8,7 @@ export const AllList = () => {
   return useQuery<ApplicationCount[]>({
     queryKey: ["AllList"],
     queryFn: async () => {
-      const { data } = await instance.get(
-        `${router}/grade?grade=3&class_num=4` //추후에 전체 조회 api생기면 바꿀 예정
-      );
+      const { data } = await instance.get(`${router}/all`);
       return data;
     },
   });
