@@ -58,12 +58,12 @@ const MainRouterButton = () => {
     {
       img: afterSchool,
       text: "방과후 관리",
-      router: "/",
+      router: "/afterSchool",
     },
     {
       img: clubManagement,
       text: "전공 동아리 관리",
-      router: "/",
+      router: "/club",
     },
     {
       img: changeTeacher,
@@ -78,12 +78,12 @@ const MainRouterButton = () => {
     {
       img: timetableChange,
       text: "시간표 변경",
-      router: "/",
+      router: "/changeTimeTable",
     },
     {
       img: selfStudyImg,
       text: "자습시간 출결",
-      router: "/",
+      router: "/attendanceCheck",
     },
   ];
 
