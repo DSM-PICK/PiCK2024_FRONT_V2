@@ -16,8 +16,7 @@ const MoveClass = () => {
   const { mutate: ChangingClass } = RequestChange();
   const [selectFloor, setSelectFloor] = useState<number>(5);
   const [data, setData] = useState<ClassChangeType[]>([]);
-  const { selectedStudentName, selectedStudents, handleAcceptListClick } =
-    useAcceptListSelection();
+  const { handleAcceptListClick } = useAcceptListSelection();
 
   const Get = async (option: number) => {
     await ChangingClass(
