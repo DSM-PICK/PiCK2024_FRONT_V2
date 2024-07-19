@@ -50,7 +50,7 @@ export const useOutAccept = () => {
 };
 
 export const GetOutList = () => {
-  return useQuery<OutListProp[]>({
+  return useQuery<any[]>({
     queryKey: ["GetOutList"],
     queryFn: async () => {
       const { data } = await instance.get(`${router}/non-return`);
