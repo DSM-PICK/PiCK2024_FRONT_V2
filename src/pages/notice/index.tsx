@@ -41,6 +41,7 @@ const NoticePage = () => {
               공지 작성하기
             </Button>
             <SearchInput
+              type="Search"
               value={searchTerm}
               placeholder="입력하세요"
               onChange={handleSearchChange}
