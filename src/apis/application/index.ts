@@ -1,13 +1,8 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { instance } from "@/apis";
-import { StateCountType, applicationDataProp } from "@/apis/type";
+import { OutListProp, StateCountType, applicationDataProp } from "@/apis/type";
 
 const router = `/application`;
-
-interface ClassProp {
-  grade: number;
-  class: number;
-}
 
 export const StudentStateCount = () => {
   return useQuery<StateCountType>({
@@ -19,17 +14,14 @@ export const StudentStateCount = () => {
   });
 };
 
-export const OutRequest = () => {
-  return useMutation<applicationDataProp[], Error, ClassProp>({
-    mutationFn: async (param: ClassProp) => {
-      try {
-        const response = await instance.get(
-          `${router}/grade?grade=${param.grade}&class_num=${param.class}`
-        );
-        return response.data;
-      } catch (error) {
-        console.log(error);
-      }
+export const OutRequest = (grade: number, class_num: number) => {
+  return useQuery({
+    queryKey: ["OutRequest", grade ,class_num],
+    queryFn: async () => {
+      const { data } = await instance.get<applicationDataProp[]>(
+        `${router}/grade?grade=${grade}&class_num=${class_num}`
+      );
+      return data;
     },
   });
 };
@@ -49,11 +41,13 @@ export const useOutAccept = () => {
   });
 };
 
-export const GetOutList = () => {
-  return useQuery<OutListProp[]>({
-    queryKey: ["GetOutList"],
+export const OutListFloor = (floor: number, status: string) => {
+  return useQuery({
+    queryKey: ["OutListFloor", floor, status],
     queryFn: async () => {
-      const { data } = await instance.get(`${router}/non-return`);
+      const { data } = await instance.get<OutListProp[]>(
+        `${router}/floor?floor=${floor}&status=${status}`
+      );
       return data;
     },
   });

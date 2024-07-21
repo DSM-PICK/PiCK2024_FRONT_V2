@@ -1,22 +1,18 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { instance } from "..";
 import { ChangeStatusType, StudentStatus } from "./type";
 
 const router = "/status";
 
-export const GetClassStatus = () => {
-  return useMutation<
-    StudentStatus,
-    Error,
-    { grade: number; class_num: number }
-  >({
-    mutationFn: async (param) => {
-      const { data } = await instance.get(
-        `${router}/grade?grade=${param.grade}&class_num=${param.class_num}`
-      );
-      return data;
-    },
-  });
+export const GetClassStatus = (grade:number, class_num:number) => {
+  return useQuery({
+    queryKey: ['GetClassStatus', grade, class_num],
+    queryFn : async () => {
+      const {data} = await instance.get<StudentStatus[]>(`${router}/grade?grade=${grade}&class_num=${class_num}`)
+      return data
+    }
+  })
+
 };
 
 export const ChangeStudentStatus = () => {
