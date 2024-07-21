@@ -33,8 +33,8 @@ export interface MynameType {
 
 export interface OutListProp {
   username: string;
-  start_time: string;
-  end_time: string;
+  startTime: string;
+  endTime: string;
   grade: number;
   class_num: number;
   num: number;

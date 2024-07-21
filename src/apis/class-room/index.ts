@@ -9,7 +9,7 @@ export const RequestChange = (floor: number, status: 'OK' | 'QUIET') => {
     queryKey: ['RequestChange', floor, status],
     queryFn: async () => {
       const { data } = await instance.get(
-        `${router}/floor?floor=${floor}status=${status}`,
+        `${router}/floor?floor=${floor}&status=${status}`,
       );
       return data;
     },
