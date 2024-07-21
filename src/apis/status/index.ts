@@ -8,7 +8,7 @@ export const GetClassStatus = (grade:number, class_num:number) => {
   return useQuery({
     queryKey: ['GetClassStatus', grade, class_num],
     queryFn : async () => {
-      const {data} = await instance.get<StudentStatus[]>(`${router}/grade?grade=${grade}&class_num=${class_num}`)
+      const {data} = await instance.get<StudentStatus>(`${router}/grade?grade=${grade}&class_num=${class_num}`)
       return data
     }
   })

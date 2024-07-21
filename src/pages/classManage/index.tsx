@@ -39,10 +39,10 @@ const ClassManage = () => {
       }
     >
       <SemiTitle>
-        {selectedGrade}학년 {selectedClass}반 {data?.teacher}선생님
+        {selectedGrade}학년 {selectedClass}반 {GetStudentStatus?.teacher}선생님
       </SemiTitle>
       <ContentWrap>
-        {GetStudentStatus?.students.map((item) => (
+        {GetStudentStatus?.students?.map((item) => (
           <ClassList
             id={item.user_id}
             name={item.name}
