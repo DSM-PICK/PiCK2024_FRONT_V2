@@ -11,26 +11,12 @@ import { setStudentNum } from "@/utils/utils";
 const ClassManage = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(1);
   const [selectedClass, setSelectedClass] = useState<number>(1);
-  const [data, setData] = useState<StudentStatus>();
 
-  const { mutate: GetStudentStatus } = GetClassStatus();
+  const { data: GetStudentStatus, refetch:ReGetClassStatus } = GetClassStatus(selectedGrade, selectedClass);
 
-  const Get = async () => {
-    await GetStudentStatus(
-      { grade: selectedGrade, class_num: selectedClass },
-      {
-        onSuccess: (data) => {
-          setData(data);
-        },
-        onError: (error) => {
-          console.log(error.name);
-        },
-      }
-    );
-  };
 
   useEffect(() => {
-    Get();
+    ReGetClassStatus()
   }, [selectedClass, selectedGrade]);
 
   const handleGrade = (option: number) => {
@@ -56,7 +42,7 @@ const ClassManage = () => {
         {selectedGrade}학년 {selectedClass}반 {data?.teacher}선생님
       </SemiTitle>
       <ContentWrap>
-        {data?.students.map((item) => (
+        {GetStudentStatus?.students.map((item) => (
           <ClassList
             id={item.user_id}
             name={item.name}

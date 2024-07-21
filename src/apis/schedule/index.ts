@@ -1,19 +1,15 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { instance } from "..";
-import {
-  CreateScheduleType,
-  GetMonthSchedule,
-  MonthScheduleData,
-  addSchedule,
-} from "./type";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { instance } from '..';
+import { CreateScheduleType, MonthScheduleData, addSchedule } from './type';
 
-const router = "/schedule";
+const router = '/schedule';
 
-export const MonthSchedule = () => {
-  return useMutation<MonthScheduleData[], Error, GetMonthSchedule>({
-    mutationFn: async (param) => {
+export const MonthSchedule = (month: string, year: string) => {
+  return useQuery({
+    queryKey: ['MonthSchedule', month, year],
+    queryFn: async () => {
       const { data } = await instance.get(
-        `${router}/month?year=${param.year}&month=${param.month}`
+        `${router}//month?year=${year}&month=${month}`,
       );
       return data;
     },
@@ -24,13 +20,13 @@ export const AddSchedule = () => {
   return useMutation<void, Error, addSchedule>({
     mutationFn: async (param: addSchedule) => {
       try {
-        const response = await instance.post("/schedule/create", {
+        const response = await instance.post('/schedule/create', {
           event_name: param.event_name,
           date: param.date,
         });
         return response.data;
       } catch (error) {
-        console.log("");
+        console.log('');
       }
     },
   });
@@ -38,7 +34,7 @@ export const AddSchedule = () => {
 
 export const DaySchedule = (date: string) => {
   return useQuery<MonthScheduleData[]>({
-    queryKey: ["DaySchedule"],
+    queryKey: ['DaySchedule', date],
     queryFn: async () => {
       const { data } = await instance.get(`${router}/date?date=${date}`);
       return data;
