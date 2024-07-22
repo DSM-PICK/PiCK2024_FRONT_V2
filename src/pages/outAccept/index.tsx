@@ -11,10 +11,9 @@ import useAcceptListSelection from "@/hook/selectHook";
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
-  const [data, setData] = useState<applicationDataProp[]>([]);
-  const { mutate: GetOutRequest } = OutRequest();
+  const { data: GetOutRequest, refetch: ReGetOutRequest } = OutRequest(selectedGrade, selectedClass);
   const { mutate: OutAcceptMutate } = useOutAccept();
-  const { selectedStudents, selectedStudentName, handleAcceptListClick } =
+  const { selectedStudents, handleAcceptListClick } =
     useAcceptListSelection();
 
   const handleGradeChange = (selectedOption: number) => {
@@ -26,26 +25,9 @@ const OutAccept = () => {
   const handleClassChange = (selectedOption: number) => {
     setSelectedClass(selectedOption);
   };
-  const GetData = () => {
-    if (selectedGrade !== null && selectedClass !== null) {
-      GetOutRequest(
-        { grade: selectedGrade, class: selectedClass },
-        {
-          onSuccess: (data) => {
-            setData(data);
-          },
-          onError: (error) => {
-            console.error("Out accept error", error);
-          },
-        }
-      );
-    }
-  };
 
   useEffect(() => {
-    if (selectedGrade !== null && selectedClass !== null) {
-      GetData();
-    }
+    ReGetOutRequest()
   }, [selectedGrade, selectedClass]);
 
   const OutAccept = () => {
@@ -85,7 +67,7 @@ const OutAccept = () => {
         }
       >
         <S.OutAcceptContainer>
-          {data.map((item, index) => (
+          {GetOutRequest?.map((item, index) => (
             <OutAcceptList
               key={index}
               name={item.username}

@@ -18,19 +18,15 @@ export const TodaySelfStudy = () => {
   });
 };
 
-export const SelfstudyGet = () => {
-  return useMutation<data[], Error, { month: string; year: string }>({
-    mutationFn: async (param) => {
-      try {
-        const { data } = await instance.get(
-          `/self-study/month?month=${param.month}&year=${param.year}`
-        );
-        return data;
-      } catch (error) {
-        console.log("");
-      }
-    },
-  });
+export const SelfstudyGet = (month:string, year:string) => {
+  return useQuery({
+    queryKey:['SelfstudyGet', month, year],
+    queryFn: async () => {
+      const {data} = await instance.get(`${router}/month?month=${month}&year=${year}`)
+      return data
+    }
+  })
+ 
 };
 
 export const PostTeacher = () => {
