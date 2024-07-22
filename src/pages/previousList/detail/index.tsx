@@ -1,14 +1,14 @@
-import { DetailList } from "@/apis/story";
-import { Layout } from "@/components/layout";
-import ApplicationDetail from "@/components/list/applicationDetail";
-import { theme } from "@/styles/theme";
-import { useNavigate, useParams } from "react-router-dom";
-import { styled } from "styled-components";
-import nextSvg from "@/assets/svg/next.svg";
+import { DetailList } from '@/apis/story';
+import { Layout } from '@/components/layout';
+import ApplicationDetail from '@/components/list/applicationDetail';
+import { theme } from '@/styles/theme';
+import { useNavigate, useParams } from 'react-router-dom';
+import { styled } from 'styled-components';
+import nextSvg from '@/assets/svg/next.svg';
 
 const PreviousDetail = () => {
   const { detail } = useParams<{ detail: string }>();
-  const id = detail || "";
+  const id = detail || '';
   const { data } = DetailList(id);
   const router = useNavigate();
   return (
@@ -17,7 +17,7 @@ const PreviousDetail = () => {
         <>
           <span
             onClick={() => {
-              router("/previousList");
+              router('/previousList');
             }}
           >
             이전 외출 기록

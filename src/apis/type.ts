@@ -31,6 +31,16 @@ export interface MynameType {
   class_num: number;
 }
 
+export interface OutListProp {
+  username: string;
+  startTime: string;
+  endTime: string;
+  grade: number;
+  class_num: number;
+  num: number;
+  reason: string;
+}
+
 export interface NoticeDetailType {
   id: string;
   title: string;
