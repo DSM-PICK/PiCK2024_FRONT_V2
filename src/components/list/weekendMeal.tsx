@@ -1,35 +1,35 @@
-import { theme } from "@/styles/theme";
-import styled from "styled-components";
-import MealDrop from "../dropdown/mealStatus";
+import { theme } from '@/styles/theme';
+import styled from 'styled-components';
+import MealDrop from '../dropdown/mealStatus';
 
 interface ListProp {
   number: string;
   name: string;
-  status: "OK" | "NO" | "QUIET";
+  status: 'OK' | 'NO' | 'QUIET';
   id: string;
 }
 
 interface BadgeProps {
-  status: "OK" | "NO";
+  status: 'OK' | 'NO';
 }
 
 const WeekEndList = ({ number, name, status, id }: ListProp) => {
   const StatusChange = () => {
     switch (status) {
-      case "NO":
-        return "미신청";
-      case "OK":
-        return "신청";
-      case "QUIET":
-        return "미응답";
+      case 'NO':
+        return '미신청';
+      case 'OK':
+        return '신청';
+      case 'QUIET':
+        return '미응답';
     }
   };
   return (
     <ContentWrap>
       <Title>{number}</Title>
       <Title>{name}</Title>
-      {status !== "QUIET" && <Option status={status}>{StatusChange()}</Option>}
-      {status === "QUIET" && <MealDrop id={id} />}
+      {status !== 'QUIET' && <Option status={status}>{StatusChange()}</Option>}
+      {status === 'QUIET' && <MealDrop id={id} />}
     </ContentWrap>
   );
 };
@@ -50,7 +50,7 @@ const Title = styled.p`
 
 const Option = styled.div<BadgeProps>`
   background-color: ${({ status, theme }) =>
-    status === "OK" ? theme.color.main[500] : theme.color.main[300]};
+    status === 'OK' ? theme.color.main[500] : theme.color.main[300]};
   padding: 8px 20px;
   border-radius: 12px;
   color: ${theme.color.normal.white};

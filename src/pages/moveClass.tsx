@@ -1,15 +1,15 @@
-import { Layout } from "@/components/layout";
-import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
-import { theme } from "@/styles/theme";
-import nextSvg from "@/assets/svg/next.svg";
-import { ClassMoveList } from "@/components/list/classmove";
-import { RequestChange } from "@/apis/class-room";
-import { getStudentString } from "@/utils/utils";
-import Dropdown from "@/components/dropdown";
-import { useEffect, useState } from "react";
-import useAcceptListSelection from "@/hook/selectHook";
-import { ClassChangeType } from "@/apis/class-room/type";
+import { Layout } from '@/components/layout';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { theme } from '@/styles/theme';
+import nextSvg from '@/assets/svg/next.svg';
+import { ClassMoveList } from '@/components/list/classmove';
+import { RequestChange } from '@/apis/class-room';
+import { getStudentString } from '@/utils/utils';
+import Dropdown from '@/components/dropdown';
+import { useEffect, useState } from 'react';
+import useAcceptListSelection from '@/hook/selectHook';
+import { ClassChangeType } from '@/apis/class-room/type';
 
 const MoveClass = () => {
   const router = useNavigate();
@@ -20,12 +20,12 @@ const MoveClass = () => {
 
   const Get = async (option: number) => {
     await ChangingClass(
-      { floor: option, status: "OK" },
+      { floor: option, status: 'OK' },
       {
         onSuccess: (data) => {
           setData(data);
         },
-      }
+      },
     );
   };
   const handleFloorChange = (selectedOption: number) => {
@@ -44,7 +44,7 @@ const MoveClass = () => {
         <>
           <p
             onClick={() => {
-              router("/classMove");
+              router('/classMove');
             }}
           >
             교실 이동 수락

@@ -1,36 +1,32 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { instance } from "@/apis";
-import { data, todaySelfStudTeacher } from "@/apis/type";
-import { getFullToday } from "@/utils/date";
-import { postTeacherProp } from "./type";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { instance } from '@/apis';
+import { data, todaySelfStudTeacher } from '@/apis/type';
+import { getFullToday } from '@/utils/date';
+import { postTeacherProp } from './type';
 
 const router = `/self-study`;
 
 export const TodaySelfStudy = () => {
   return useQuery<todaySelfStudTeacher[]>({
-    queryKey: ["todaySelfStudTeacher"],
+    queryKey: ['todaySelfStudTeacher'],
     queryFn: async () => {
       const { data } = await instance.get(
-        `${router}/today?date=${getFullToday()}`
+        `${router}/today?date=${getFullToday()}`,
       );
       return data;
     },
   });
 };
 
-export const SelfstudyGet = () => {
-  return useMutation<data[], Error, { month: string; year: string }>({
-    mutationFn: async (param) => {
-      try {
-        const { data } = await instance.get(
-          `/self-study/month?month=${param.month}&year=${param.year}`
-        );
-        return data;
-      } catch (error) {
-        console.log("");
-      }
-    },
-  });
+export const SelfstudyGet = (month:string, year:string) => {
+  return useQuery({
+    queryKey:['SelfstudyGet', month, year],
+    queryFn: async () => {
+      const {data} = await instance.get(`${router}/month?month=${month}&year=${year}`)
+      return data
+    }
+  })
+ 
 };
 
 export const PostTeacher = () => {
@@ -39,7 +35,7 @@ export const PostTeacher = () => {
       try {
         await instance.post(`/self-study/register`, param);
       } catch (error) {
-        console.log("");
+        console.log('');
       }
     },
   });
@@ -47,13 +43,13 @@ export const PostTeacher = () => {
 
 export const SelectTeacher = (date: string) => {
   return useQuery<data[]>({
-    queryKey: ["SelectTeacher", date],
+    queryKey: ['SelectTeacher', date],
     queryFn: async () => {
       try {
         const response = await instance.get(`self-study/date?date=${date}`);
         return response.data;
       } catch (error) {
-        console.log("");
+        console.log('');
       }
     },
   });

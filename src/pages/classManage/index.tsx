@@ -1,36 +1,22 @@
-import React, { useState, useEffect } from "react";
-import Dropdown from "@/components/dropdown";
-import { Layout } from "@/components/layout";
-import ClassList from "@/components/list/class";
-import { theme } from "@/styles/theme";
-import styled from "styled-components";
-import { GetClassStatus } from "@/apis/status";
-import { StudentStatus } from "@/apis/status/type";
-import { setStudentNum } from "@/utils/utils";
+import React, { useState, useEffect } from 'react';
+import Dropdown from '@/components/dropdown';
+import { Layout } from '@/components/layout';
+import ClassList from '@/components/list/class';
+import { theme } from '@/styles/theme';
+import styled from 'styled-components';
+import { GetClassStatus } from '@/apis/status';
+import { StudentStatus } from '@/apis/status/type';
+import { setStudentNum } from '@/utils/utils';
 
 const ClassManage = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(1);
   const [selectedClass, setSelectedClass] = useState<number>(1);
-  const [data, setData] = useState<StudentStatus>();
 
-  const { mutate: GetStudentStatus } = GetClassStatus();
+  const { data: GetStudentStatus, refetch:ReGetClassStatus } = GetClassStatus(selectedGrade, selectedClass);
 
-  const Get = async () => {
-    await GetStudentStatus(
-      { grade: selectedGrade, class_num: selectedClass },
-      {
-        onSuccess: (data) => {
-          setData(data);
-        },
-        onError: (error) => {
-          console.log(error.name);
-        },
-      }
-    );
-  };
 
   useEffect(() => {
-    Get();
+    ReGetClassStatus()
   }, [selectedClass, selectedGrade]);
 
   const handleGrade = (option: number) => {
@@ -53,10 +39,10 @@ const ClassManage = () => {
       }
     >
       <SemiTitle>
-        {selectedGrade}학년 {selectedClass}반 {data?.teacher}선생님
+        {selectedGrade}학년 {selectedClass}반 {GetStudentStatus?.teacher}선생님
       </SemiTitle>
       <ContentWrap>
-        {data?.students.map((item) => (
+        {GetStudentStatus?.students?.map((item) => (
           <ClassList
             id={item.user_id}
             name={item.name}

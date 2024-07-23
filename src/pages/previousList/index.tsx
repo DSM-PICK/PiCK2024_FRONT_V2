@@ -1,13 +1,13 @@
-import { AllList } from "@/apis/story";
-import SearchInput from "@/components/input/search";
-import { Layout } from "@/components/layout";
-import StoryList from "@/components/story/story";
-import { getStudentString, setStudentNum } from "@/utils/utils";
-import { useState } from "react";
-import { styled } from "styled-components";
+import { AllList } from '@/apis/story';
+import SearchInput from '@/components/input/search';
+import { Layout } from '@/components/layout';
+import StoryList from '@/components/story/story';
+import { getStudentString, setStudentNum } from '@/utils/utils';
+import { useState } from 'react';
+import { styled } from 'styled-components';
 
 const PreviousList = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const { data: GetCount } = AllList();
 
   const handleSearchChange = ({

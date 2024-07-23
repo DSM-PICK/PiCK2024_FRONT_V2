@@ -1,14 +1,14 @@
-import Input from "@/components/input";
-import * as S from "@/pages/login/style";
-import { Button } from "@/components/Button/index";
-import { useState } from "react";
-import pickman from "@/assets/svg/pickman.svg";
-import picksick from "@/assets/svg/picksick.svg";
-import pickme from "@/assets/svg/pickme.svg";
-import pickgod from "@/assets/svg/pickgod.svg";
-import { useLogin } from "@/apis/admin";
-import { saveToken } from "@/utils/auth";
-import { useNavigate } from "react-router-dom";
+import Input from '@/components/input';
+import * as S from '@/pages/login/style';
+import { Button } from '@/components/Button/index';
+import { useState } from 'react';
+import pickman from '@/assets/svg/pickman.svg';
+import picksick from '@/assets/svg/picksick.svg';
+import pickme from '@/assets/svg/pickme.svg';
+import pickgod from '@/assets/svg/pickgod.svg';
+import { useLogin } from '@/apis/admin';
+import { saveToken } from '@/utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 interface ChangeProps {
   text: string;
@@ -23,8 +23,8 @@ interface LoginType {
 const Login = () => {
   const { mutate: Login } = useLogin();
   const [data, setData] = useState<LoginType>({
-    admin_id: "",
-    password: "",
+    admin_id: '',
+    password: '',
   });
 
   const handleChange = ({ text, name }: ChangeProps) => {
@@ -32,15 +32,15 @@ const Login = () => {
   };
 
   const handleKeyDown = async (
-    event: React.KeyboardEvent<HTMLInputElement>
+    event: React.KeyboardEvent<HTMLInputElement>,
   ) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       onClickBtn();
     }
   };
 
   const Btn = () => {
-    if (data.admin_id === "" || data.password === "") {
+    if (data.admin_id === '' || data.password === '') {
       return true;
     } else return false;
   };
@@ -55,14 +55,14 @@ const Login = () => {
           const refreshToken = res.refresh_token;
           saveToken(accessToken, refreshToken);
           localStorage.clear();
-          navigate("/main");
+          navigate('/main');
         },
         onError: (error) => {
-          console.error("Login error:", error);
-          if (error.message === "Request failed with status code 500") {
-            alert("아이디 혹은 비밀번호가 일치하지 않습니다");
-          } else if (error.message === "Request failed with status code 401") {
-            alert("아이디 혹은 비밀번호가 일치하지 않습니다");
+          console.error('Login error:', error);
+          if (error.message === 'Request failed with status code 500') {
+            alert('아이디 혹은 비밀번호가 일치하지 않습니다');
+          } else if (error.message === 'Request failed with status code 401') {
+            alert('아이디 혹은 비밀번호가 일치하지 않습니다');
           }
         },
       });

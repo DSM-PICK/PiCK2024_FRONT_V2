@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import Input from "../input";
-import SearchInput from "../input/search";
-import * as S from "./style";
-import { format } from "date-fns";
-import { SelectTeacher, PostTeacher } from "@/apis/self-study";
-import closeIcon from "@/assets/svg/close.svg";
-import plusIcon from "@/assets/svg/plus.svg";
-import { AddSchedule, DaySchedule, DeleteSchedule } from "@/apis/schedule";
+import { useEffect, useState } from 'react';
+import Input from '../input';
+import SearchInput from '../input/search';
+import * as S from './style';
+import { format } from 'date-fns';
+import { SelectTeacher, PostTeacher } from '@/apis/self-study';
+import closeIcon from '@/assets/svg/close.svg';
+import plusIcon from '@/assets/svg/plus.svg';
+import { AddSchedule, DaySchedule, DeleteSchedule } from '@/apis/schedule';
 
 interface ModalProp {
-  type?: "check" | "red" | "selfStudy" | "schedule";
+  type?: 'check' | 'red' | 'selfStudy' | 'schedule';
   title: string;
   subTitle: string;
   onCancel: () => void;
@@ -41,19 +41,19 @@ export const Modal = ({
   type,
   initialDate,
 }: ModalProp) => {
-  const [secondData, setSecondData] = useState({ floor: 2, teacher: "" });
-  const [thirdData, setThirdData] = useState({ floor: 3, teacher: "" });
-  const [fourthData, setFourthData] = useState({ floor: 4, teacher: "" });
+  const [secondData, setSecondData] = useState({ floor: 2, teacher: '' });
+  const [thirdData, setThirdData] = useState({ floor: 3, teacher: '' });
+  const [fourthData, setFourthData] = useState({ floor: 4, teacher: '' });
   const [addSchedule, setAddSchedule] = useState<ScheduleData>({
-    event_name: "",
+    event_name: '',
     date: initialDate
-      ? format(new Date(initialDate), "yyyy-MM-dd")
-      : format(new Date(), "yyyy-MM-dd"),
+      ? format(new Date(initialDate), 'yyyy-MM-dd')
+      : format(new Date(), 'yyyy-MM-dd'),
   });
 
   const date = initialDate
-    ? format(new Date(initialDate), "yyyy-MM-dd")
-    : format(new Date(), "yyyy-MM-dd");
+    ? format(new Date(initialDate), 'yyyy-MM-dd')
+    : format(new Date(), 'yyyy-MM-dd');
 
   const { data: SelectSelfList } = SelectTeacher(date);
   const { mutate: postTeacherMutate } = PostTeacher();
@@ -84,10 +84,10 @@ export const Modal = ({
       { id: id },
       {
         onSuccess: () => {
-          alert("삭제에 성공하셨습니다");
+          alert('삭제에 성공하셨습니다');
           window.location.reload();
         },
-      }
+      },
     );
   };
 
@@ -116,7 +116,7 @@ export const Modal = ({
     await addScheduleMutate(addSchedule, {
       onSuccess: () => {
         location.reload();
-        alert("일정이 추가되었습니다");
+        alert('일정이 추가되었습니다');
       },
       onError: (error) => {
         console.log(error);
@@ -143,18 +143,18 @@ export const Modal = ({
   return (
     <S.ModalWrap>
       <S.ModalStyle>
-        {type !== "schedule" && (
+        {type !== 'schedule' && (
           <S.TextWrap>
             <S.ModalTitle>{title}</S.ModalTitle>
             <S.ModalSubTitle>{subTitle}</S.ModalSubTitle>
           </S.TextWrap>
         )}
-        {type === "red" || type === "check" ? (
+        {type === 'red' || type === 'check' ? (
           <S.ButtonWrap>
             <S.CancelButton onClick={onCancel}>취소</S.CancelButton>
             <S.ConfirmButton onClick={onConfirm}>확인</S.ConfirmButton>
           </S.ButtonWrap>
-        ) : type === "selfStudy" ? (
+        ) : type === 'selfStudy' ? (
           <>
             <S.SelfInputWrap>
               <S.InputWrap>
@@ -194,7 +194,7 @@ export const Modal = ({
             </S.ButtonWrap>
           </>
         ) : null}
-        {type === "schedule" && (
+        {type === 'schedule' && (
           <S.ScheduleWrap>
             <S.ScheduleTitle>
               <S.ModalTitle>{title}의 일정</S.ModalTitle>

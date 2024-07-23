@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 interface AcceptListSelection {
   selectedStudents: string[];
@@ -14,12 +14,14 @@ const useAcceptListSelection = (): AcceptListSelection => {
     const isStudentSelected = selectedStudents.includes(id);
     if (isStudentSelected) {
       setSelectedStudents((prevSelectedStudents) =>
-        prevSelectedStudents.filter((selectedStudent) => selectedStudent !== id)
+        prevSelectedStudents.filter(
+          (selectedStudent) => selectedStudent !== id,
+        ),
       );
       setSelectedStudentName((prevSelectedStudentName) =>
         prevSelectedStudentName.filter(
-          (selectedStudentName) => selectedStudentName !== name
-        )
+          (selectedStudentName) => selectedStudentName !== name,
+        ),
       );
     } else {
       setSelectedStudents((prevSelectedStudents) => [

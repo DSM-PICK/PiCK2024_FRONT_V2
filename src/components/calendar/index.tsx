@@ -1,18 +1,18 @@
-import { useCallback, useState, useEffect } from "react";
-import * as S from "./style";
-import lArrow from "@/assets/svg/leftArrow.svg";
-import rArrow from "@/assets/svg/rightArrow.svg";
-import { SelfstudyGet } from "@/apis/self-study";
-import { data as dataType } from "@/apis/type";
-import { MonthScheduleData } from "@/apis/schedule/type";
-import { format } from "date-fns";
-import { enUS, ko } from "date-fns/locale";
-import { styled } from "styled-components";
-import Modal from "../modal";
-import { MonthSchedule } from "@/apis/schedule";
+import { useCallback, useState, useEffect } from 'react';
+import * as S from './style';
+import lArrow from '@/assets/svg/leftArrow.svg';
+import rArrow from '@/assets/svg/rightArrow.svg';
+import { SelfstudyGet } from '@/apis/self-study';
+import { data as dataType } from '@/apis/type';
+import { MonthScheduleData } from '@/apis/schedule/type';
+import { format } from 'date-fns';
+import { enUS, ko } from 'date-fns/locale';
+import { styled } from 'styled-components';
+import Modal from '../modal';
+import { MonthSchedule } from '@/apis/schedule';
 
 interface CalendarProp {
-  type: "selfStudy" | "schedule";
+  type: 'selfStudy' | 'schedule';
 }
 
 const Calendar = ({ type }: CalendarProp) => {
@@ -34,14 +34,14 @@ const Calendar = ({ type }: CalendarProp) => {
 
   const formattedDate = format(
     new Date(selectedYear, selectedMonth - 1),
-    "yyyy년 MMMM",
-    { locale: ko }
+    'yyyy년 MMMM',
+    { locale: ko },
   );
 
   const formattedMonth = format(
     new Date(selectedYear, selectedMonth - 1),
-    "MMMM",
-    { locale: enUS }
+    'MMMM',
+    { locale: enUS },
   ).toUpperCase();
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const Calendar = ({ type }: CalendarProp) => {
   }, [selectedYear, selectedMonth]);
 
   const Get = async () => {
-    if (type === "selfStudy") {
+    if (type === 'selfStudy') {
       await selfstudyMutate(
         { month: formattedMonth, year: selectedYear.toString() },
         {
@@ -59,7 +59,7 @@ const Calendar = ({ type }: CalendarProp) => {
           onError: (error) => {
             console.log(error);
           },
-        }
+        },
       );
     }
     await ScheduleMutate(
@@ -68,18 +68,18 @@ const Calendar = ({ type }: CalendarProp) => {
         onSuccess: (data) => {
           setScheduleData(data);
         },
-      }
+      },
     );
   };
 
   const week = [
-    "일요일",
-    "월요일",
-    "화요일",
-    "수요일",
-    "목요일",
-    "금요일",
-    "토요일",
+    '일요일',
+    '월요일',
+    '화요일',
+    '수요일',
+    '목요일',
+    '금요일',
+    '토요일',
   ];
 
   const lastDay = new Date(selectedYear, selectedMonth, 0).getDate();
@@ -107,11 +107,11 @@ const Calendar = ({ type }: CalendarProp) => {
       <div
         key={i}
         className={
-          v === "일요일"
-            ? "weekday sunday"
-            : v === "토요일"
-            ? "weekday saturday"
-            : "weekday"
+          v === '일요일'
+            ? 'weekday sunday'
+            : v === '토요일'
+              ? 'weekday saturday'
+              : 'weekday'
         }
       >
         {v}
@@ -130,14 +130,14 @@ const Calendar = ({ type }: CalendarProp) => {
     for (let i = 1; i <= lastDay; i++) {
       const currentDate = new Date(selectedYear, selectedMonth - 1, i);
       const day = currentDate.getDay();
-      const dateStr = format(currentDate, "yyyy-MM-dd");
+      const dateStr = format(currentDate, 'yyyy-MM-dd');
 
       const currentData = data.filter(
-        (item) => format(new Date(item.date), "yyyy-MM-dd") === dateStr
+        (item) => format(new Date(item.date), 'yyyy-MM-dd') === dateStr,
       );
 
       const currentSchedule = scheduleData.filter(
-        (item) => item.day === i && item.month === selectedMonth
+        (item) => item.day === i && item.month === selectedMonth,
       );
 
       dayArr.push(
@@ -145,10 +145,10 @@ const Calendar = ({ type }: CalendarProp) => {
           key={`day-${i}`}
           className={
             day === 0
-              ? "weekday sunday"
+              ? 'weekday sunday'
               : day === 6
-              ? "weekday saturday"
-              : "weekday"
+                ? 'weekday saturday'
+                : 'weekday'
           }
           onClick={() => {
             setSelectedDay(i);
@@ -156,7 +156,7 @@ const Calendar = ({ type }: CalendarProp) => {
           }}
         >
           {i}
-          {type === "selfStudy" && currentData.length > 0 && (
+          {type === 'selfStudy' && currentData.length > 0 && (
             <S.SelfStudyListWrap>
               {currentData
                 .slice()
@@ -173,7 +173,7 @@ const Calendar = ({ type }: CalendarProp) => {
                 ))}
             </S.SelfStudyListWrap>
           )}
-          {type === "schedule" && currentSchedule.length > 0 && (
+          {type === 'schedule' && currentSchedule.length > 0 && (
             <>
               {currentSchedule.map((item, index) => (
                 <S.SelfStudyListWrap key={index}>
@@ -185,7 +185,7 @@ const Calendar = ({ type }: CalendarProp) => {
               ))}
             </>
           )}
-        </button>
+        </button>,
       );
     }
 
@@ -195,7 +195,7 @@ const Calendar = ({ type }: CalendarProp) => {
   const selectedDate = selectedDay
     ? new Date(selectedYear, selectedMonth - 1, selectedDay)
     : null;
-  const selectedWeekday = selectedDate ? week[selectedDate.getDay()] : "";
+  const selectedWeekday = selectedDate ? week[selectedDate.getDay()] : '';
 
   return (
     <S.Container>
