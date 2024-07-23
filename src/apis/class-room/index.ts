@@ -8,7 +8,7 @@ export const RequestChange = (floor: number, status: 'OK' | 'QUIET') => {
   return useQuery({
     queryKey: ['RequestChange', floor, status],
     queryFn: async () => {
-      const { data } = await instance.get(
+      const { data } = await instance.get<ClassChangeType[]>(
         `${router}/floor?floor=${floor}&status=${status}`,
       );
       return data;
