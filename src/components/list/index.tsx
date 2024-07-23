@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import * as S from "./style";
+import React, { useState } from 'react';
+import * as S from './style';
 
 interface OutAcceptProp {
   name: string;
@@ -18,7 +18,7 @@ const OutAcceptList = ({ name, date, content, onClick }: OutAcceptProp) => {
   return (
     <S.OutAcceptWrap isActive={isActive} onClick={handleClick}>
       <S.OutAcceptTitle>{name}</S.OutAcceptTitle>
-      <div>{"외출"}</div>
+      <div>{'외출'}</div>
       <S.OutAcceptDate>{date}</S.OutAcceptDate>
       <S.OutAcceptContent>{content}</S.OutAcceptContent>
     </S.OutAcceptWrap>

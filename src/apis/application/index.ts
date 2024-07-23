@@ -6,7 +6,7 @@ const router = `/application`;
 
 export const StudentStateCount = () => {
   return useQuery<StateCountType>({
-    queryKey: ["studentStateCount"],
+    queryKey: ['studentStateCount'],
     queryFn: async () => {
       const { data } = await instance.get(`${router}/status`);
       return data;
@@ -27,7 +27,7 @@ export const OutRequest = (grade: number, class_num: number) => {
 };
 
 export const useOutAccept = () => {
-  return useMutation<void, Error, { status: "OK" | "NO"; ids: string[] }>({
+  return useMutation<void, Error, { status: 'OK' | 'NO'; ids: string[] }>({
     mutationFn: async (param) => {
       try {
         await instance.patch(`${router}/status`, {

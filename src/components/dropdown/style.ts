@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { theme } from "@/styles/theme";
+import styled from 'styled-components';
+import { theme } from '@/styles/theme';
 
 interface DropdownClickProp {
   isActive: boolean;
 }
 
 export const DropdownClickContainer = styled.div<DropdownClickProp>`
-  display: ${({ isActive }) => (isActive ? "flex" : "none")};
+  display: ${({ isActive }) => (isActive ? 'flex' : 'none')};
   position: absolute;
   flex-direction: column;
   top: 120%;

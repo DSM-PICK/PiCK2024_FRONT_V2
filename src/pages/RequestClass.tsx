@@ -1,17 +1,17 @@
-import { AccpetListApi, RequestChange } from "@/apis/class-room";
-import { ClassChangeType } from "@/apis/class-room/type";
-import { Button } from "@/components/Button";
-import BottomButtonWrap from "@/components/Button/bottom";
-import Dropdown from "@/components/dropdown";
-import { Layout } from "@/components/layout";
-import { ClassMoveList } from "@/components/list/classmove";
-import Modal from "@/components/modal";
-import useAcceptListSelection from "@/hook/selectHook";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
-import { theme } from "@/styles/theme";
-import { getStudentString } from "@/utils/utils";
+import { AccpetListApi, RequestChange } from '@/apis/class-room';
+import { ClassChangeType } from '@/apis/class-room/type';
+import { Button } from '@/components/Button';
+import BottomButtonWrap from '@/components/Button/bottom';
+import Dropdown from '@/components/dropdown';
+import { Layout } from '@/components/layout';
+import { ClassMoveList } from '@/components/list/classmove';
+import Modal from '@/components/modal';
+import useAcceptListSelection from '@/hook/selectHook';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { theme } from '@/styles/theme';
+import { getStudentString } from '@/utils/utils';
 
 const RequestClass = () => {
   const nav = useNavigate();
@@ -28,16 +28,16 @@ const RequestClass = () => {
   const handleFloorChange = (selectedOption: number) => {
     setSelectFloor(selectedOption);
     GetRequestChange(
-      { floor: selectedFloor, status: "QUIET" },
+      { floor: selectedFloor, status: 'QUIET' },
       {
         onSuccess: (data) => {
           setData(data);
         },
-      }
+      },
     );
   };
 
-  const confirm = async (state: "OK" | "NO") => {
+  const confirm = async (state: 'OK' | 'NO') => {
     try {
       await AccpetList(
         { status: state, ids: selectedStudents },
@@ -45,7 +45,7 @@ const RequestClass = () => {
           onSuccess: () => {
             window.location.reload();
           },
-        }
+        },
       );
     } catch (error) {
       console.log(error);
@@ -62,7 +62,7 @@ const RequestClass = () => {
           <>
             <Button
               onClick={() => {
-                nav("accpet");
+                nav('accpet');
               }}
               size="small"
               type="main"
@@ -89,13 +89,13 @@ const RequestClass = () => {
       <BottomButtonWrap
         firstContent="거절"
         firstDisabled={false}
-        firstOnclick={() => confirm("NO")}
+        firstOnclick={() => confirm('NO')}
         firstSize="standard"
         firstType="error"
         second={true}
         secondContent="수락"
         secondSize="standard"
-        secondOnclick={() => confirm("OK")}
+        secondOnclick={() => confirm('OK')}
         secondType="main"
       />
       {modal && (

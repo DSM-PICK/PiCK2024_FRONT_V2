@@ -1,11 +1,11 @@
-import React from "react";
-import * as S from "./style";
+import React from 'react';
+import * as S from './style';
 
 interface buttonProp {
   onClick: () => void;
   children: React.ReactNode;
-  type: "main" | "error" | "black" | "error2";
-  size: "standard" | "small";
+  type: 'main' | 'error' | 'black' | 'error2';
+  size: 'standard' | 'small';
   disabled?: boolean;
 }
 

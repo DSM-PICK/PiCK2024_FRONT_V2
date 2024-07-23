@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import NoticeList from "@/components/noticeList";
-import * as S from "./style";
-import { Layout } from "@/components/layout";
-import { Button } from "@/components/Button";
-import { useNavigate } from "react-router-dom";
-import { SimpleNotice } from "@/apis/notice";
-import { SimpleNoticeType } from "@/apis/type";
-import SearchInput from "@/components/input/search";
+import React, { useState } from 'react';
+import NoticeList from '@/components/noticeList';
+import * as S from './style';
+import { Layout } from '@/components/layout';
+import { Button } from '@/components/Button';
+import { useNavigate } from 'react-router-dom';
+import { SimpleNotice } from '@/apis/notice';
+import { SimpleNoticeType } from '@/apis/type';
+import SearchInput from '@/components/input/search';
 
 const NoticePage = () => {
   const { data } = SimpleNotice();
   const nav = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchChange = ({ text }: { text: string; name: string }) => {
     setSearchTerm(text);
@@ -21,7 +21,7 @@ const NoticePage = () => {
 
   const filteredNotices = notices.filter(
     (notice: SimpleNoticeType) =>
-      notice.title.includes(searchTerm) || notice.id.includes(searchTerm)
+      notice.title.includes(searchTerm) || notice.id.includes(searchTerm),
   );
 
   return (
@@ -33,7 +33,7 @@ const NoticePage = () => {
           <>
             <Button
               onClick={() => {
-                nav("write");
+                nav('write');
               }}
               type="main"
               size="small"

@@ -4,7 +4,7 @@ interface Student {
   grade: number;
   class_num: number;
   num: number;
-  status: "ATTENDANCE" | "PICNIC" | "GO_HOME" | "EMPLOYMENT" | "DROPOUT";
+  status: 'ATTENDANCE' | 'PICNIC' | 'GO_HOME' | 'EMPLOYMENT' | 'DROPOUT';
 }
 
 export interface StudentStatus {

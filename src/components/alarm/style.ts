@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { theme } from "@/styles/theme";
+import styled from 'styled-components';
+import { theme } from '@/styles/theme';
 
 export const AlarmWrap = styled.div`
   z-index: 1;
@@ -11,7 +11,7 @@ export const AlarmWrap = styled.div`
   border-radius: 12px;
   background-color: ${theme.color.normal.white};
   border: 1px solid ${theme.color.gray[50]};
-  box-shadow: ${theme["box-shadow"]};
+  box-shadow: ${theme['box-shadow']};
   &::-webkit-scrollbar {
     width: 5px;
   }

@@ -1,9 +1,9 @@
-import styled, { css } from "styled-components";
-import { theme } from "@/styles/theme";
+import styled, { css } from 'styled-components';
+import { theme } from '@/styles/theme';
 
 interface ButtonProps {
-  type: "main" | "error" | "black" | "error2";
-  size: "standard" | "small";
+  type: 'main' | 'error' | 'black' | 'error2';
+  size: 'standard' | 'small';
   disabled?: boolean;
 }
 

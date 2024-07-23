@@ -1,10 +1,10 @@
-import React from "react";
-import Home from "@/assets/svg/home.svg";
-import nextSvg from "@/assets/svg/next.svg";
-import { useNavigate } from "react-router-dom";
-import * as S from "./style";
-import Header from "@/components/header";
-import { getFullToday } from "@/utils/date";
+import React from 'react';
+import Home from '@/assets/svg/home.svg';
+import nextSvg from '@/assets/svg/next.svg';
+import { useNavigate } from 'react-router-dom';
+import * as S from './style';
+import Header from '@/components/header';
+import { getFullToday } from '@/utils/date';
 
 interface LayoutProp {
   children: React.ReactNode;
@@ -27,7 +27,7 @@ export const Layout = ({ children, now, right, title, date }: LayoutProp) => {
             width={24}
             height={24}
             onClick={() => {
-              nav("/main");
+              nav('/main');
             }}
           />
           <img src={nextSvg} alt="" />

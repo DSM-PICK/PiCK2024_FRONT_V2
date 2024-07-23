@@ -1,21 +1,21 @@
-import React, { useEffect, useState, useRef } from "react";
-import * as S from "./style";
-import AlarmSvg from "@/assets/svg/alarm.svg";
-import FaceSvg from "@/assets/svg/face.svg";
-import MenuSvg from "@/assets/svg/menu.svg";
-import HelfMenu from "@/components/helpmenu";
-import Alarm from "@/components/alarm";
-import Menu from "@/components/menu";
-import { MyName } from "@/apis/admin";
+import React, { useEffect, useState, useRef } from 'react';
+import * as S from './style';
+import AlarmSvg from '@/assets/svg/alarm.svg';
+import FaceSvg from '@/assets/svg/face.svg';
+import MenuSvg from '@/assets/svg/menu.svg';
+import HelfMenu from '@/components/helpmenu';
+import Alarm from '@/components/alarm';
+import Menu from '@/components/menu';
+import { MyName } from '@/apis/admin';
 
 interface HeaderIconType {
-  type: "help" | "alarm" | "menu";
+  type: 'help' | 'alarm' | 'menu';
 }
 
 const Header = () => {
   const { mutate: MynameMutate } = MyName();
 
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<string>('');
   const [helpModalOpen, setHelpModalOpen] = useState<boolean>(false);
   const [alarmModalOpen, setAlarmModalOpen] = useState<boolean>(false);
   const [menuModalOpen, setMenuModalOpen] = useState<boolean>(false);
@@ -25,7 +25,7 @@ const Header = () => {
   const menuModalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const name = localStorage.getItem("name");
+    const name = localStorage.getItem('name');
     if (name) {
       setName(name);
     } else {
@@ -36,30 +36,30 @@ const Header = () => {
   const SaveName = async () => {
     await MynameMutate(null, {
       onSuccess: (data) => {
-        localStorage.setItem("name", data.name || "");
-        localStorage.setItem("grade", JSON.stringify(data.grade) || "0");
+        localStorage.setItem('name', data.name || '');
+        localStorage.setItem('grade', JSON.stringify(data.grade) || '0');
         localStorage.setItem(
-          "class_num",
-          JSON.stringify(data.class_num) || "0"
+          'class_num',
+          JSON.stringify(data.class_num) || '0',
         );
         setName(data.name);
       },
     });
   };
 
-  const handleIconClick = (type: HeaderIconType["type"]) => {
+  const handleIconClick = (type: HeaderIconType['type']) => {
     switch (type) {
-      case "help":
+      case 'help':
         setHelpModalOpen(true);
         setAlarmModalOpen(false);
         setMenuModalOpen(false);
         break;
-      case "alarm":
+      case 'alarm':
         setHelpModalOpen(false);
         setAlarmModalOpen(true);
         setMenuModalOpen(false);
         break;
-      case "menu":
+      case 'menu':
         setHelpModalOpen(false);
         setAlarmModalOpen(false);
         setMenuModalOpen(true);
@@ -100,9 +100,9 @@ const Header = () => {
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [helpModalOpen, alarmModalOpen, menuModalOpen]);
 
@@ -114,17 +114,17 @@ const Header = () => {
           <S.IconStyle
             src={FaceSvg}
             alt="아이콘"
-            onClick={() => handleIconClick("help")}
+            onClick={() => handleIconClick('help')}
           />
           <S.IconStyle
             src={AlarmSvg}
             alt="아이콘"
-            onClick={() => handleIconClick("alarm")}
+            onClick={() => handleIconClick('alarm')}
           />
           <S.IconStyle
             src={MenuSvg}
             alt="아이콘"
-            onClick={() => handleIconClick("menu")}
+            onClick={() => handleIconClick('menu')}
           />
         </S.HeaderIconWrap>
       </S.HeaderWrap>

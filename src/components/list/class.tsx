@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { theme } from "@/styles/theme";
-import StatusDrop from "../dropdown/status";
-import { ChangeStudentStatus } from "@/apis/status";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { theme } from '@/styles/theme';
+import StatusDrop from '../dropdown/status';
+import { ChangeStudentStatus } from '@/apis/status';
 
-type Status = "ATTENDANCE" | "PICNIC" | "GO_HOME" | "EMPLOYMENT" | "DROPOUT";
+type Status = 'ATTENDANCE' | 'PICNIC' | 'GO_HOME' | 'EMPLOYMENT' | 'DROPOUT';
 
 interface ClassListProp {
   number: string;
@@ -25,7 +25,7 @@ const ClassList = ({ number, name, status, id }: ClassListProp) => {
 
     ChangeMutate(newModifiedStudents, {
       onSuccess: () => {
-        alert("변경되었습니다");
+        alert('변경되었습니다');
         //나중에 토스트로 대체 할 예정
       },
     });
@@ -33,18 +33,18 @@ const ClassList = ({ number, name, status, id }: ClassListProp) => {
 
   const changeStatusName = () => {
     switch (status) {
-      case "ATTENDANCE":
-        return "출석";
-      case "PICNIC":
-        return "현체";
-      case "EMPLOYMENT":
-        return "취업";
-      case "GO_HOME":
-        return "귀가";
-      case "DROPOUT":
-        return "자퇴";
+      case 'ATTENDANCE':
+        return '출석';
+      case 'PICNIC':
+        return '현체';
+      case 'EMPLOYMENT':
+        return '취업';
+      case 'GO_HOME':
+        return '귀가';
+      case 'DROPOUT':
+        return '자퇴';
       default:
-        return "";
+        return '';
     }
   };
 

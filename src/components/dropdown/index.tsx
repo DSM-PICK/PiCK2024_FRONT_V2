@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
-import arrow from "@/assets/svg/dropdownImg.svg";
-import downarrow from "@/assets/svg/dropdownArrowImg2.svg";
-import * as S from "./style";
+import React, { useState, useRef, useEffect } from 'react';
+import arrow from '@/assets/svg/dropdownImg.svg';
+import downarrow from '@/assets/svg/dropdownArrowImg2.svg';
+import * as S from './style';
 
 interface Option {
   value: number;
@@ -9,7 +9,7 @@ interface Option {
 }
 
 interface DropProps {
-  type: "floor" | "grade" | "class" | "club" | "all";
+  type: 'floor' | 'grade' | 'class' | 'club' | 'all';
   onChange?: (selectedOption: number) => void;
 }
 
@@ -36,9 +36,9 @@ const Dropdown: React.FC<DropProps> = ({ type, onChange }) => {
         setIsDropdownVisible(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -46,19 +46,19 @@ const Dropdown: React.FC<DropProps> = ({ type, onChange }) => {
     if (onChange) {
       onChange(option);
       switch (type) {
-        case "grade":
+        case 'grade':
           setSelectedGradeOption(option);
           break;
-        case "class":
+        case 'class':
           setSelectedClassOption(option);
           break;
-        case "floor":
+        case 'floor':
           setSelectedFloorOption(option);
           break;
         // case "club":
         //   setSelectedClubOption(option.label);
         //   break;
-        case "all":
+        case 'all':
           setSelectedAllOption(option);
           break;
         default:
@@ -70,13 +70,13 @@ const Dropdown: React.FC<DropProps> = ({ type, onChange }) => {
 
   const title = () => {
     switch (type) {
-      case "grade":
+      case 'grade':
         return `${selectedGradeOption}학년`;
 
-      case "class":
+      case 'class':
         return `${selectedClassOption}반`;
 
-      case "floor": {
+      case 'floor': {
         if (selectedFloorOption === 5) {
           return `전체`;
         } else {
@@ -84,62 +84,62 @@ const Dropdown: React.FC<DropProps> = ({ type, onChange }) => {
         }
       }
 
-      case "all":
+      case 'all':
         return selectedAllOption === 5 ? `전체` : `${selectedAllOption}학년`;
 
       // case "club":
       //   return selectedClubOption;
       default:
-        return "";
+        return '';
     }
   };
 
   const options =
-    type === "floor"
+    type === 'floor'
       ? [
-          { value: 2, label: "2층" },
-          { value: 3, label: "3층" },
-          { value: 4, label: "4층" },
-          { value: 5, label: "전체" },
+          { value: 2, label: '2층' },
+          { value: 3, label: '3층' },
+          { value: 4, label: '4층' },
+          { value: 5, label: '전체' },
         ]
-      : type === "grade"
-      ? [
-          { value: 1, label: "1학년" },
-          { value: 2, label: "2학년" },
-          { value: 3, label: "3학년" },
-        ]
-      : type === "class"
-      ? [
-          { value: 1, label: "1반" },
-          { value: 2, label: "2반" },
-          { value: 3, label: "3반" },
-          { value: 4, label: "4반" },
-        ]
-      : // type === "club"
-      // ? [
-      //     { value: "대동여지도", label: "세미나실 2-1(대동여지도)" },
-      //     { value: "DMS", label: "세미나실 2-2(DMS)" },
-      //     { value: "gram", label: "세미나실 2-3(gram)" },
-      //     { value: "Lift", label: "소개2실(Lift)" },
-      //     { value: "Log", label: "세미나실 3-1(Log)" },
-      //     { value: "은하", label: "세미나실 3-2(은하)" },
-      //     { value: "PiCK", label: "세미나실 3-3(PiCK)" },
-      //     { value: "어게인", label: "보안 1실(어게인)" },
-      //     { value: "info", label: "보안 2실(info)" },
-      //     { value: "TeamQSS", label: "세미나실 4-1(TeamQSS)" },
-      //     { value: "NoNamed", label: "세미나실 4-2(NoNamed)" },
-      //     { value: "Modeep", label: "세미나실 4-3(Modeep)" },
-      //     { value: "자습", label: "자습" },
-      //   ]
-      // :
-      type === "all"
-      ? [
-          { value: 1, label: "1학년" },
-          { value: 2, label: "2학년" },
-          { value: 3, label: "3학년" },
-          { value: 5, label: "전체" },
-        ]
-      : [];
+      : type === 'grade'
+        ? [
+            { value: 1, label: '1학년' },
+            { value: 2, label: '2학년' },
+            { value: 3, label: '3학년' },
+          ]
+        : type === 'class'
+          ? [
+              { value: 1, label: '1반' },
+              { value: 2, label: '2반' },
+              { value: 3, label: '3반' },
+              { value: 4, label: '4반' },
+            ]
+          : // type === "club"
+            // ? [
+            //     { value: "대동여지도", label: "세미나실 2-1(대동여지도)" },
+            //     { value: "DMS", label: "세미나실 2-2(DMS)" },
+            //     { value: "gram", label: "세미나실 2-3(gram)" },
+            //     { value: "Lift", label: "소개2실(Lift)" },
+            //     { value: "Log", label: "세미나실 3-1(Log)" },
+            //     { value: "은하", label: "세미나실 3-2(은하)" },
+            //     { value: "PiCK", label: "세미나실 3-3(PiCK)" },
+            //     { value: "어게인", label: "보안 1실(어게인)" },
+            //     { value: "info", label: "보안 2실(info)" },
+            //     { value: "TeamQSS", label: "세미나실 4-1(TeamQSS)" },
+            //     { value: "NoNamed", label: "세미나실 4-2(NoNamed)" },
+            //     { value: "Modeep", label: "세미나실 4-3(Modeep)" },
+            //     { value: "자습", label: "자습" },
+            //   ]
+            // :
+            type === 'all'
+            ? [
+                { value: 1, label: '1학년' },
+                { value: 2, label: '2학년' },
+                { value: 3, label: '3학년' },
+                { value: 5, label: '전체' },
+              ]
+            : [];
 
   return (
     <S.DropdownTitle ref={dropdownRef} onClick={toggleDropdown}>

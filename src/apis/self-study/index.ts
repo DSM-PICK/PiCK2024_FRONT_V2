@@ -1,17 +1,17 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { instance } from "@/apis";
-import { data, todaySelfStudTeacher } from "@/apis/type";
-import { getFullToday } from "@/utils/date";
-import { postTeacherProp } from "./type";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { instance } from '@/apis';
+import { data, todaySelfStudTeacher } from '@/apis/type';
+import { getFullToday } from '@/utils/date';
+import { postTeacherProp } from './type';
 
 const router = `/self-study`;
 
 export const TodaySelfStudy = () => {
   return useQuery<todaySelfStudTeacher[]>({
-    queryKey: ["todaySelfStudTeacher"],
+    queryKey: ['todaySelfStudTeacher'],
     queryFn: async () => {
       const { data } = await instance.get(
-        `${router}/today?date=${getFullToday()}`
+        `${router}/today?date=${getFullToday()}`,
       );
       return data;
     },
@@ -35,7 +35,7 @@ export const PostTeacher = () => {
       try {
         await instance.post(`/self-study/register`, param);
       } catch (error) {
-        console.log("");
+        console.log('');
       }
     },
   });
@@ -43,13 +43,13 @@ export const PostTeacher = () => {
 
 export const SelectTeacher = (date: string) => {
   return useQuery<data[]>({
-    queryKey: ["SelectTeacher", date],
+    queryKey: ['SelectTeacher', date],
     queryFn: async () => {
       try {
         const response = await instance.get(`self-study/date?date=${date}`);
         return response.data;
       } catch (error) {
-        console.log("");
+        console.log('');
       }
     },
   });
