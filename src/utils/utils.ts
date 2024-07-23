@@ -36,20 +36,20 @@ export const setStudentNum = ({ grade, class_num, num }: studentNum) => {
   return `${grade}${class_num}${change}`;
 };
 
-export type outCheck = "OK" | "NO";
+export type outCheck = 'OK' | 'NO';
 
 export const Grade = (grade: number[]) => {
   if (grade.includes(4)) {
-    return "전";
+    return '전';
   } else {
-    return grade.join(", ");
+    return grade.join(', ');
   }
 };
 
-export const ChangeOut = (type: "APPLICATION" | "EARLY_RETURN") => {
-  if (type === "APPLICATION") {
-    return "외출";
-  } else if (type === "EARLY_RETURN") {
-    return "조기귀가";
+export const ChangeOut = (type: 'APPLICATION' | 'EARLY_RETURN') => {
+  if (type === 'APPLICATION') {
+    return '외출';
+  } else if (type === 'EARLY_RETURN') {
+    return '조기귀가';
   }
 };

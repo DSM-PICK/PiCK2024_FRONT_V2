@@ -1,5 +1,5 @@
-import Calendar from "@/components/calendar";
-import { Layout } from "@/components/layout";
+import Calendar from '@/components/calendar';
+import { Layout } from '@/components/layout';
 
 const Schedule = () => {
   return (

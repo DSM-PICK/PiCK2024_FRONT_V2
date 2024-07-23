@@ -1,13 +1,13 @@
-import React from "react";
-import { getToday } from "@/utils/date";
-import * as S from "./style";
-import StudentsState from "@/components/StudentsState";
-import MealInfo from "@/components/meal";
-import closeIcon from "@/assets/svg/close.svg";
-import SelfStudyList from "@/components/selfStudyTeacher";
-import { TodaySelfStudy } from "@/apis/self-study";
-import { TodayMeals } from "@/apis/meal";
-import { StudentStateCount } from "@/apis/application";
+import React from 'react';
+import { getToday } from '@/utils/date';
+import * as S from './style';
+import StudentsState from '@/components/StudentsState';
+import MealInfo from '@/components/meal';
+import closeIcon from '@/assets/svg/close.svg';
+import SelfStudyList from '@/components/selfStudyTeacher';
+import { TodaySelfStudy } from '@/apis/self-study';
+import { TodayMeals } from '@/apis/meal';
+import { StudentStateCount } from '@/apis/application';
 
 interface MenuProp {
   closeOnClick: () => void;
@@ -44,7 +44,7 @@ const Menu = ({ closeOnClick }: MenuProp) => {
           <S.MenuText>오늘의 자습감독</S.MenuText>
           <S.SelfStudyListWrap>
             {selfStudyData?.length === 0
-              ? "오늘의 자습감독 정보가 없습니다"
+              ? '오늘의 자습감독 정보가 없습니다'
               : selfStudyData?.map((item) => (
                   <SelfStudyList
                     floor={item.floor}

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "@/components/Button";
-import Input from "@/components/input";
-import { Layout } from "@/components/layout";
-import { theme } from "@/styles/theme";
-import { styled } from "styled-components";
-import { ChangeProps } from "@/apis/type";
-import { setDate } from "date-fns";
+import React, { useState, useEffect } from 'react';
+import { Button } from '@/components/Button';
+import Input from '@/components/input';
+import { Layout } from '@/components/layout';
+import { theme } from '@/styles/theme';
+import { styled } from 'styled-components';
+import { ChangeProps } from '@/apis/type';
+import { setDate } from 'date-fns';
 
 const ChangePassword = () => {
-  const [newPassword, setNewpassword] = useState<string>("");
-  const [checkPassword, setCheckPassword] = useState<string>("");
+  const [newPassword, setNewpassword] = useState<string>('');
+  const [checkPassword, setCheckPassword] = useState<string>('');
 
   const handleChange = ({ text }: ChangeProps) => {
     setNewpassword(text);
@@ -22,8 +22,8 @@ const ChangePassword = () => {
   const BtnCheck = () => {
     if (
       newPassword === checkPassword &&
-      newPassword !== "" &&
-      checkPassword !== ""
+      newPassword !== '' &&
+      checkPassword !== ''
     ) {
       return false;
     } else {

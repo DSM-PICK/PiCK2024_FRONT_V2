@@ -1,15 +1,20 @@
 import { Layout } from "@/components/layout";
 import * as S from "./style";
-import { GetOutList, ReturnSchool } from "@/apis/application";
+import { OutListFloor, ReturnSchool } from "@/apis/application";
 import OutAcceptList from "@/components/list";
 import BottomButtonWrap from "@/components/Button/bottom";
 import useAcceptListSelection from "@/hook/selectHook";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "@/components/modal";
+import Dropdown from "@/components/dropdown";
 
 const OutList = () => {
-  const { data: nonreturnStuden } = GetOutList();
   const { mutate: Return } = ReturnSchool();
+  const [selectedFloor, setSelectedFloor] = useState<number>(5);
+  const { data: OutListFloorData, refetch: refetchOutList } = OutListFloor(
+    selectedFloor,
+    "OK"
+  );
   const { selectedStudentName, selectedStudents, handleAcceptListClick } =
     useAcceptListSelection();
 
@@ -23,12 +28,24 @@ const OutList = () => {
     });
   };
 
+  const handleFloorChange = (option: number) => {
+    setSelectedFloor(option);
+  };
+
+  useEffect(() => {
+    refetchOutList();
+  }, [selectedFloor]);
+
   return (
     <>
-      <Layout now="외출자 목록" title="외출자 목록">
+      <Layout
+        now="외출자 목록"
+        title="외출자 목록"
+        right={<Dropdown type="floor" onChange={handleFloorChange} />}
+      >
         <S.SemiTitle>오늘 외출한 학생</S.SemiTitle>
         <S.OutListContainer>
-          {nonreturnStuden?.map((item, index) => (
+          {OutListFloorData?.map((item, index) => (
             <OutAcceptList
               key={index}
               name={item.username}
@@ -57,8 +74,8 @@ const OutList = () => {
                   selectedStudentName.length - 1
                 }명을 복귀시키겠습니까?`
               : selectedStudentName.length === 1
-              ? `${selectedStudentName[0]}을 복귀시키겠습니까?`
-              : ""
+                ? `${selectedStudentName[0]}을 복귀시키겠습니까?`
+                : ""
           }`}
           subTitle="복귀 시에는 외출이 끝나게 됩니다."
           onCancel={() => {

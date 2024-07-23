@@ -1,112 +1,112 @@
-import { createBrowserRouter } from "react-router-dom";
-import Login from "@/pages/login/page";
-import Main from "@/pages/Main";
-import RequestClass from "@/pages/RequestClass";
-import ClassManage from "@/pages/classManage";
-import MoveClass from "@/pages/moveClass";
-import NoticePage from "@/pages/notice";
-import NoticeDetail from "@/pages/notice/detail";
-import NoticeWrite from "@/pages/notice/write";
-import OutAccept from "@/pages/outAccept";
-import OutList from "@/pages/outList";
-import PreviousList from "@/pages/previousList/index";
-import WeekedMeal from "@/pages/weekendMeal";
-import Calendar from "@/components/calendar";
-import ChangePassword from "@/pages/changePassword";
-import PreviousDetail from "@/pages/previousList/detail";
-import SelfStudy from "@/pages/self-study";
-import Schedule from "@/pages/schedule";
-import NotFound from "@/pages/404Page";
+import { createBrowserRouter } from 'react-router-dom';
+import Login from '@/pages/login/page';
+import Main from '@/pages/Main';
+import RequestClass from '@/pages/RequestClass';
+import ClassManage from '@/pages/classManage';
+import MoveClass from '@/pages/moveClass';
+import NoticePage from '@/pages/notice';
+import NoticeDetail from '@/pages/notice/detail';
+import NoticeWrite from '@/pages/notice/write';
+import OutAccept from '@/pages/outAccept';
+import OutList from '@/pages/outList';
+import PreviousList from '@/pages/previousList/index';
+import WeekedMeal from '@/pages/weekendMeal';
+import Calendar from '@/components/calendar';
+import ChangePassword from '@/pages/changePassword';
+import PreviousDetail from '@/pages/previousList/detail';
+import SelfStudy from '@/pages/self-study';
+import Schedule from '@/pages/schedule';
+import NotFound from '@/pages/404Page';
 
 export const Router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     children: [
       {
-        path: "main",
+        path: 'main',
         element: <Main />,
       },
       {
-        path: "*",
+        path: '*',
         element: <NotFound />,
       },
       {
-        path: "login",
+        path: 'login',
         element: <Login />,
       },
       {
-        path: "*",
+        path: '*',
         element: <OutAccept />,
       },
       {
-        path: "notice",
+        path: 'notice',
         children: [
           {
-            path: "",
+            path: '',
             element: <NoticePage />,
           },
           {
-            path: "write",
+            path: 'write',
             element: <NoticeWrite />,
           },
           {
-            path: ":detail",
+            path: ':detail',
             element: <NoticeDetail />,
           },
         ],
       },
       {
-        path: "weekendMeal",
+        path: 'weekendMeal',
         element: <WeekedMeal />,
       },
       {
-        path: "outAccept",
+        path: 'outAccept',
         element: <OutAccept />,
       },
       {
-        path: "outList",
+        path: 'outList',
         element: <OutList />,
       },
       {
-        path: "classMove",
+        path: 'classMove',
         children: [
           {
-            path: "accpet",
+            path: 'accpet',
             element: <MoveClass />,
           },
           {
-            path: "",
+            path: '',
             element: <RequestClass />,
           },
         ],
       },
       {
-        path: "classManage",
+        path: 'classManage',
         element: <ClassManage />,
       },
       {
-        path: "passwordChange",
+        path: 'passwordChange',
         element: <ChangePassword />,
       },
       {
-        path: "self-study",
+        path: 'self-study',
         element: <SelfStudy />,
       },
       {
-        path: "previousList",
+        path: 'previousList',
         children: [
           {
-            path: "",
+            path: '',
             element: <PreviousList />,
           },
           {
-            path: ":detail",
+            path: ':detail',
             element: <PreviousDetail />,
           },
         ],
       },
       {
-        path: "schedule",
+        path: 'schedule',
         element: <Schedule />,
       },
     ],

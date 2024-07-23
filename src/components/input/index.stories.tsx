@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import Index from "./index";
+import Index from './index';
 
 const meta = {
   component: Index,
@@ -12,8 +12,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    widthtype: "long",
-    value: "string",
+    widthtype: 'long',
+    value: 'string',
     onChange: ({ text, name }) => {},
   },
 };
