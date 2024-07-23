@@ -1,10 +1,10 @@
-import { Layout } from "@/components/layout";
-import nextSvg from "@/assets/svg/next.svg";
-import { useNavigate, useParams } from "react-router-dom";
-import { DetailNotice } from "@/apis/notice";
-import { useEffect, useState } from "react";
-import { NoticeDetailType } from "@/apis/type";
-import * as S from "../style";
+import { Layout } from '@/components/layout';
+import nextSvg from '@/assets/svg/next.svg';
+import { useNavigate, useParams } from 'react-router-dom';
+import { DetailNotice } from '@/apis/notice';
+import { useEffect, useState } from 'react';
+import { NoticeDetailType } from '@/apis/type';
+import * as S from '../style';
 
 const NoticeDetail = () => {
   const params = useParams();
@@ -18,7 +18,7 @@ const NoticeDetail = () => {
         <>
           <span
             onClick={() => {
-              router("/notice");
+              router('/notice');
             }}
           >
             공지

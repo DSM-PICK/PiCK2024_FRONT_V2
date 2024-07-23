@@ -1,18 +1,18 @@
-import { Layout } from "@/components/layout";
-import { useNavigate } from "react-router-dom";
-import nextSvg from "@/assets/svg/next.svg";
-import Input from "@/components/input";
-import * as S from "../style";
-import { getFullToday } from "@/utils/date";
-import BottomButtonWrap from "@/components/Button/bottom";
-import { useState } from "react";
-import { ChangeProps } from "@/apis/type";
-import { UploadNotice } from "@/apis/notice";
+import { Layout } from '@/components/layout';
+import { useNavigate } from 'react-router-dom';
+import nextSvg from '@/assets/svg/next.svg';
+import Input from '@/components/input';
+import * as S from '../style';
+import { getFullToday } from '@/utils/date';
+import BottomButtonWrap from '@/components/Button/bottom';
+import { useState } from 'react';
+import { ChangeProps } from '@/apis/type';
+import { UploadNotice } from '@/apis/notice';
 
 const NoticeWrite = () => {
   const router = useNavigate();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   const { mutate: UploadNoticeMutate } = UploadNotice();
 
@@ -21,12 +21,12 @@ const NoticeWrite = () => {
   };
 
   const handleContentChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     setContent(event.target.value);
   };
 
-  const name = localStorage.getItem("name");
+  const name = localStorage.getItem('name');
 
   const Upload = () => {
     UploadNoticeMutate(
@@ -43,7 +43,7 @@ const NoticeWrite = () => {
         onError: () => {
           //에러시 토스트
         },
-      }
+      },
     );
   };
 
@@ -54,7 +54,7 @@ const NoticeWrite = () => {
           <>
             <p
               onClick={() => {
-                router("/notice");
+                router('/notice');
               }}
             >
               공지

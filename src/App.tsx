@@ -1,8 +1,8 @@
-import { RouterProvider } from "react-router-dom";
-import { Router } from "./router/router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { GlobalStyle, theme } from "./styles/theme";
-import { ThemeProvider } from "styled-components";
+import { RouterProvider } from 'react-router-dom';
+import { Router } from './router/router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { GlobalStyle, theme } from './styles/theme';
+import { ThemeProvider } from 'styled-components';
 
 const queryClient = new QueryClient({
   defaultOptions: {

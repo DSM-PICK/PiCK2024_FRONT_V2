@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { theme } from '@/styles/theme';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export const StudentsStateContainer = styled.div`
   width: 100%;

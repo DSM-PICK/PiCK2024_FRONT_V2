@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "@/components/Button";
-import Dropdown from "@/components/dropdown";
-import { Layout } from "@/components/layout";
-import { GetAllMeals } from "@/apis/weekend-meals";
-import { styled } from "styled-components";
-import { theme } from "@/styles/theme";
-import WeekEndList from "@/components/list/weekendMeal";
-import { DownLoad } from "@/apis/meal";
-import { setStudentNum } from "@/utils/utils";
+import React, { useEffect, useState } from 'react';
+import { Button } from '@/components/Button';
+import Dropdown from '@/components/dropdown';
+import { Layout } from '@/components/layout';
+import { GetAllMeals } from '@/apis/weekend-meals';
+import { styled } from 'styled-components';
+import { theme } from '@/styles/theme';
+import WeekEndList from '@/components/list/weekendMeal';
+import { DownLoad } from '@/apis/meal';
+import { setStudentNum } from '@/utils/utils';
 
 interface Option {
   value: number;
@@ -114,7 +114,7 @@ const NoticeWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 20% 20px 20%;
+  padding: 20px 20%;
   cursor: pointer;
   background-color: ${theme.color.gray[50]};
   font-size: ${theme.font.heading[4].size};

@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { instance } from "..";
 import { ChangeStatusType, StudentStatus } from "./type";
 
-const router = "/status";
+const router = '/status';
 
 export const GetClassStatus = (grade:number, class_num:number) => {
   return useQuery({

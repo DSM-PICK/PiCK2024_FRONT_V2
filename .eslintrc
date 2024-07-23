@@ -1,0 +1,25 @@
+{
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended",
+		"prettier",
+	],
+	"plugins": ["prettier"],
+	"rules": {
+		"prettier/prettier": "error",
+		"react/prop-types": "off",
+	},
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true,
+		},
+		"ecmaVersion": 12,
+		"sourceType": "module",
+	},
+	"settings": {
+		"react": {
+			"version": "detect",
+		},
+	},
+}

@@ -1,5 +1,5 @@
-import React from "react";
-import * as S from "./style";
+import React from 'react';
+import * as S from './style';
 
 interface HelpContentProp {
   icon: React.ReactNode;

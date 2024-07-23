@@ -1,12 +1,12 @@
-import { theme } from "@/styles/theme";
-import { styled } from "styled-components";
+import { theme } from '@/styles/theme';
+import { styled } from 'styled-components';
 
 interface ApplicationProp {
   reason: string;
   start_time: string;
   end_time: string;
   date: string;
-  type: "APPLICATION" | "EARLY_RETURN";
+  type: 'APPLICATION' | 'EARLY_RETURN';
 }
 
 const ApplicationDetail = ({
@@ -19,7 +19,7 @@ const ApplicationDetail = ({
   return (
     <Content>
       <TopTitle>
-        <Bedge>{type === "APPLICATION" ? "외출" : "조기귀가"}</Bedge>
+        <Bedge>{type === 'APPLICATION' ? '외출' : '조기귀가'}</Bedge>
         <Date>{date}</Date>
         <Time>
           {start_time} ~ {end_time}

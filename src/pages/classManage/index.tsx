@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Dropdown from "@/components/dropdown";
-import { Layout } from "@/components/layout";
-import ClassList from "@/components/list/class";
-import { theme } from "@/styles/theme";
-import styled from "styled-components";
-import { GetClassStatus } from "@/apis/status";
-import { StudentStatus } from "@/apis/status/type";
-import { setStudentNum } from "@/utils/utils";
+import React, { useState, useEffect } from 'react';
+import Dropdown from '@/components/dropdown';
+import { Layout } from '@/components/layout';
+import ClassList from '@/components/list/class';
+import { theme } from '@/styles/theme';
+import styled from 'styled-components';
+import { GetClassStatus } from '@/apis/status';
+import { StudentStatus } from '@/apis/status/type';
+import { setStudentNum } from '@/utils/utils';
 
 const ClassManage = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(1);

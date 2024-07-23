@@ -1,7 +1,7 @@
-import * as S from "./style";
-import React, { useEffect, useRef, useState } from "react";
-import search from "@/assets/svg/search.svg";
-import { GetAllTeacher } from "@/apis/admin";
+import * as S from './style';
+import React, { useEffect, useRef, useState } from 'react';
+import search from '@/assets/svg/search.svg';
+import { GetAllTeacher } from '@/apis/admin';
 
 interface ChangeProps {
   text: string;
@@ -15,13 +15,13 @@ interface InputProp {
   name?: string;
   value: string;
   password?: boolean;
-  type: "Search" | "self" | "schedule";
+  type: 'Search' | 'self' | 'schedule';
 }
 
 const SearchInput = ({
   label,
   placeholder,
-  name = "",
+  name = '',
   onChange,
   value,
   type,
@@ -35,12 +35,12 @@ const SearchInput = ({
     const inputValue = e.target.value;
     onChange({ text: inputValue, name: e.target.name });
 
-    if (type === "self") {
+    if (type === 'self') {
       setList(true);
       const filteredList = teacherData?.filter((teacher: string) =>
-        teacher.toLowerCase().includes(inputValue.toLowerCase())
+        teacher.toLowerCase().includes(inputValue.toLowerCase()),
       );
-      setFilteredTeachers(filteredList || [""]);
+      setFilteredTeachers(filteredList || ['']);
     }
   };
 
@@ -53,9 +53,9 @@ const SearchInput = ({
         setList(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -63,7 +63,7 @@ const SearchInput = ({
     <S.InputWrap ref={dropdownRef}>
       {label && <S.inputLabel>{label}</S.inputLabel>}
       <S.SearchWidth>
-        {type === "Search" && <img src={search} alt="Icon" />}
+        {type === 'Search' && <img src={search} alt="Icon" />}
         <S.SearchInput
           onClick={() => {
             setList(true);
@@ -74,7 +74,7 @@ const SearchInput = ({
           value={value}
           onChange={handleChange}
         />
-        {type === "self" && list && (
+        {type === 'self' && list && (
           <S.TeacherList>
             {filteredTeachers.map((teacher, index) => (
               <S.TeacherText

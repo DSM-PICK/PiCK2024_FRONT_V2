@@ -12,6 +12,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "axios": "^1.6.8",
     "date-fns": "^3.6.0",
+    "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-cookie": "^7.1.4",
     "react-dom": "^18.3.1",
@@ -29,7 +30,14 @@
     "build": "vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6008",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "devDependencies": {
     "@chromatic-com/storybook": "1.6.1",
@@ -42,6 +50,13 @@
     "@storybook/react": "^8.2.4",
     "@storybook/react-webpack5": "^8.2.4",
     "@storybook/test": "^8.2.4",
+    "@typescript-eslint/parser": "^7.16.1",
+    "eslint": "^9.7.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "prop-types": "15.8.1",
     "webpack": "5.93.0"
   }

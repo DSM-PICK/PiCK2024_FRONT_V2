@@ -1,7 +1,7 @@
-import * as S from "./style";
-import React, { useState } from "react";
-import eyeOff from "@/assets/svg/eye.svg";
-import eye from "@/assets/svg/eyesOpen.svg";
+import * as S from './style';
+import React, { useState } from 'react';
+import eyeOff from '@/assets/svg/eye.svg';
+import eye from '@/assets/svg/eyesOpen.svg';
 
 interface ChangeProps {
   text: string;
@@ -11,7 +11,7 @@ interface ChangeProps {
 interface InputProp {
   label?: string;
   placeholder?: string;
-  widthtype: "long" | "login";
+  widthtype: 'long' | 'login';
   onChange: ({ text, name }: ChangeProps) => void;
   name?: string;
   value: string;
@@ -23,18 +23,18 @@ const Input = ({
   label,
   placeholder,
   widthtype,
-  name = "",
+  name = '',
   onChange,
   value,
   onKeyDown,
   password,
 }: InputProp) => {
   const [showOpen, setShowOpen] = useState<boolean>(false);
-  const [inputType, setInputType] = useState<string>("password");
+  const [inputType, setInputType] = useState<string>('password');
 
   const togglePasswordVisibility = () => {
     setShowOpen(!showOpen);
-    setInputType(showOpen ? "password" : "text");
+    setInputType(showOpen ? 'password' : 'text');
   };
 
   return (
@@ -42,7 +42,7 @@ const Input = ({
       <S.inputLabel>{label}</S.inputLabel>
       <S.InputContainer type={widthtype}>
         <S.inputContent
-          type={password ? inputType : "text"}
+          type={password ? inputType : 'text'}
           placeholder={placeholder}
           name={name}
           value={value}

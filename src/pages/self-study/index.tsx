@@ -1,8 +1,8 @@
-import { TodaySelfStudy } from "@/apis/self-study";
-import Calendar from "@/components/calendar";
-import { Layout } from "@/components/layout";
-import { theme } from "@/styles/theme";
-import { styled } from "styled-components";
+import { TodaySelfStudy } from '@/apis/self-study';
+import Calendar from '@/components/calendar';
+import { Layout } from '@/components/layout';
+import { theme } from '@/styles/theme';
+import { styled } from 'styled-components';
 
 const SelfStudy = () => {
   const { data: Today } = TodaySelfStudy();

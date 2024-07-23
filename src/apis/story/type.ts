@@ -15,6 +15,6 @@ export interface DetailApplication {
     start_time: string;
     end_time: string;
     date: string;
-    type: "APPLICATION" | "EARLY_RETURN";
+    type: 'APPLICATION' | 'EARLY_RETURN';
   }[];
 }

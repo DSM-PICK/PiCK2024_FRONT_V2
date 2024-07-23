@@ -1,12 +1,12 @@
-import { useState } from "react";
-import axios from "axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { cookie } from "@/utils/auth";
-import { Login } from "./request";
-import { instance } from "@/apis";
-import { MynameType } from "@/apis/type";
+import { useState } from 'react';
+import axios from 'axios';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { cookie } from '@/utils/auth';
+import { Login } from './request';
+import { instance } from '@/apis';
+import { MynameType } from '@/apis/type';
 
-const router = "admin";
+const router = 'admin';
 
 export const useLogin = () => {
   const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -24,8 +24,8 @@ export const useLogin = () => {
           const data = response.data;
           setAccessToken(data.access_token);
           setRefreshToken(data.refresh_token);
-          cookie.set("access_token", data.access_token);
-          cookie.set("refresh_token", data.refresh_token);
+          cookie.set('access_token', data.access_token);
+          cookie.set('refresh_token', data.refresh_token);
           return data;
         })
         .catch((error) => {
@@ -35,9 +35,9 @@ export const useLogin = () => {
   });
 
   if (loginMutation.isError) {
-    cookie.remove("access_token");
-    cookie.remove("refresh_token");
-    cookie.remove("part");
+    cookie.remove('access_token');
+    cookie.remove('refresh_token');
+    cookie.remove('part');
     console.error(loginMutation.error);
   }
 
@@ -59,13 +59,13 @@ export const MyName = () => {
 
 export const GetAllTeacher = () => {
   return useQuery<string[]>({
-    queryKey: ["GetAllTeacher"],
+    queryKey: ['GetAllTeacher'],
     queryFn: async () => {
       try {
         const { data } = await instance.get(`${router}/all`);
         return data;
       } catch (error) {
-        console.log("");
+        console.log('');
       }
     },
   });

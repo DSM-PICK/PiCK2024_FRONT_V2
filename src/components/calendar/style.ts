@@ -1,6 +1,6 @@
-import { styled } from "styled-components";
-import "@/styles/theme";
-import { theme } from "@/styles/theme";
+import { styled } from 'styled-components';
+import '@/styles/theme';
+import { theme } from '@/styles/theme';
 
 export const Container = styled.section`
   width: 100%;

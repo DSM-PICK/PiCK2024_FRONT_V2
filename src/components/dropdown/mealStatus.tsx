@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import styled from "styled-components";
-import { theme } from "@/styles/theme";
-import arrow from "@/assets/svg/dropdownImg.svg";
-import downarrow from "@/assets/svg/dropdownArrowImg2.svg";
-import { ChangeState } from "@/apis/weekend-meals";
+import React, { useState, useRef, useEffect } from 'react';
+import styled from 'styled-components';
+import { theme } from '@/styles/theme';
+import arrow from '@/assets/svg/dropdownImg.svg';
+import downarrow from '@/assets/svg/dropdownArrowImg2.svg';
+import { ChangeState } from '@/apis/weekend-meals';
 
 interface Option {
-  value: "OK" | "NO";
+  value: 'OK' | 'NO';
   label: string;
 }
 
@@ -22,15 +22,15 @@ const MealDrop = ({ id }: Prop) => {
   const { mutate: Change } = ChangeState();
 
   const options: Option[] = [
-    { value: "OK", label: "신청" },
-    { value: "NO", label: "미신청" },
+    { value: 'OK', label: '신청' },
+    { value: 'NO', label: '미신청' },
   ];
 
   const toggleDropdown = () => {
     setDropdownVisible(!isDropdownVisible);
   };
 
-  const handleOptionClick = (value: "OK" | "NO") => {
+  const handleOptionClick = (value: 'OK' | 'NO') => {
     const option = options.find((option) => option.value === value);
     setSelectedOption(option || null);
     setDropdownVisible(false);
@@ -39,16 +39,16 @@ const MealDrop = ({ id }: Prop) => {
       { userId: id, status: value },
       {
         onSuccess: () => {
-          console.log("성공");
+          console.log('성공');
         },
         onError: (error) => {
           console.log(error.name);
         },
-      }
+      },
     );
   };
 
-  const title = () => (selectedOption ? selectedOption.label : "미응답");
+  const title = () => (selectedOption ? selectedOption.label : '미응답');
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -60,9 +60,9 @@ const MealDrop = ({ id }: Prop) => {
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 

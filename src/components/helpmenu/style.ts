@@ -1,5 +1,5 @@
-import { styled } from "styled-components";
-import { theme } from "@/styles/theme";
+import { styled } from 'styled-components';
+import { theme } from '@/styles/theme';
 
 export const helpMenuContent = styled.div`
   padding: 16px 24px;
@@ -33,6 +33,6 @@ export const AlarmWrap = styled.div`
   border-radius: 12px;
   background-color: ${theme.color.normal.white};
   border: 1px solid ${theme.color.gray[50]};
-  box-shadow: ${theme["box-shadow"]};
+  box-shadow: ${theme['box-shadow']};
   z-index: 1;
 `;

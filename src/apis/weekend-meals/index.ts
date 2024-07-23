@@ -1,8 +1,8 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { instance } from "..";
-import { ChangeStateParams, GetAllMealsType } from "./type";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { instance } from '..';
+import { ChangeStateParams, GetAllMealsType } from './type';
 
-const router = "weekend-meal";
+const router = 'weekend-meal';
 
 export const GetAllMeals = () => {
   return useQuery<GetAllMealsType[]>({
@@ -19,7 +19,7 @@ export const ChangeState = () => {
     mutationFn: async (params) => {
       try {
         await instance.patch(
-          `weekend-meal/status?id=${params.userId}&status=${params.status}`
+          `weekend-meal/status?id=${params.userId}&status=${params.status}`,
         );
       } catch (error) {
         console.log(error);

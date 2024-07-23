@@ -1,15 +1,15 @@
-import { styled } from "styled-components";
-import { Button } from ".";
+import { styled } from 'styled-components';
+import { Button } from '.';
 
 interface BottomProp {
   firstOnclick: () => void;
-  firstType: "main" | "error" | "black" | "error2";
-  firstSize: "small" | "standard";
+  firstType: 'main' | 'error' | 'black' | 'error2';
+  firstSize: 'small' | 'standard';
   firstContent: string;
   second?: boolean;
   secondOnclick?: () => void;
-  secondType?: "main" | "error" | "black" | "error2";
-  secondSize?: "small" | "standard";
+  secondType?: 'main' | 'error' | 'black' | 'error2';
+  secondSize?: 'small' | 'standard';
   firstDisabled: boolean;
   secondContent?: string;
 }

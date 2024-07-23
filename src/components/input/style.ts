@@ -1,5 +1,5 @@
-import { styled } from "styled-components";
-import { theme } from "@/styles/theme";
+import { styled } from 'styled-components';
+import { theme } from '@/styles/theme';
 
 export const inputContent = styled.input`
   display: flex;
@@ -30,13 +30,13 @@ export const inputLabel = styled.p`
 `;
 
 export const InputContainer = styled.div<{
-  type: "long" | "login" | "password";
+  type: 'long' | 'login' | 'password';
 }>`
   padding: 12px 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ type }) => (type === "long" ? "100%" : "600px")};
+  width: ${({ type }) => (type === 'long' ? '100%' : '600px')};
   height: 48px;
   background-color: ${theme.color.gray[50]};
   border-radius: 12px;
