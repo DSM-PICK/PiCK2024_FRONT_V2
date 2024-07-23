@@ -19,22 +19,13 @@ const RequestClass = () => {
   const { selectedStudents, handleAcceptListClick } = useAcceptListSelection();
 
   const [selectedFloor, setSelectFloor] = useState<number>(5);
-  const [data, setData] = useState<ClassChangeType[]>([]);
   const [modal, setModal] = useState<boolean>(false);
 
-  const { mutate: GetRequestChange } = RequestChange();
+  const { data: GetRequestChange } = RequestChange(selectedFloor, 'QUIET');
   const { mutate: AccpetList } = AccpetListApi();
 
   const handleFloorChange = (selectedOption: number) => {
     setSelectFloor(selectedOption);
-    GetRequestChange(
-      { floor: selectedFloor, status: 'QUIET' },
-      {
-        onSuccess: (data) => {
-          setData(data);
-        },
-      },
-    );
   };
 
   const confirm = async (state: 'OK' | 'NO') => {
@@ -75,7 +66,7 @@ const RequestClass = () => {
       >
         <SubTitle>교실 이동 신청한 학생</SubTitle>
         <Wrap>
-          {data.map((item) => (
+          {GetRequestChange?.map((item) => (
             <ClassMoveList
               onClick={() => handleAcceptListClick(item.id, item.username)}
               name={getStudentString(item)}
