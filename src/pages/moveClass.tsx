@@ -6,36 +6,28 @@ import nextSvg from '@/assets/svg/next.svg';
 import { ClassMoveList } from '@/components/list/classmove';
 import { RequestChange } from '@/apis/class-room';
 import { getStudentString } from '@/utils/utils';
-import Dropdown from '@/components/dropdown';
+import { Dropdown } from '@/components/dropdown';
 import { useEffect, useState } from 'react';
 import useAcceptListSelection from '@/hook/selectHook';
-import { ClassChangeType } from '@/apis/class-room/type';
+import { FloorOption } from '@/utils/dropdown';
 
 const MoveClass = () => {
   const router = useNavigate();
-  const { mutate: ChangingClass } = RequestChange();
   const [selectFloor, setSelectFloor] = useState<number>(5);
-  const [data, setData] = useState<ClassChangeType[]>([]);
+  const { data: ChangingClass, refetch: ReChangeingClass } = RequestChange(
+    selectFloor,
+    'OK',
+  );
+
   const { handleAcceptListClick } = useAcceptListSelection();
 
-  const Get = async (option: number) => {
-    await ChangingClass(
-      { floor: option, status: 'OK' },
-      {
-        onSuccess: (data) => {
-          setData(data);
-        },
-      },
-    );
-  };
-  const handleFloorChange = (selectedOption: number) => {
-    setSelectFloor(selectedOption);
-    Get(selectedOption);
+  const handleFloorChange = (selectedOption: number | string) => {
+    setSelectFloor(Number(selectedOption));
   };
 
   useEffect(() => {
-    Get(selectFloor);
-  }, []);
+    ReChangeingClass();
+  }, [selectFloor]);
 
   return (
     <Layout
@@ -52,11 +44,17 @@ const MoveClass = () => {
           <img src={nextSvg} alt="" /> <p>교실 이동 중인 학생</p>
         </>
       }
-      right={<Dropdown type="floor" onChange={handleFloorChange} />}
+      right={
+        <Dropdown
+          options={FloorOption}
+          value={selectFloor}
+          changeHandler={handleFloorChange}
+        />
+      }
     >
       <SubTitle>교실 이동 중인 학생</SubTitle>
       <Wrap>
-        {data.map((item) => (
+        {ChangingClass?.map((item) => (
           <ClassMoveList
             onClick={() => handleAcceptListClick(item.id, item.username)}
             name={getStudentString(item)}
