@@ -1,30 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import Dropdown from '@/components/dropdown';
+import { useState, useEffect } from 'react';
+import { Dropdown } from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import ClassList from '@/components/list/class';
 import { theme } from '@/styles/theme';
 import styled from 'styled-components';
 import { GetClassStatus } from '@/apis/status';
-import { StudentStatus } from '@/apis/status/type';
 import { setStudentNum } from '@/utils/utils';
+import { Class_numOption, GradeOption, Option } from '@/utils/dropdown';
 
 const ClassManage = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(1);
   const [selectedClass, setSelectedClass] = useState<number>(1);
 
-  const { data: GetStudentStatus, refetch:ReGetClassStatus } = GetClassStatus(selectedGrade, selectedClass);
-
+  const { data: GetStudentStatus, refetch: ReGetClassStatus } = GetClassStatus(
+    selectedGrade,
+    selectedClass,
+  );
 
   useEffect(() => {
-    ReGetClassStatus()
+    ReGetClassStatus();
   }, [selectedClass, selectedGrade]);
 
-  const handleGrade = (option: number) => {
-    setSelectedGrade(option);
+  const handleGrade = (option: string | number) => {
+    setSelectedGrade(Number(option));
   };
 
-  const handleClass = (option: number) => {
-    setSelectedClass(option);
+  const handleClass = (option: string | number) => {
+    setSelectedClass(Number(option));
   };
 
   return (
@@ -33,8 +35,16 @@ const ClassManage = () => {
       title="학급 관리"
       right={
         <>
-          <Dropdown type="grade" onChange={handleGrade} />
-          <Dropdown type="class" onChange={handleClass} />
+          <Dropdown
+            options={GradeOption}
+            value={selectedGrade}
+            changeHandler={handleGrade}
+          />
+          <Dropdown
+            options={Class_numOption}
+            value={selectedClass}
+            changeHandler={handleClass}
+          />
         </>
       }
     >
