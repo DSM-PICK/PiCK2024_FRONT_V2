@@ -2,7 +2,7 @@ import { AccpetListApi, RequestChange } from '@/apis/class-room';
 import { ClassChangeType } from '@/apis/class-room/type';
 import { Button } from '@/components/Button';
 import BottomButtonWrap from '@/components/Button/bottom';
-import Dropdown from '@/components/dropdown';
+import { Dropdown } from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import { ClassMoveList } from '@/components/list/classmove';
 import Modal from '@/components/modal';
@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
 import { getStudentString } from '@/utils/utils';
+import { FloorOption } from '@/utils/dropdown';
 
 const RequestClass = () => {
   const nav = useNavigate();
@@ -24,8 +25,8 @@ const RequestClass = () => {
   const { data: GetRequestChange } = RequestChange(selectedFloor, 'QUIET');
   const { mutate: AccpetList } = AccpetListApi();
 
-  const handleFloorChange = (selectedOption: number) => {
-    setSelectFloor(selectedOption);
+  const handleFloorChange = (selectedOption: number | string) => {
+    setSelectFloor(Number(selectedOption));
   };
 
   const confirm = async (state: 'OK' | 'NO') => {
@@ -60,7 +61,11 @@ const RequestClass = () => {
             >
               교실 이동 현황 보기
             </Button>
-            <Dropdown type="floor" onChange={handleFloorChange} />
+            <Dropdown
+              options={FloorOption}
+              value={selectedFloor}
+              changeHandler={handleFloorChange}
+            />
           </>
         }
       >

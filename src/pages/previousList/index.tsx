@@ -64,6 +64,6 @@ const ContentWrap = styled.div`
   column-gap: 60px;
   display: flex;
   width: fit-content;
-  justify-content: center;
+  justify-content: start;
   flex-wrap: wrap;
 `;
