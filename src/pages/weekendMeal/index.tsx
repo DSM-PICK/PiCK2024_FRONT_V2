@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/Button';
-import Dropdown from '@/components/dropdown';
+import { Dropdown } from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import { GetAllMeals } from '@/apis/weekend-meals';
 import { styled } from 'styled-components';
@@ -8,11 +8,7 @@ import { theme } from '@/styles/theme';
 import WeekEndList from '@/components/list/weekendMeal';
 import { DownLoad } from '@/apis/meal';
 import { setStudentNum } from '@/utils/utils';
-
-interface Option {
-  value: number;
-  label: string;
-}
+import { Class_numOption, GradeOption } from '@/utils/dropdown';
 
 const WeekedMeal = () => {
   const { data: GetAllList } = GetAllMeals();
@@ -20,12 +16,12 @@ const WeekedMeal = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
 
-  const handleGradeChange = (selectedOption: number) => {
-    setSelectedGrade(selectedOption);
+  const handleGradeChange = (selectedOption: number | string) => {
+    setSelectedGrade(Number(selectedOption));
   };
 
-  const handleClassChange = (selectedOption: number) => {
-    setSelectedClass(selectedOption);
+  const handleClassChange = (selectedOption: number | string) => {
+    setSelectedClass(Number(selectedOption));
   };
 
   return (
@@ -44,8 +40,16 @@ const WeekedMeal = () => {
             </Button>
           )}
 
-          <Dropdown type="all" onChange={handleGradeChange} />
-          <Dropdown type="class" onChange={handleClassChange} />
+          <Dropdown
+            options={GradeOption}
+            value={selectedGrade}
+            changeHandler={handleGradeChange}
+          />
+          <Dropdown
+            options={Class_numOption}
+            value={selectedClass}
+            changeHandler={handleClassChange}
+          />
         </>
       }
     >

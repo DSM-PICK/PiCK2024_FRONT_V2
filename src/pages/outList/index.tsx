@@ -1,19 +1,20 @@
-import { Layout } from "@/components/layout";
-import * as S from "./style";
-import { OutListFloor, ReturnSchool } from "@/apis/application";
-import OutAcceptList from "@/components/list";
-import BottomButtonWrap from "@/components/Button/bottom";
-import useAcceptListSelection from "@/hook/selectHook";
-import { useState, useEffect } from "react";
-import Modal from "@/components/modal";
-import Dropdown from "@/components/dropdown";
+import { Layout } from '@/components/layout';
+import * as S from './style';
+import { OutListFloor, ReturnSchool } from '@/apis/application';
+import OutAcceptList from '@/components/list';
+import BottomButtonWrap from '@/components/Button/bottom';
+import useAcceptListSelection from '@/hook/selectHook';
+import { useState, useEffect } from 'react';
+import Modal from '@/components/modal';
+import { Dropdown } from '@/components/dropdown';
+import { FloorOption } from '@/utils/dropdown';
 
 const OutList = () => {
   const { mutate: Return } = ReturnSchool();
   const [selectedFloor, setSelectedFloor] = useState<number>(5);
   const { data: OutListFloorData, refetch: refetchOutList } = OutListFloor(
     selectedFloor,
-    "OK"
+    'OK',
   );
   const { selectedStudentName, selectedStudents, handleAcceptListClick } =
     useAcceptListSelection();
@@ -23,13 +24,13 @@ const OutList = () => {
   const returnList = async () => {
     await Return(selectedStudents, {
       onSuccess: () => {
-        window.location.reload();
+        //window.location.reload();
       },
     });
   };
 
-  const handleFloorChange = (option: number) => {
-    setSelectedFloor(option);
+  const handleFloorChange = (option: number | string) => {
+    setSelectedFloor(Number(option));
   };
 
   useEffect(() => {
@@ -41,7 +42,13 @@ const OutList = () => {
       <Layout
         now="외출자 목록"
         title="외출자 목록"
-        right={<Dropdown type="floor" onChange={handleFloorChange} />}
+        right={
+          <Dropdown
+            options={FloorOption}
+            value={selectedFloor}
+            changeHandler={handleFloorChange}
+          />
+        }
       >
         <S.SemiTitle>오늘 외출한 학생</S.SemiTitle>
         <S.OutListContainer>
@@ -75,7 +82,7 @@ const OutList = () => {
                 }명을 복귀시키겠습니까?`
               : selectedStudentName.length === 1
                 ? `${selectedStudentName[0]}을 복귀시키겠습니까?`
-                : ""
+                : ''
           }`}
           subTitle="복귀 시에는 외출이 끝나게 됩니다."
           onCancel={() => {
