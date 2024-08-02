@@ -1,44 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import OutAcceptList from '@/components/list';
 import * as S from './style';
 import BottomButtonWrap from '@/components/Button/bottom';
-import { applicationDataProp } from '@/apis/type';
 import { OutRequest, useOutAccept } from '@/apis/application';
 import useAcceptListSelection from '@/hook/selectHook';
+import { Dropdown } from '@/components/dropdown';
+import { Class_numOption, GradeOption } from '@/utils/dropdown';
 
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
-  const { data: GetOutRequest, refetch: ReGetOutRequest } = OutRequest(selectedGrade, selectedClass);
-  const { mutate: OutAcceptMutate } = useOutAccept();
-  const { selectedStudents, handleAcceptListClick } =
-    useAcceptListSelection();
 
-  const handleGradeChange = (selectedOption: number) => {
-    setSelectedGrade(selectedOption);
-    if (selectedOption === 5) {
-      setSelectedClass(5);
-    }
+  const { data: GetOutRequest, refetch: ReGetOutRequest } = OutRequest(
+    selectedGrade,
+    selectedClass,
+  );
+  const { mutate: OutAcceptMutate } = useOutAccept();
+  const { selectedStudents, handleAcceptListClick } = useAcceptListSelection();
+
+  const handleGradeChange = (selectedOption: number | string) => {
+    setSelectedGrade(Number(selectedOption));
   };
-  const handleClassChange = (selectedOption: number) => {
-    setSelectedClass(selectedOption);
+
+  const handleClassChange = (selectedOption: number | string) => {
+    setSelectedClass(Number(selectedOption));
   };
 
   useEffect(() => {
-    ReGetOutRequest()
+    ReGetOutRequest();
   }, [selectedGrade, selectedClass]);
 
   const OutAccept = () => {
-    OutAcceptMutate(
-      { status: 'OK', ids: selectedStudents },
-      {
-        onSuccess: () => {
-          window.location.reload();
-        },
-      },
-    );
+    OutAcceptMutate({ status: 'OK', ids: selectedStudents });
   };
 
   const RefuseOut = () => {
@@ -52,8 +46,6 @@ const OutAccept = () => {
     );
   };
 
-  console.log(selectedStudents);
-
   return (
     <>
       <Layout
@@ -61,8 +53,16 @@ const OutAccept = () => {
         title="외출 수락"
         right={
           <>
-            <Dropdown type="all" onChange={handleGradeChange} />
-            <Dropdown type="class" onChange={handleClassChange} />
+            <Dropdown
+              options={GradeOption}
+              value={selectedGrade}
+              changeHandler={handleGradeChange}
+            />
+            <Dropdown
+              options={Class_numOption}
+              value={selectedClass}
+              changeHandler={handleClassChange}
+            />
           </>
         }
       >
