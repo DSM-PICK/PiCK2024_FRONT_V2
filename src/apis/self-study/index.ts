@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { instance } from '@/apis';
-import { data, todaySelfStudTeacher } from '@/apis/type';
+import { dataType, todaySelfStudTeacher } from '@/apis/type';
 import { getFullToday } from '@/utils/date';
 import { postTeacherProp } from './type';
 
@@ -18,15 +18,16 @@ export const TodaySelfStudy = () => {
   });
 };
 
-export const SelfstudyGet = (month:string, year:string) => {
+export const SelfstudyGet = (month: string, year: string) => {
   return useQuery({
-    queryKey:['SelfstudyGet', month, year],
+    queryKey: ['SelfstudyGet', month, year],
     queryFn: async () => {
-      const {data} = await instance.get(`${router}/month?month=${month}&year=${year}`)
-      return data
-    }
-  })
- 
+      const { data } = await instance.get<dataType[]>(
+        `${router}/month?month=${month}&year=${year}`,
+      );
+      return data;
+    },
+  });
 };
 
 export const PostTeacher = () => {
@@ -42,11 +43,13 @@ export const PostTeacher = () => {
 };
 
 export const SelectTeacher = (date: string) => {
-  return useQuery<data[]>({
+  return useQuery({
     queryKey: ['SelectTeacher', date],
     queryFn: async () => {
       try {
-        const response = await instance.get(`self-study/date?date=${date}`);
+        const response = await instance.get<todaySelfStudTeacher[]>(
+          `self-study/date?date=${date}`,
+        );
         return response.data;
       } catch (error) {
         console.log('');

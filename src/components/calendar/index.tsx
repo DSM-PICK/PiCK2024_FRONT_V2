@@ -3,8 +3,6 @@ import * as S from './style';
 import lArrow from '@/assets/svg/leftArrow.svg';
 import rArrow from '@/assets/svg/rightArrow.svg';
 import { SelfstudyGet } from '@/apis/self-study';
-import { data as dataType } from '@/apis/type';
-import { MonthScheduleData } from '@/apis/schedule/type';
 import { format } from 'date-fns';
 import { enUS, ko } from 'date-fns/locale';
 import { styled } from 'styled-components';
@@ -25,18 +23,7 @@ const Calendar = ({ type }: CalendarProp) => {
   const [selectedYear, setSelectedYear] = useState(today.year);
   const [selectedMonth, setSelectedMonth] = useState(today.month);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
-  const [data, setData] = useState<dataType[]>([]);
-  const [scheduleData, setScheduleData] = useState<MonthScheduleData[]>([]);
   const [modal, setModal] = useState<boolean>(false);
-
-  const { mutate: selfstudyMutate } = SelfstudyGet();
-  const { mutate: ScheduleMutate } = MonthSchedule();
-
-  const formattedDate = format(
-    new Date(selectedYear, selectedMonth - 1),
-    'yyyy년 MMMM',
-    { locale: ko },
-  );
 
   const formattedMonth = format(
     new Date(selectedYear, selectedMonth - 1),
@@ -44,33 +31,29 @@ const Calendar = ({ type }: CalendarProp) => {
     { locale: enUS },
   ).toUpperCase();
 
-  useEffect(() => {
-    Get();
-  }, [selectedYear, selectedMonth]);
+  const { data: selfstudyData, refetch: ReSelfStudyData } = SelfstudyGet(
+    formattedMonth,
+    selectedYear.toString(),
+  );
 
-  const Get = async () => {
-    if (type === 'selfStudy') {
-      await selfstudyMutate(
-        { month: formattedMonth, year: selectedYear.toString() },
-        {
-          onSuccess: (data) => {
-            setData(data);
-          },
-          onError: (error) => {
-            console.log(error);
-          },
-        },
-      );
+  const { data: ScheduleData, refetch: ReScheduleData } = MonthSchedule(
+    formattedMonth,
+    selectedYear.toString(),
+  );
+
+  const formattedDate = format(
+    new Date(selectedYear, selectedMonth - 1),
+    'yyyy년 MMMM',
+    { locale: ko },
+  );
+
+  useEffect(() => {
+    if (type === 'schedule') {
+      ReScheduleData();
+    } else {
+      ReSelfStudyData();
     }
-    await ScheduleMutate(
-      { month: formattedMonth, year: selectedYear.toString() },
-      {
-        onSuccess: (data) => {
-          setScheduleData(data);
-        },
-      },
-    );
-  };
+  }, [selectedYear, selectedMonth]);
 
   const week = [
     '일요일',
@@ -132,11 +115,11 @@ const Calendar = ({ type }: CalendarProp) => {
       const day = currentDate.getDay();
       const dateStr = format(currentDate, 'yyyy-MM-dd');
 
-      const currentData = data.filter(
+      const currentData = selfstudyData?.filter(
         (item) => format(new Date(item.date), 'yyyy-MM-dd') === dateStr,
       );
 
-      const currentSchedule = scheduleData.filter(
+      const currentSchedule = ScheduleData?.filter(
         (item) => item.day === i && item.month === selectedMonth,
       );
 
@@ -156,13 +139,11 @@ const Calendar = ({ type }: CalendarProp) => {
           }}
         >
           {i}
-          {type === 'selfStudy' && currentData.length > 0 && (
+          {type === 'selfStudy' && currentData && currentData.length > 0 && (
             <S.SelfStudyListWrap>
               {currentData
-                .slice()
-                .sort((i, j) => {
-                  return j.floor - i.floor;
-                })
+                ?.slice()
+                .sort((i, j) => j.floor - i.floor)
                 .map((item, idx) => (
                   <S.SelfStudyList key={`selfstudy-${idx}`}>
                     <S.FloorTitle>{item.floor}층</S.FloorTitle>
@@ -173,24 +154,26 @@ const Calendar = ({ type }: CalendarProp) => {
                 ))}
             </S.SelfStudyListWrap>
           )}
-          {type === 'schedule' && currentSchedule.length > 0 && (
-            <>
-              {currentSchedule.map((item, index) => (
-                <S.SelfStudyListWrap key={index}>
-                  <S.ScheduleList key={item.id}>
-                    <S.ScheduleLine />
-                    {item.event_name}
-                  </S.ScheduleList>
-                </S.SelfStudyListWrap>
-              ))}
-            </>
-          )}
+          {type === 'schedule' &&
+            currentSchedule &&
+            currentSchedule.length > 0 && (
+              <>
+                {currentSchedule?.map((item, index) => (
+                  <S.SelfStudyListWrap key={index}>
+                    <S.ScheduleList key={item.id}>
+                      <S.ScheduleLine />
+                      {item.event_name}
+                    </S.ScheduleList>
+                  </S.SelfStudyListWrap>
+                ))}
+              </>
+            )}
         </button>,
       );
     }
 
     return dayArr;
-  }, [selectedYear, selectedMonth, lastDay, data, scheduleData, type]);
+  }, [selectedYear, selectedMonth, lastDay, selfstudyData, ScheduleData, type]);
 
   const selectedDate = selectedDay
     ? new Date(selectedYear, selectedMonth - 1, selectedDay)

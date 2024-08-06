@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { getToday } from '@/utils/date';
 import * as S from './style';
 import StudentsState from '@/components/StudentsState';
@@ -14,21 +14,35 @@ interface MenuProp {
 }
 
 const Menu = ({ closeOnClick }: MenuProp) => {
+  const [isOpen, setIsOpen] = useState(true);
+
   const { data: selfStudyData } = TodaySelfStudy();
   const { data: mealsData } = TodayMeals();
   const { data: StudentStateCountData } = StudentStateCount();
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    if (!isOpen) {
+      setTimeout(() => {
+        closeOnClick();
+      }, 500);
+    }
+  }, [isOpen, closeOnClick]);
+
   return (
     <>
-      <S.Menu onClick={closeOnClick} />
-      <S.MenuWrap>
+      <S.Menu onClick={handleClose} />
+      <S.MenuWrap className={isOpen ? 'open' : 'close'}>
         <S.MenuContentWrap>
           <S.CloseIcon
             src={closeIcon}
             alt="닫기"
             width={32}
             height={32}
-            onClick={closeOnClick}
+            onClick={handleClose}
           />
           <S.MenuText>오늘의 급식 ({getToday()})</S.MenuText>
           <S.MealWrap>

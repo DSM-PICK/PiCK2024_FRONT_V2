@@ -4,7 +4,6 @@ import { theme } from '@/styles/theme';
 export const MenuWrap = styled.div`
   position: absolute;
   width: min-content;
-  animation: fadein 0.5s;
   display: flex;
   flex-direction: column;
   padding: 48px 38px;
@@ -14,12 +13,30 @@ export const MenuWrap = styled.div`
   right: 0;
   background-color: ${theme.color.normal.white};
   z-index: 1;
-  @keyframes fadein {
+
+  &.open {
+    animation: slidein 0.5s forwards;
+  }
+
+  &.close {
+    animation: slideout 0.5s forwards;
+  }
+
+  @keyframes slidein {
     from {
-      opacity: 0;
+      transform: translateX(100%);
     }
     to {
-      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideout {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100%);
     }
   }
 `;
@@ -71,4 +88,5 @@ export const SelfStudyListWrap = styled.div`
 
 export const CloseIcon = styled.img`
   margin-bottom: 36px;
+  cursor: pointer;
 `;
