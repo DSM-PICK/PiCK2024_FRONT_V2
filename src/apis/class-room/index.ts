@@ -16,7 +16,7 @@ export const RequestChange = (floor: number, status: 'OK' | 'QUIET') => {
   });
 };
 
-export const AccpetListApi = (
+export const AcceptListApi = (
   status: 'OK' | 'NO',
   ids: string[],
   option: MutationOptions,
