@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/Button';
 import Input from '@/components/input';
 import { Layout } from '@/components/layout';
 import { theme } from '@/styles/theme';
 import { styled } from 'styled-components';
 import { ChangeProps } from '@/apis/type';
-import { setDate } from 'date-fns';
 
 const ChangePassword = () => {
   const [newPassword, setNewpassword] = useState<string>('');

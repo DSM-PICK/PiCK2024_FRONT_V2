@@ -8,26 +8,24 @@ import { useState, useEffect } from 'react';
 import Modal from '@/components/modal';
 import { Dropdown } from '@/components/dropdown';
 import { FloorOption } from '@/utils/dropdown';
+import { toast } from 'react-toastify';
 
 const OutList = () => {
-  const { mutate: Return } = ReturnSchool();
+  const { selectedStudentName, selectedStudents, handleAcceptListClick } =
+    useAcceptListSelection();
   const [selectedFloor, setSelectedFloor] = useState<number>(5);
   const { data: OutListFloorData, refetch: refetchOutList } = OutListFloor(
     selectedFloor,
     'OK',
   );
-  const { selectedStudentName, selectedStudents, handleAcceptListClick } =
-    useAcceptListSelection();
-
   const [modal, setModal] = useState<boolean>(false);
-
-  const returnList = async () => {
-    await Return(selectedStudents, {
-      onSuccess: () => {
-        //window.location.reload();
-      },
-    });
-  };
+  const { mutate: Return } = ReturnSchool(selectedStudents, {
+    onSuccess: () => {
+      refetchOutList();
+      setModal(false);
+      toast.success(`${selectedStudentName}의 외출 복귀에 성공하셨습니다`);
+    },
+  });
 
   const handleFloorChange = (option: number | string) => {
     setSelectedFloor(Number(option));
@@ -88,7 +86,7 @@ const OutList = () => {
           onCancel={() => {
             setModal(false);
           }}
-          onConfirm={returnList}
+          onConfirm={Return}
         />
       )}
     </>

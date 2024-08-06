@@ -62,7 +62,6 @@ const NoticePage = () => {
               id={notice.id}
               teacher={notice.teacher}
               title={notice.title}
-              index={notice.grade[0]}
               date={notice.create_at}
             />
           ))}

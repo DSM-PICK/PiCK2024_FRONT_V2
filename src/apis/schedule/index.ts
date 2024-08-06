@@ -8,8 +8,8 @@ export const MonthSchedule = (month: string, year: string) => {
   return useQuery({
     queryKey: ['MonthSchedule', month, year],
     queryFn: async () => {
-      const { data } = await instance.get(
-        `${router}//month?year=${year}&month=${month}`,
+      const { data } = await instance.get<MonthScheduleData[]>(
+        `${router}/month?year=${year}&month=${month}`,
       );
       return data;
     },

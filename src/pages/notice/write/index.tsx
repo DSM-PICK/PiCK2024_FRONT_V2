@@ -8,6 +8,7 @@ import BottomButtonWrap from '@/components/Button/bottom';
 import { useState } from 'react';
 import { ChangeProps } from '@/apis/type';
 import { UploadNotice } from '@/apis/notice';
+import { toast } from 'react-toastify';
 
 const NoticeWrite = () => {
   const router = useNavigate();
@@ -37,7 +38,7 @@ const NoticeWrite = () => {
       },
       {
         onSuccess: () => {
-          //성공시 토스트
+          toast.success('공지가 등록되었습니다');
           router(-1);
         },
         onError: () => {
