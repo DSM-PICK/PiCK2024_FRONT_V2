@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 
 interface NoticeProp {
-  index: number;
+  index?: number;
   title: string;
   teacher: string;
   date: string;

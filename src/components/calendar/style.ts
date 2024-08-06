@@ -48,6 +48,7 @@ export const StDate = styled.div`
     font-size: ${theme.font.heading[4].size};
   }
   .weekday {
+    overflow: auto;
     float: left;
     width: calc(100% / 7);
     height: 160px;

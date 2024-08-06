@@ -44,6 +44,9 @@ const ListWrap = styled.div`
   background-color: ${theme.color.main[50]};
   padding: 16px;
   border-radius: 12px;
+  &:hover {
+    background-color: ${theme.color.main[100]};
+  }
 `;
 
 const CountWrap = styled.div`

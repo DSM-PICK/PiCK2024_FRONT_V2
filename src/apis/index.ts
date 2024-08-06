@@ -1,6 +1,5 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 import { cookie } from '@/utils/auth';
-import { useState } from 'react';
 
 const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 
