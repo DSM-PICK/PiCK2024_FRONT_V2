@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { MutationOptions, useMutation, useQuery } from '@tanstack/react-query';
 import { instance } from '@/apis';
 import { ClassChangeType } from './type';
 
@@ -16,11 +16,17 @@ export const RequestChange = (floor: number, status: 'OK' | 'QUIET') => {
   });
 };
 
-export const AccpetListApi = () => {
-  return useMutation<void, Error, { status: 'OK' | 'NO'; ids: string[] }>({
-    mutationFn: async (param) => {
+export const AccpetListApi = (
+  status: 'OK' | 'NO',
+  ids: string[],
+  option: MutationOptions,
+) => {
+  return useMutation({
+    ...option,
+    mutationFn: async () => {
       await instance.patch(`${router}/status`, {
-        ...param,
+        status,
+        ids,
       });
     },
   });
