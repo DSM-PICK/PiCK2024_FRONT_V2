@@ -1,35 +1,31 @@
-import type { StorybookConfig } from "@storybook/react-webpack5";
-import path from "path";
+import { defineConfig } from 'vite';
+import path from 'path';
 
-const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+const config = {
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
-    "@storybook/preset-create-react-app",
-    "@storybook/addon-onboarding",
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@chromatic-com/storybook",
-    "@storybook/addon-interactions",
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
   ],
   framework: {
-    name: "@storybook/react-webpack5",
+    name: '@storybook/react-vite',
     options: {},
   },
-  staticDirs: ["../public"],
-  webpackFinal: async (config) => {
-    if (!config.resolve) {
-      config.resolve = {
-        alias: {
-          "@": path.resolve(__dirname, "../src"),
-        },
-      };
-    } else {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        "@": path.resolve(__dirname, "../src"),
-      };
-    }
-    return config;
+  core: {
+    builder: '@storybook/builder-vite',
   },
+  async viteFinal(viteConfig, { configType }) {
+    // Ensure `resolve` is defined
+    viteConfig.resolve = viteConfig.resolve || {};
+    viteConfig.resolve.alias = {
+      ...viteConfig.resolve.alias,
+      '@': path.resolve(__dirname, '../src'),
+    };
+
+    return viteConfig;
+  },
+  staticDirs: ['../public'],
 };
+
 export default config;
