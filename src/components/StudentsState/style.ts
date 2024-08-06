@@ -28,7 +28,7 @@ export const StudentsStatePointText = styled.span`
   font-weight: 600;
 `;
 
-export const StudentsStateButton = styled(Link)`
+export const StudentsStateButton = styled.a`
   width: 100%;
   height: 38px;
   border-radius: 8px;

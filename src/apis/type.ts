@@ -22,7 +22,6 @@ export interface SimpleNoticeType {
   title: string;
   create_at: string;
   teacher: string;
-  grade: number[];
 }
 
 export interface MynameType {
@@ -56,7 +55,6 @@ export interface ChangeProps {
 export interface UploadNoticeType {
   title: string;
   content: string;
-  grade: number[];
 }
 
 export interface applicationDataProp {
@@ -81,7 +79,7 @@ export interface OutListProp {
   reason: string;
 }
 
-export interface data {
+export interface dataType {
   floor: number;
   teacher: string;
   date: string;

@@ -13,6 +13,7 @@ import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
 import { getStudentString } from '@/utils/utils';
 import { FloorOption } from '@/utils/dropdown';
+import { toast } from 'react-toastify';
 
 const RequestClass = () => {
   const nav = useNavigate();
@@ -21,27 +22,18 @@ const RequestClass = () => {
 
   const [selectedFloor, setSelectFloor] = useState<number>(5);
   const [modal, setModal] = useState<boolean>(false);
+  const [state, setState] = useState<'OK' | 'NO'>('OK');
 
   const { data: GetRequestChange } = RequestChange(selectedFloor, 'QUIET');
-  const { mutate: AccpetList } = AccpetListApi();
+  const { mutate: AccpetList } = AccpetListApi(state, selectedStudents, {
+    onSuccess: () => {
+      toast.success('교실이동이 수락되었습니다');
+      setModal(false);
+    },
+  });
 
   const handleFloorChange = (selectedOption: number | string) => {
     setSelectFloor(Number(selectedOption));
-  };
-
-  const confirm = async (state: 'OK' | 'NO') => {
-    try {
-      await AccpetList(
-        { status: state, ids: selectedStudents },
-        {
-          onSuccess: () => {
-            window.location.reload();
-          },
-        },
-      );
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
@@ -91,7 +83,7 @@ const RequestClass = () => {
         second={true}
         secondContent="수락"
         secondSize="standard"
-        secondOnclick={() => confirm('OK')}
+        secondOnclick={() => setModal(true)}
         secondType="main"
       />
       {modal && (
@@ -100,7 +92,7 @@ const RequestClass = () => {
           onCancel={() => {
             setModal(false);
           }}
-          onConfirm={() => {}}
+          onConfirm={AccpetList}
           title={`${selectedStudents[0]}외 ${
             selectedStudents.length - 1
           }학생의 교실이동을 수락하시겠습니까?`}

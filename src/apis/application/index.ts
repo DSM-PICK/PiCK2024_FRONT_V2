@@ -1,6 +1,6 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { instance } from "@/apis";
-import { OutListProp, StateCountType, applicationDataProp } from "@/apis/type";
+import { useQuery, useMutation, MutateOptions } from '@tanstack/react-query';
+import { instance } from '@/apis';
+import { OutListProp, StateCountType, applicationDataProp } from '@/apis/type';
 
 const router = `/application`;
 
@@ -16,26 +16,32 @@ export const StudentStateCount = () => {
 
 export const OutRequest = (grade: number, class_num: number) => {
   return useQuery({
-    queryKey: ["OutRequest", grade ,class_num],
+    queryKey: ['OutRequest', grade, class_num],
     queryFn: async () => {
       const { data } = await instance.get<applicationDataProp[]>(
-        `${router}/grade?grade=${grade}&class_num=${class_num}`
+        `${router}/grade?grade=${grade}&class_num=${class_num}`,
       );
       return data;
     },
   });
 };
 
-export const useOutAccept = () => {
-  return useMutation<void, Error, { status: 'OK' | 'NO'; ids: string[] }>({
-    mutationFn: async (param) => {
+export const useOutAccept = (
+  status: 'OK' | 'NO',
+  ids: string[],
+  option: MutateOptions,
+) => {
+  return useMutation({
+    ...option,
+    mutationFn: async () => {
       try {
         await instance.patch(`${router}/status`, {
-          ids: param.ids,
-          status: param.status,
+          ids: ids,
+          status: status,
         });
       } catch (error) {
         console.log(error);
+        throw error;
       }
     },
   });
@@ -43,21 +49,26 @@ export const useOutAccept = () => {
 
 export const OutListFloor = (floor: number, status: string) => {
   return useQuery({
-    queryKey: ["OutListFloor", floor, status],
+    queryKey: ['OutListFloor', floor, status],
     queryFn: async () => {
       const { data } = await instance.get<OutListProp[]>(
-        `${router}/floor?floor=${floor}&status=${status}`
+        `${router}/floor?floor=${floor}&status=${status}`,
       );
       return data;
     },
   });
 };
 
-export const ReturnSchool = () => {
-  return useMutation<void, Error, string[]>({
-    mutationFn: async (...param) => {
+export const ReturnSchool = (ids: string[], option: MutateOptions) => {
+  return useMutation({
+    ...option,
+    mutationFn: async () => {
       try {
-        await instance.patch(`${router}/return`, ...param);
+        await instance.patch(`${router}/return`, ids, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
       } catch (error) {
         console.log(error);
       }

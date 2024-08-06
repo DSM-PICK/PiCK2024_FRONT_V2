@@ -66,13 +66,13 @@ export const Modal = ({
       SelectSelfList.forEach((val) => {
         switch (val.floor) {
           case 2:
-            setSecondData({ floor: 2, teacher: val.teacher });
+            setSecondData({ floor: 2, teacher: val?.teacher_name });
             break;
           case 3:
-            setThirdData({ floor: 3, teacher: val.teacher });
+            setThirdData({ floor: 3, teacher: val?.teacher_name });
             break;
           case 4:
-            setFourthData({ floor: 4, teacher: val.teacher });
+            setFourthData({ floor: 4, teacher: val?.teacher_name });
             break;
         }
       });

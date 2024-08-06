@@ -13,7 +13,7 @@ const StudentsState = ({ type, person }: StudentsStateType) => {
   const buttonText =
     type === 'outing' ? '외출자 목록 보기' : '교실 이동 학생 보기';
   const img = type === 'outing' ? outingImg : classroomMovementImg;
-  const rout = type === 'outing' ? '아웃팅 경로' : '교실 이동 경로';
+  const rout = type === 'outing' ? 'outList' : 'classMove/accpet';
   return (
     <S.StudentsStateContainer>
       <S.StudentsStateFlexbox>
@@ -23,7 +23,7 @@ const StudentsState = ({ type, person }: StudentsStateType) => {
           <S.StudentsStatePointText> {person}명</S.StudentsStatePointText>
           입니다.
         </S.StudentsStateText>
-        <S.StudentsStateButton to={rout}>{buttonText}</S.StudentsStateButton>
+        <S.StudentsStateButton href={rout}>{buttonText}</S.StudentsStateButton>
       </S.StudentsStateFlexbox>
       <S.StudentsStateImg src={img} alt="" />
     </S.StudentsStateContainer>
