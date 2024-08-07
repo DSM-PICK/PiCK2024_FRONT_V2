@@ -1,4 +1,3 @@
-import { defineConfig } from 'vite';
 import path from 'path';
 
 const config = {
@@ -15,8 +14,7 @@ const config = {
   core: {
     builder: '@storybook/builder-vite',
   },
-  async viteFinal(viteConfig, { configType }) {
-    // Ensure `resolve` is defined
+  async viteFinal(viteConfig) {
     viteConfig.resolve = viteConfig.resolve || {};
     viteConfig.resolve.alias = {
       ...viteConfig.resolve.alias,
