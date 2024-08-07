@@ -14,7 +14,7 @@ interface DropdownProp {
   changeHandler: (value: string | number) => void;
 }
 
-export const Dropdown = ({ options, value, changeHandler }: DropdownProp) => {
+const Dropdown = ({ options, value, changeHandler }: DropdownProp) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
 
@@ -71,3 +71,5 @@ export const Dropdown = ({ options, value, changeHandler }: DropdownProp) => {
     </S.DropdownTitle>
   );
 };
+
+export default Dropdown
