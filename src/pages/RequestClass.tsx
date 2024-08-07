@@ -1,4 +1,4 @@
-import { AccpetListApi, RequestChange } from '@/apis/class-room';
+import { AcceptListApi, RequestChange } from '@/apis/class-room';
 import { ClassChangeType } from '@/apis/class-room/type';
 import { Button } from '@/components/Button';
 import BottomButtonWrap from '@/components/Button/bottom';
@@ -25,7 +25,7 @@ const RequestClass = () => {
   const [state, setState] = useState<'OK' | 'NO'>('OK');
 
   const { data: GetRequestChange } = RequestChange(selectedFloor, 'QUIET');
-  const { mutate: AccpetList } = AccpetListApi(state, selectedStudents, {
+  const { mutate: AccpetList } = AcceptListApi(state, selectedStudents, {
     onSuccess: () => {
       toast.success('교실이동이 수락되었습니다');
       setModal(false);
