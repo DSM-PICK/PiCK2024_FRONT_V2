@@ -45,6 +45,7 @@
     "@storybook/addon-essentials": "^8.2.4",
     "@storybook/addon-interactions": "^8.2.4",
     "@storybook/addon-links": "^8.2.4",
+    "@tanstack/react-query-devtools": "^5.51.23",
     "@storybook/addon-onboarding": "^8.2.4",
     "@storybook/blocks": "^8.2.4",
     "@storybook/preset-create-react-app": "^8.2.4",
