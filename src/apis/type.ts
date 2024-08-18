@@ -6,9 +6,20 @@ export interface todaySelfStudTeacher {
 export interface TodayMealsType {
   date: string;
   meals: {
-    breakfast: string[];
-    lunch: string[];
-    dinner: string[];
+    breakfast: {
+      menu: string[];
+      cal: string;
+    };
+
+    lunch: {
+      menu: string[];
+      cal: string;
+    };
+
+    dinner: {
+      menu: string[];
+      cal: string;
+    };
   };
 }
 
