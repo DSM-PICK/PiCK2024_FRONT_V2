@@ -12,40 +12,33 @@ import { toast } from 'react-toastify';
 
 const NoticeWrite = () => {
   const router = useNavigate();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [data, setData] = useState({
+    title: '',
+    content: '',
+  });
 
   const { mutate: UploadNoticeMutate } = UploadNotice();
 
-  const handleTitleChange = ({ text }: ChangeProps) => {
-    setTitle(text);
-  };
-
-  const handleContentChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-  ) => {
-    setContent(event.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const name = localStorage.getItem('name');
 
   const Upload = () => {
-    UploadNoticeMutate(
-      {
-        title: title,
-        content: content,
-        grade: [4],
+    UploadNoticeMutate(data, {
+      onSuccess: () => {
+        toast.success('공지가 등록되었습니다');
+        router(-1);
       },
-      {
-        onSuccess: () => {
-          toast.success('공지가 등록되었습니다');
-          router(-1);
-        },
-        onError: () => {
-          //에러시 토스트
-        },
+      onError: () => {
+        //에러시 토스트
       },
-    );
+    });
   };
 
   return (
@@ -78,8 +71,8 @@ const NoticeWrite = () => {
         <Input
           widthtype="long"
           name="title"
-          onChange={handleTitleChange}
-          value={title}
+          onChange={handleChange}
+          value={data.title}
           label="*제목"
           placeholder="공지 제목을 입력하세요"
         />
@@ -87,9 +80,9 @@ const NoticeWrite = () => {
           <S.InputLabel>*내용</S.InputLabel>
           <S.WriteTextarea
             name="content"
-            onChange={handleContentChange}
+            onChange={handleChange}
             placeholder="공지 내용을 입력하세요"
-            value={content}
+            value={data.content}
           />
         </S.TextareaWrap>
       </Layout>
