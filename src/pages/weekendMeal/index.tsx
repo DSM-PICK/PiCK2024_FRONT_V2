@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/Button';
-import { Dropdown } from '@/components/dropdown';
+import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import { GetAllMeals } from '@/apis/weekend-meals';
 import { styled } from 'styled-components';

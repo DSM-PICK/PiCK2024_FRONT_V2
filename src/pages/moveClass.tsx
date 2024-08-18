@@ -6,7 +6,7 @@ import nextSvg from '@/assets/svg/next.svg';
 import { ClassMoveList } from '@/components/list/classmove';
 import { RequestChange } from '@/apis/class-room';
 import { getStudentString } from '@/utils/utils';
-import { Dropdown } from '@/components/dropdown';
+import Dropdown from '@/components/dropdown';
 import { useEffect, useState } from 'react';
 import useAcceptListSelection from '@/hook/selectHook';
 import { FloorOption } from '@/utils/dropdown';

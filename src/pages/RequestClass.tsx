@@ -2,7 +2,7 @@ import { AcceptListApi, RequestChange } from '@/apis/class-room';
 import { ClassChangeType } from '@/apis/class-room/type';
 import { Button } from '@/components/Button';
 import BottomButtonWrap from '@/components/Button/bottom';
-import { Dropdown } from '@/components/dropdown';
+import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import { ClassMoveList } from '@/components/list/classmove';
 import Modal from '@/components/modal';
