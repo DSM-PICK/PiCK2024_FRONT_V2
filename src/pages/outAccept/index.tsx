@@ -4,7 +4,7 @@ import OutAcceptList from '@/components/list';
 import BottomButtonWrap from '@/components/Button/bottom';
 import { OutRequest, useOutAccept } from '@/apis/application';
 import useAcceptListSelection from '@/hook/selectHook';
-import { Dropdown } from '@/components/dropdown';
+import Dropdown from '@/components/dropdown';
 import { Class_numOption, GradeOption } from '@/utils/dropdown';
 import { toast } from 'react-toastify';
 import { styled } from 'styled-components';
@@ -89,7 +89,8 @@ const OutAccept = () => {
 export default OutAccept;
 
 const OutAcceptContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   flex-wrap: wrap;
   row-gap: 40px;
   column-gap: 60px;

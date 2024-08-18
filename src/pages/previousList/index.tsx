@@ -60,10 +60,7 @@ const PreviousList = () => {
 export default PreviousList;
 
 const ContentWrap = styled.div`
-  row-gap: 12px;
-  column-gap: 60px;
-  display: flex;
-  width: fit-content;
-  justify-content: start;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
 `;

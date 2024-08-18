@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Login from '@/pages/login/page';
+import Login from '@/pages/login';
 import Main from '@/pages/Main';
 import RequestClass from '@/pages/RequestClass';
 import ClassManage from '@/pages/classManage';
@@ -17,6 +17,7 @@ import PreviousDetail from '@/pages/previousList/detail';
 import SelfStudy from '@/pages/self-study';
 import Schedule from '@/pages/schedule';
 import NotFound from '@/pages/404Page';
+import BugReport from '@/pages/bugReport';
 
 export const Router = createBrowserRouter([
   {
@@ -108,6 +109,10 @@ export const Router = createBrowserRouter([
       {
         path: 'schedule',
         element: <Schedule />,
+      },
+      {
+        path: 'bugReport',
+        element: <BugReport />,
       },
     ],
   },
