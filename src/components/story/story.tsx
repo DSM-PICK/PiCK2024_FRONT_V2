@@ -40,7 +40,7 @@ const NameTitle = styled.p`
 `;
 
 const ListWrap = styled.div`
-  width: 280px;
+  width: 100%;
   background-color: ${theme.color.main[50]};
   padding: 16px;
   border-radius: 12px;
