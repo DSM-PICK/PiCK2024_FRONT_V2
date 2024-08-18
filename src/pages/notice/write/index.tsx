@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { ChangeProps } from '@/apis/type';
 import { UploadNotice } from '@/apis/notice';
 import { toast } from 'react-toastify';
+import { Textarea } from '@/components/input/textarea';
 
 const NoticeWrite = () => {
   const router = useNavigate();
@@ -21,10 +22,14 @@ const NoticeWrite = () => {
     setTitle(text);
   };
 
-  const handleContentChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-  ) => {
-    setContent(event.target.value);
+  const handleContentChange = ({
+    text,
+    name,
+  }: {
+    text: string;
+    name: string;
+  }) => {
+    setContent(text);
   };
 
   const name = localStorage.getItem('name');
@@ -82,15 +87,13 @@ const NoticeWrite = () => {
           label="*제목"
           placeholder="공지 제목을 입력하세요"
         />
-        <S.TextareaWrap>
-          <S.InputLabel>*내용</S.InputLabel>
-          <S.WriteTextarea
-            name="content"
-            onChange={handleContentChange}
-            placeholder="공지 내용을 입력하세요"
-            value={content}
-          />
-        </S.TextareaWrap>
+        <Textarea
+          name="content"
+          label="내용"
+          placeholder="공지 내용을 입력하세요"
+          value={content}
+          onChange={handleContentChange}
+        />
       </Layout>
       <BottomButtonWrap
         firstContent="공지작성"
