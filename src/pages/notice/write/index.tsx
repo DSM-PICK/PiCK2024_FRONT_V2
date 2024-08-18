@@ -34,7 +34,6 @@ const NoticeWrite = () => {
       {
         title: title,
         content: content,
-        grade: [4],
       },
       {
         onSuccess: () => {

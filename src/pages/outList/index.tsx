@@ -6,7 +6,7 @@ import BottomButtonWrap from '@/components/Button/bottom';
 import useAcceptListSelection from '@/hook/selectHook';
 import { useState, useEffect } from 'react';
 import Modal from '@/components/modal';
-import { Dropdown } from '@/components/dropdown';
+import Dropdown from '@/components/dropdown';
 import { FloorOption } from '@/utils/dropdown';
 import { toast } from 'react-toastify';
 
