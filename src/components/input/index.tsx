@@ -12,7 +12,7 @@ interface InputProp {
   label?: string;
   placeholder?: string;
   widthtype: 'long' | 'login';
-  onChange: ({ text, name }: ChangeProps) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name?: string;
   value: string;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;

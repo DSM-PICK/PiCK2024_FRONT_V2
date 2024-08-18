@@ -24,8 +24,12 @@ const Login = () => {
     password: '',
   });
 
-  const handleChange = ({ text, name }: ChangeProps) => {
-    setData({ ...data, [name]: text });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleKeyDown = async (
