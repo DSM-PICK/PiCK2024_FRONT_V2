@@ -9,13 +9,17 @@ import { ChangeProps } from '@/apis/type';
 const ChangePassword = () => {
   const [newPassword, setNewpassword] = useState<string>('');
   const [checkPassword, setCheckPassword] = useState<string>('');
+  const [data, setData] = useState({
+    newPassword: '',
+    checkPassword: '',
+  });
 
-  const handleChange = ({ text }: ChangeProps) => {
-    setNewpassword(text);
-  };
-
-  const RepassWord = ({ text }: ChangeProps) => {
-    setCheckPassword(text);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const BtnCheck = () => {
@@ -39,14 +43,16 @@ const ChangePassword = () => {
             onChange={handleChange}
             widthtype="login"
             password={true}
-            value={newPassword}
+            value={data.newPassword}
+            name="newPassword"
             label="새로운 비밀번호 입력"
           />
           <Input
-            onChange={RepassWord}
+            onChange={handleChange}
             widthtype="login"
             password={true}
-            value={checkPassword}
+            name="checkPassword"
+            value={data.checkPassword}
             label="비밀번호 확인"
           />
           <Button

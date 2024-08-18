@@ -9,6 +9,7 @@ import ImgModal from '@/components/modal/imgModal';
 import { BugImg, BugPost } from '@/apis/bug';
 import BottomButtonWrap, { BottomButton } from '@/components/Button/bottom';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 interface BugProp {
   title: string;
@@ -50,16 +51,19 @@ const BugReport = () => {
   };
 
   const Bug = async () => {
-    await BugPostMutate(data);
+    try {
+      await BugPostMutate(data);
+    } catch (error) {
+      toast.error('버그 제보에 실패했습니다.');
+    }
   };
-
-  const handleChange = ({ text, name }: { text: string; name: string }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,
-      [name]: text,
+      [name]: value,
     }));
   };
-
   const handleRemoveImage = (index: number) => {
     setData((prevData) => ({
       ...prevData,
