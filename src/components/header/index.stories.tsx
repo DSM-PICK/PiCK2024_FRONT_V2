@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import Index from './index';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom';
 
 const meta = {
   component: Index,
