@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Dropdown } from '@/components/dropdown';
+import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import ClassList from '@/components/list/class';
 import { theme } from '@/styles/theme';

@@ -48,11 +48,11 @@ const Menu = ({ closeOnClick }: MenuProp) => {
           <S.MealWrap>
             <MealInfo
               title="점심"
-              content={mealsData?.meals?.lunch?.slice(0) || []}
+              content={mealsData?.meals?.lunch?.menu.slice(0) || []}
             />
             <MealInfo
               title="저녁"
-              content={mealsData?.meals?.dinner?.slice(0) || []}
+              content={mealsData?.meals?.dinner?.menu.slice(0) || []}
             />
           </S.MealWrap>
           <S.MenuText>오늘의 자습감독</S.MenuText>
