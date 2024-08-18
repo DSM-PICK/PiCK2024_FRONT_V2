@@ -10,7 +10,7 @@ interface BottomProp {
   secondOnclick?: () => void;
   secondType?: 'main' | 'error' | 'black' | 'error2';
   secondSize?: 'small' | 'standard';
-  firstDisabled: boolean;
+  firstDisabled?: boolean;
   secondContent?: string;
 }
 
@@ -50,6 +50,7 @@ export default BottomButtonWrap;
 export const BottomButton = styled.div`
   display: flex;
   position: fixed;
+  left: 0;
   width: 100%;
   bottom: 0;
   padding: 60px 240px;
