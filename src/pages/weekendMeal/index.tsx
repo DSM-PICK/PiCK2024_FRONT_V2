@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/Button';
 import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
-import { GetAllMeals } from '@/apis/weekend-meals';
+import { GetAllMeals, GetClassWeekendMeal } from '@/apis/weekend-meals';
 import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
 import WeekEndList from '@/components/list/weekendMeal';
@@ -15,12 +15,26 @@ const WeekedMeal = () => {
   const { downloadExcel } = DownLoad();
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
+  const { data: GetClassList } = GetClassWeekendMeal(
+    selectedGrade,
+    selectedClass,
+  );
 
   const handleGradeChange = (selectedOption: number | string) => {
+    if (selectedOption === 5) {
+      setSelectedClass(5);
+    } else if (selectedClass === 5) {
+      setSelectedClass(1);
+    }
     setSelectedGrade(Number(selectedOption));
   };
 
   const handleClassChange = (selectedOption: number | string) => {
+    if (selectedOption === 5) {
+      setSelectedGrade(5);
+    } else if (selectedGrade === 5) {
+      setSelectedGrade(1);
+    }
     setSelectedClass(Number(selectedOption));
   };
 
@@ -63,6 +77,7 @@ const WeekedMeal = () => {
             {GetAllList?.map((item) => (
               <>
                 <WeekEndList
+                  grade={false}
                   id={item.id}
                   number={setStudentNum(item)}
                   name={item.name}
@@ -79,32 +94,38 @@ const WeekedMeal = () => {
               <ResTitle>
                 응답자({selectedGrade}-{selectedClass})
               </ResTitle>
-              <SubTitle>응답자의 상태는 수정할 수 없습니다.</SubTitle>
             </div>
-            {GetAllList?.map((item) => (
-              <WeekEndList
-                id={item.id}
-                number={setStudentNum(item)}
-                name={item.name}
-                status={item.status}
-              />
-            ))}
+            {GetClassList?.map(
+              (item) =>
+                item.status === 'OK' && (
+                  <WeekEndList
+                    grade
+                    id={item.id}
+                    number={setStudentNum(item)}
+                    name={item.name}
+                    status={item.status}
+                  />
+                ),
+            )}
           </Wrap>
           <Wrap>
             <div>
               <ResTitle>
                 미응답자({selectedGrade}-{selectedClass})
               </ResTitle>
-              <SubTitle>매달 5일 전까지 수정할 수 있습니다.</SubTitle>
             </div>
-            {GetAllList?.map((item) => (
-              <WeekEndList
-                id={item.id}
-                number={setStudentNum(item)}
-                name={item.name}
-                status={item.status}
-              />
-            ))}
+            {GetClassList?.map(
+              (item) =>
+                item.status === 'NO' && (
+                  <WeekEndList
+                    grade
+                    id={item.id}
+                    number={setStudentNum(item)}
+                    name={item.name}
+                    status={item.status}
+                  />
+                ),
+            )}
           </Wrap>
         </ClassProp>
       )}
