@@ -7,13 +7,14 @@ interface ListProp {
   name: string;
   status: 'OK' | 'NO' | 'QUIET';
   id: string;
+  grade: boolean;
 }
 
 interface BadgeProps {
   status: 'OK' | 'NO';
 }
 
-const WeekEndList = ({ number, name, status, id }: ListProp) => {
+const WeekEndList = ({ number, name, status, id, grade }: ListProp) => {
   const StatusChange = () => {
     switch (status) {
       case 'NO':
@@ -25,7 +26,7 @@ const WeekEndList = ({ number, name, status, id }: ListProp) => {
     }
   };
   return (
-    <ContentWrap>
+    <ContentWrap type={grade}>
       <Title>{number}</Title>
       <Title>{name}</Title>
       {status !== 'QUIET' && <Option status={status}>{StatusChange()}</Option>}
@@ -36,11 +37,11 @@ const WeekEndList = ({ number, name, status, id }: ListProp) => {
 
 export default WeekEndList;
 
-const ContentWrap = styled.div`
+const ContentWrap = styled.div<{ type: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 20% 20px 20%;
+  padding: ${({ type }) => (type ? '16px 40px' : '20px 20%')};
   border-bottom: 1px solid ${theme.color.gray[50]};
 `;
 
