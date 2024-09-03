@@ -3,7 +3,7 @@ import { ToastContainer, ToastOptions, toast } from 'react-toastify';
 import { styled } from 'styled-components';
 
 interface ToastProps {
-  type: 'success' | 'error' | 'info' | 'action';
+  type: 'success' | 'error';
   message?: string;
 }
 
@@ -16,6 +16,7 @@ const toastOptions: ToastOptions = {
   draggable: true,
   pauseOnFocusLoss: true,
   closeButton: false,
+  icon: false,
 };
 
 export function showToast({ type, message }: ToastProps) {
@@ -23,13 +24,11 @@ export function showToast({ type, message }: ToastProps) {
     case 'success':
       toast.success(message || '성공적으로 완료되었습니다', {
         ...toastOptions,
-        icon: <img />,
       });
       return;
     case 'error':
       toast.error(message || '다시 한번 시도해주세요', {
         ...toastOptions,
-        icon: <img />,
       });
   }
 }
@@ -43,14 +42,6 @@ const Container = styled(ToastContainer)`
     font-size: ${theme.font.button[2]};
     border-radius: 32px 0px 0px 32px;
     color: ${theme.color.normal.white};
-    background: rgba(107, 115, 135, 0.8);
-  }
-  .Toastify__toast-icon {
-    width: 0px;
-    height: 0px;
-  }
-
-  .Toastify__toast--info {
     background: rgba(107, 115, 135, 0.8);
   }
 
