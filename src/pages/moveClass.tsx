@@ -8,8 +8,8 @@ import { RequestChange } from '@/apis/class-room';
 import { getStudentString } from '@/utils/utils';
 import Dropdown from '@/components/dropdown';
 import { useEffect, useState } from 'react';
-import useAcceptListSelection from '@/hook/selectHook';
 import { FloorOption } from '@/utils/dropdown';
+import useSelectionStore from '@/stores/useSelect';
 
 const MoveClass = () => {
   const router = useNavigate();
@@ -19,7 +19,7 @@ const MoveClass = () => {
     'OK',
   );
 
-  const { handleAcceptListClick } = useAcceptListSelection();
+  const { handleAcceptListClick } = useSelectionStore();
 
   const handleFloorChange = (selectedOption: number | string) => {
     setSelectFloor(Number(selectedOption));
