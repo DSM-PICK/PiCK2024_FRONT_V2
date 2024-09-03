@@ -1,35 +1,29 @@
 import create from 'zustand';
-
 interface AcceptListSelectionState {
   selectedStudents: string[];
   selectedStudentName: string[];
   handleAcceptListClick: (id: string, name: string) => void;
 }
-
 const useSelectionStore = create<AcceptListSelectionState>((set) => ({
   selectedStudents: [],
   selectedStudentName: [],
-
-  handleAcceptListClick: (id: string, name: string) =>
+  handleAcceptListClick: (id: string, name: string): void =>
     set((state) => {
       const isStudentSelected = state.selectedStudents.includes(id);
-
-      if (isStudentSelected) {
-        return {
-          selectedStudents: state.selectedStudents.filter(
+      const updatedStudents = isStudentSelected
+        ? state.selectedStudents.filter(
             (selectedStudent) => selectedStudent !== id,
-          ),
-          selectedStudentName: state.selectedStudentName.filter(
+          )
+        : [...state.selectedStudents, id];
+      const updatedNames = isStudentSelected
+        ? state.selectedStudentName.filter(
             (selectedStudentName) => selectedStudentName !== name,
-          ),
-        };
-      } else {
-        return {
-          selectedStudents: [...state.selectedStudents, id],
-          selectedStudentName: [...state.selectedStudentName, name],
-        };
-      }
+          )
+        : [...state.selectedStudentName, name];
+      return {
+        selectedStudents: updatedStudents,
+        selectedStudentName: updatedNames,
+      };
     }),
 }));
-
 export default useSelectionStore;

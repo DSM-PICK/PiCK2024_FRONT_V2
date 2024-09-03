@@ -29,6 +29,7 @@ const BugReport = () => {
   const { mutate: BugPostMutate } = BugPost();
 
   const router = useNavigate();
+  const disabled = data.content === '' || data.title === '';
 
   const handleImgUpload = async (images: File[]) => {
     try {
