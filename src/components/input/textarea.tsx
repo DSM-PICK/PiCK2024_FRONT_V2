@@ -1,14 +1,10 @@
 import { theme } from '@/styles/theme';
+import React from 'react';
 import styled from 'styled-components';
-
-interface ChangeProps {
-  text: string;
-  name: string;
-}
 
 interface TextareaProps {
   label?: string;
-  onChange: ({ text, name }: ChangeProps) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   name: string;
   value: string;
   placeholder: string;
@@ -26,7 +22,7 @@ export const Textarea = ({
       {label && <InputLabel>{label}</InputLabel>}
       <WriteTextarea
         name={name}
-        onChange={(e) => onChange({ text: e.target.value, name })}
+        onChange={onChange}
         placeholder={placeholder}
         value={value}
       />
@@ -41,7 +37,7 @@ const WriteTextarea = styled.textarea`
   font-size: ${theme.font.caption[1].size};
   background-color: ${theme.color.gray[50]};
   border-radius: 12px;
-  padding: 20px 20px;
+  padding: 20px;
   &::placeholder {
     font-size: ${theme.font.caption[1].size};
     color: ${theme.color.gray[300]};

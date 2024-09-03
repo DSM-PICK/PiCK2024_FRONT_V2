@@ -1,13 +1,19 @@
+import React, { useState } from 'react';
 import { Layout } from '@/components/layout';
 import nextSvg from '@/assets/svg/next.svg';
 import { useNavigate, useParams } from 'react-router-dom';
-import { DetailNotice } from '@/apis/notice';
+import { DetailNotice, useDeleteNotice } from '@/apis/notice';
 import * as S from '../style';
+import BottomButtonWrap from '@/components/Button/bottom';
+import Modal from '@/components/modal';
+import { showToast } from '@/components/toast';
 
 const NoticeDetail = () => {
   const params = useParams();
-  const userId = params.detail || '';
-  const { data: GetDetailNotice } = DetailNotice(userId);
+  const noticeId = params.detail || '';
+  const { data: GetDetailNotice } = DetailNotice(noticeId);
+  const { mutate: DeleteNotice } = useDeleteNotice();
+  const [deleteNotice, setDeleteNotice] = useState<boolean>(false);
 
   const router = useNavigate();
   return (
@@ -24,7 +30,7 @@ const NoticeDetail = () => {
           <img src={nextSvg} alt="" /> <span>{GetDetailNotice?.title}</span>
         </>
       }
-      title={GetDetailNotice?.title || ''}
+      title={GetDetailNotice?.title}
       right={
         <S.NoticeDetailRight>
           <S.NoticeDetailRightText>
@@ -37,6 +43,38 @@ const NoticeDetail = () => {
       }
     >
       <S.NoticeDetailContent>{GetDetailNotice?.content}</S.NoticeDetailContent>
+      <BottomButtonWrap
+        second
+        firstContent="수정"
+        firstOnclick={() => {}}
+        firstSize="standard"
+        firstType="black"
+        secondContent="삭제"
+        secondOnclick={() => setDeleteNotice(true)}
+        secondSize="standard"
+        secondType="error2"
+      />
+      {deleteNotice && (
+        <Modal
+          title="이 공지를 삭제하시겠습니까?"
+          subTitle="삭제 시에는 복구 시킬 수 없습니다."
+          onCancel={() => setDeleteNotice(false)}
+          onConfirm={() =>
+            DeleteNotice(
+              { id: noticeId },
+              {
+                onSuccess: () => {
+                  showToast({
+                    type: 'success',
+                    message: '공지가 삭제되었습니다.',
+                  });
+                },
+              },
+            )
+          }
+          type="red"
+        />
+      )}
     </Layout>
   );
 };

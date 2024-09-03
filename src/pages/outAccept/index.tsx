@@ -5,7 +5,6 @@ import BottomButtonWrap from '@/components/Button/bottom';
 import { OutRequest, useOutAccept } from '@/apis/application';
 import Dropdown from '@/components/dropdown';
 import { Class_numOption, GradeOption } from '@/utils/dropdown';
-import { toast } from 'react-toastify';
 import { styled } from 'styled-components';
 import useSelectionStore from '@/stores/useSelect';
 import { showToast } from '@/components/toast';
@@ -33,6 +32,8 @@ const OutAccept = () => {
   const handleClassChange = (selectedOption: number | string) => {
     setSelectedClass(Number(selectedOption));
   };
+
+  const disabled = selectedStudents.length === 0;
 
   return (
     <>
@@ -71,7 +72,7 @@ const OutAccept = () => {
       <BottomButtonWrap
         firstContent="거절하기"
         secondContent="수락하기"
-        firstDisabled={false}
+        disabled={disabled}
         firstOnclick={() => {
           OutAcceptMutate();
         }}

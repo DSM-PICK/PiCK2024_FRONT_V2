@@ -13,6 +13,7 @@ export const Nav = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
+  cursor: pointer;
 `;
 
 export const NowText = styled.p`
