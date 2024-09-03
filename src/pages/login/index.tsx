@@ -40,11 +40,7 @@ const Login = () => {
     }
   };
 
-  const Btn = () => {
-    if (data.admin_id === '' || data.password === '') {
-      return true;
-    } else return false;
-  };
+  const disabled = data.admin_id === '' || data.password === '';
 
   const navigate = useNavigate();
 
@@ -98,7 +94,7 @@ const Login = () => {
           onClick={onClickBtn}
           type="main"
           size="standard"
-          disabled={Btn()}
+          disabled={disabled}
         >
           로그인
         </Button>
