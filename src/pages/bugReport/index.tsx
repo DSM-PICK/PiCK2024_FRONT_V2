@@ -119,10 +119,11 @@ const BugReport = () => {
         ))}
       </Imgcontainer>
       <BottomButtonWrap
-        firstContent="ㅊㅜㅣㄱㅗ"
+        firstContent="버그 제보"
         firstOnclick={Bug}
         firstSize="small"
         firstType="main"
+        disabled={disabled}
       />
     </Layout>
   );
