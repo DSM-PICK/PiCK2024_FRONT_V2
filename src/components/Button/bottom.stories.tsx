@@ -20,7 +20,7 @@ export const Default: Story = {
     secondOnclick: () => {},
     secondType: 'main',
     secondSize: 'small',
-    disabled: true,
+    firstDisabled: true,
     secondContent: 'string',
   },
 };
