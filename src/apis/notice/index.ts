@@ -38,3 +38,11 @@ export const UploadNotice = () => {
     },
   });
 };
+
+export const useDeleteNotice = () => {
+  return useMutation<void, Error, { id: string }>({
+    mutationFn: async (param) => {
+      await instance.delete(`${router}/delete/${param.id}`);
+    },
+  });
+};
