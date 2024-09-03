@@ -3,11 +3,6 @@ import React, { useState } from 'react';
 import eyeOff from '@/assets/svg/eye.svg';
 import eye from '@/assets/svg/eyesOpen.svg';
 
-interface ChangeProps {
-  text: string;
-  name: string;
-}
-
 interface InputProp {
   label?: string;
   placeholder?: string;
@@ -46,7 +41,7 @@ const Input = ({
           placeholder={placeholder}
           name={name}
           value={value}
-          onChange={(e) => onChange({ text: e.target.value, name })}
+          onChange={onChange}
           onKeyDown={onKeyDown}
         />
         {password && (
