@@ -1,7 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
+import {
+  MutateOptions,
+  MutationOptions,
+  useMutation,
+} from '@tanstack/react-query';
 import { instance } from '..';
 import { BugProp } from './type';
 import { toast } from 'react-toastify';
+import { showToast } from '@/components/toast';
 
 const router = '/bug';
 
@@ -16,27 +21,24 @@ export const BugImg = () => {
         const { data } = await instance.post(`${router}/upload`, formData);
         return data;
       } catch (error) {
-        alert('이미지 용량이 너무 큽니다');
+        showToast({ type: 'error', message: '이미지 용량이 너무 큽니다.' });
         throw error;
       }
     },
   });
 };
 
-export const BugPost = () => {
-  return useMutation<void, Error, BugProp>({
-    mutationFn: async (param) => {
+export const BugPost = (option: MutateOptions, param: BugProp) => {
+  return useMutation({
+    ...option,
+    mutationFn: async () => {
       try {
-        await instance
-          .post(`/bug/message`, {
-            ...param,
-            model: 'WEB',
-          })
-          .then(() => {
-            toast.success('ㅂㅓㄱㅡㅈㅔㅂㅗ ㄷㅗㅣㅇㅓㅆㅅㅡㅂㄴㅣㄷㅏ');
-          });
+        await instance.post(`/bug/message`, {
+          ...param,
+          model: 'WEB',
+        });
       } catch (error) {
-        toast.error('ㅂㅓㄱㅡㅈㅔㅂㅗ ㅅㅣㄹㅍㅐ');
+        console.log(error);
       }
     },
   });

@@ -1,5 +1,5 @@
 export interface ClassChangeType {
-  id: string;
+  user_id: string;
   username: string;
   classroom_name: string;
   move: string;

@@ -6,10 +6,9 @@ import * as S from '../style';
 import { getFullToday } from '@/utils/date';
 import BottomButtonWrap from '@/components/Button/bottom';
 import { useState } from 'react';
-import { ChangeProps } from '@/apis/type';
 import { UploadNotice } from '@/apis/notice';
-import { toast } from 'react-toastify';
 import { Textarea } from '@/components/input/textarea';
+import { showToast } from '@/components/toast';
 
 const NoticeWrite = () => {
   const router = useNavigate();
@@ -20,7 +19,9 @@ const NoticeWrite = () => {
 
   const { mutate: UploadNoticeMutate } = UploadNotice();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,
@@ -28,16 +29,18 @@ const NoticeWrite = () => {
     }));
   };
 
+  const disabled = data.content === '' || data.title === '';
+
   const name = localStorage.getItem('name');
 
   const Upload = () => {
     UploadNoticeMutate(data, {
       onSuccess: () => {
-        toast.success('공지가 등록되었습니다');
+        showToast({ type: 'success', message: '공지가 등록되었습니다' });
         router(-1);
       },
       onError: () => {
-        //에러시 토스트
+        showToast({ type: 'error', message: '에러가 발생하였습니다' });
       },
     });
   };
@@ -87,7 +90,7 @@ const NoticeWrite = () => {
       </Layout>
       <BottomButtonWrap
         firstContent="공지작성"
-        firstDisabled={false}
+        disabled={disabled}
         firstOnclick={Upload}
         firstSize="standard"
         firstType="main"

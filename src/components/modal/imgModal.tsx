@@ -119,10 +119,10 @@ const ImgModal = ({ isOpen, onClick, onClose }: ImgModalProp) => {
         </ImgWrap>
         <ButtonWrap>
           <Button onClick={onClose} type="main" size="small">
-            ㅊㅜㅣㅅㅗ
+            취소
           </Button>
           <Button onClick={AddImg} type="main" size="small">
-            ㅊㅜㄱㅏ
+            추가
           </Button>
         </ButtonWrap>
       </Container>
@@ -187,11 +187,10 @@ const ImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${theme.color.normal.black};
+  background-color: #0000008c;
   z-index: 50;
   width: 100%;
   height: 100%;
-  opacity: 0.7;
   top: 0;
   left: 0;
 `;

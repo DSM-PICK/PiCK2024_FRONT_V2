@@ -3,16 +3,16 @@ import * as S from './style';
 import { OutListFloor, ReturnSchool } from '@/apis/application';
 import OutAcceptList from '@/components/list';
 import BottomButtonWrap from '@/components/Button/bottom';
-import useAcceptListSelection from '@/hook/selectHook';
 import { useState, useEffect } from 'react';
 import Modal from '@/components/modal';
 import Dropdown from '@/components/dropdown';
 import { FloorOption } from '@/utils/dropdown';
 import { toast } from 'react-toastify';
+import useSelectionStore from '@/stores/useSelect';
 
 const OutList = () => {
   const { selectedStudentName, selectedStudents, handleAcceptListClick } =
-    useAcceptListSelection();
+    useSelectionStore();
   const [selectedFloor, setSelectedFloor] = useState<number>(5);
   const { data: OutListFloorData, refetch: refetchOutList } = OutListFloor(
     selectedFloor,
@@ -30,6 +30,8 @@ const OutList = () => {
   const handleFloorChange = (option: number | string) => {
     setSelectedFloor(Number(option));
   };
+
+  const disabled = selectedStudents.length === 0;
 
   useEffect(() => {
     refetchOutList();
@@ -68,7 +70,7 @@ const OutList = () => {
         }}
         firstSize="standard"
         firstType="main"
-        firstDisabled={false}
+        disabled={disabled}
       />
       {modal && (
         <Modal

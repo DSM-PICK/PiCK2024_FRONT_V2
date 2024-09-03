@@ -6,7 +6,6 @@ import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import { ClassMoveList } from '@/components/list/classmove';
 import Modal from '@/components/modal';
-import useAcceptListSelection from '@/hook/selectHook';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
@@ -14,11 +13,15 @@ import { theme } from '@/styles/theme';
 import { getStudentString } from '@/utils/utils';
 import { FloorOption } from '@/utils/dropdown';
 import { toast } from 'react-toastify';
+import useSelectionStore from '@/stores/useSelect';
 
 const RequestClass = () => {
   const nav = useNavigate();
 
-  const { selectedStudents, handleAcceptListClick } = useAcceptListSelection();
+  const { selectedStudents, handleAcceptListClick, selectedStudentName } =
+    useSelectionStore();
+
+  const disabled = selectedStudents.length !== 0;
 
   const [selectedFloor, setSelectFloor] = useState<number>(5);
   const [modal, setModal] = useState<boolean>(false);
@@ -65,7 +68,7 @@ const RequestClass = () => {
         <Wrap>
           {GetRequestChange?.map((item) => (
             <ClassMoveList
-              onClick={() => handleAcceptListClick(item.id, item.username)}
+              onClick={() => handleAcceptListClick(item.user_id, item.username)}
               name={getStudentString(item)}
               preClass={item.move}
               nextClass={item.classroom_name}
@@ -76,7 +79,7 @@ const RequestClass = () => {
       </Layout>
       <BottomButtonWrap
         firstContent="거절"
-        firstDisabled={false}
+        disabled={disabled}
         firstOnclick={() => confirm('NO')}
         firstSize="standard"
         firstType="error"
@@ -93,10 +96,10 @@ const RequestClass = () => {
             setModal(false);
           }}
           onConfirm={AccpetList}
-          title={`${selectedStudents[0]}외 ${
+          title={`${selectedStudentName[0]}외 ${
             selectedStudents.length - 1
           }학생의 교실이동을 수락하시겠습니까?`}
-          subTitle={`확인 시 ${selectedStudents[0]}외 ${
+          subTitle={`확인 시 ${selectedStudentName[0]}외 ${
             selectedStudents.length - 1
           } 학생에게 알림이 보내집니다.`}
         />
@@ -113,9 +116,8 @@ const SubTitle = styled.p`
 `;
 
 const Wrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   row-gap: 36px;
 `;
