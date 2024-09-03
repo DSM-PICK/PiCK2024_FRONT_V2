@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { theme } from '@/styles/theme';
 import StatusDrop from '../dropdown/status';
 import { ChangeStudentStatus } from '@/apis/status';
+import { toast } from 'react-toastify';
+import { showToast } from '../toast';
 
 type Status = 'ATTENDANCE' | 'PICNIC' | 'GO_HOME' | 'EMPLOYMENT' | 'DROPOUT';
 
@@ -25,8 +27,7 @@ const ClassList = ({ number, name, status, id }: ClassListProp) => {
 
     ChangeMutate(newModifiedStudents, {
       onSuccess: () => {
-        alert('변경되었습니다');
-        //나중에 토스트로 대체 할 예정
+        showToast({ type: 'success', message: '상태가 변경되었습니다.' });
       },
     });
   };
@@ -68,13 +69,11 @@ const Title = styled.p`
 `;
 
 const ListWrap = styled.div`
-  gap: 76px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  width: fit-content;
   background-color: ${theme.color.main[50]};
   border-radius: 12px;
-  min-width: 330px;
+  min-width: fit-content;
 `;

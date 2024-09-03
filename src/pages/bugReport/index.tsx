@@ -10,6 +10,7 @@ import { BugImg, BugPost } from '@/apis/bug';
 import BottomButtonWrap, { BottomButton } from '@/components/Button/bottom';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { showToast } from '@/components/toast';
 
 interface BugProp {
   title: string;
@@ -26,9 +27,24 @@ const BugReport = () => {
   const [images, setImages] = useState<File[]>([]);
   const [modal, setModal] = useState<boolean>(false);
   const { mutate: BugImgMutate } = BugImg();
-  const { mutate: BugPostMutate } = BugPost();
+  const { mutate: BugPostMutate } = BugPost(
+    {
+      onSuccess: () => {
+        router('/main');
+        showToast({ type: 'success', message: '버그제보가 완료되었습니다' });
+      },
+      onError: (error) => {
+        showToast({
+          type: 'error',
+          message: `${error.message} 버그제보에 실패하였습니다.`,
+        });
+      },
+    },
+    data,
+  );
 
   const router = useNavigate();
+  const disabled = data.content === '' || data.title === '';
 
   const handleImgUpload = async (images: File[]) => {
     try {
@@ -52,7 +68,7 @@ const BugReport = () => {
 
   const Bug = async () => {
     try {
-      await BugPostMutate(data);
+      await BugPostMutate();
     } catch (error) {
       toast.error('버그 제보에 실패했습니다.');
     }
@@ -79,7 +95,7 @@ const BugReport = () => {
         value={data.title}
         onChange={handleChange}
         label="*어디서 버그가 발생했나요?"
-        placeholder="ㅇㅖ)ㅁㅔㅇㅣㄴㅍㅔㅇㅣㅈㅣ"
+        placeholder="예)메인페이지"
       />
       <Textarea
         name="content"
@@ -119,10 +135,11 @@ const BugReport = () => {
         ))}
       </Imgcontainer>
       <BottomButtonWrap
-        firstContent="ㅊㅜㅣㄱㅗ"
+        firstContent="버그제보"
         firstOnclick={Bug}
         firstSize="small"
         firstType="main"
+        firstDisabled={disabled}
       />
     </Layout>
   );
@@ -170,4 +187,5 @@ const Img = styled.label`
   border-radius: 6px;
   background-color: ${theme.color.gray[50]};
   color: ${theme.color.gray[600]};
+  border: 1px dashed ${theme.color.gray[400]};
 `;

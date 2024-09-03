@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import { ToastContainer } from 'react-toastify';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import 'react-toastify/dist/ReactToastify.css';
+import Toast from './components/toast';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,7 +21,7 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <ToastContainer autoClose={3000} />
+      <Toast />
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
         <GlobalStyle />
