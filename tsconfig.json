@@ -20,6 +20,10 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    ".storybook/stories/input/index.stories.tsx",
+    ".storybook/stories/input/search.stories.tsx"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

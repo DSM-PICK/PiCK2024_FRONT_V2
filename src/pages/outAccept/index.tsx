@@ -3,23 +3,25 @@ import { Layout } from '@/components/layout';
 import OutAcceptList from '@/components/list';
 import BottomButtonWrap from '@/components/Button/bottom';
 import { OutRequest, useOutAccept } from '@/apis/application';
-import useAcceptListSelection from '@/hook/selectHook';
 import Dropdown from '@/components/dropdown';
 import { Class_numOption, GradeOption } from '@/utils/dropdown';
 import { styled } from 'styled-components';
+import useSelectionStore from '@/stores/useSelect';
+import { showToast } from '@/components/toast';
 
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
-  const { data: GetOutRequest, refetch: ReGetOutRequest } = OutRequest(
-    selectedGrade,
-    selectedClass,
-  );
-  const { selectedStudents, handleAcceptListClick } = useAcceptListSelection();
+  const {
+    data: GetOutRequest,
+    refetch: ReGetOutRequest,
+    isLoading,
+  } = OutRequest(selectedGrade, selectedClass);
+  const { selectedStudents, handleAcceptListClick } = useSelectionStore();
   const { mutate: OutAcceptMutate } = useOutAccept('OK', selectedStudents, {
     onSuccess: () => {
       ReGetOutRequest();
-      toast.success('외출 수락이 되었습니다');
+      showToast({ type: 'success', message: '외출수락이 됨' });
     },
   });
 
