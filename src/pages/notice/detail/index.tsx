@@ -64,12 +64,10 @@ const NoticeDetail = () => {
               { id: noticeId },
               {
                 onSuccess: () => {
-                  {
-                    showToast({
-                      type: 'success',
-                      message: '공지가 삭제되었습니다.',
-                    });
-                  }
+                  showToast({
+                    type: 'success',
+                    message: '공지가 삭제되었습니다.',
+                  });
                 },
               },
             )
