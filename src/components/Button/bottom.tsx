@@ -10,7 +10,7 @@ interface BottomProp {
   secondOnclick?: () => void;
   secondType?: 'main' | 'error' | 'black' | 'error2';
   secondSize?: 'small' | 'standard';
-  firstDisabled?: boolean;
+  disabled?: boolean;
   secondContent?: string;
 }
 
@@ -19,7 +19,7 @@ const BottomButtonWrap = ({
   firstType,
   firstSize,
   firstContent,
-  firstDisabled,
+  disabled,
   second,
   secondOnclick,
   secondSize,
@@ -32,12 +32,17 @@ const BottomButtonWrap = ({
         onClick={firstOnclick}
         type={firstType}
         size={firstSize}
-        disabled={firstDisabled}
+        disabled={disabled}
       >
         {firstContent}
       </Button>
       {second && secondSize && secondType && secondOnclick && (
-        <Button onClick={secondOnclick} type={secondType} size={secondSize}>
+        <Button
+          onClick={secondOnclick}
+          type={secondType}
+          disabled={disabled}
+          size={secondSize}
+        >
           {secondContent}
         </Button>
       )}
@@ -56,9 +61,9 @@ export const BottomButton = styled.div`
   padding: 60px 240px;
   justify-content: end;
   gap: 32px;
-  background: linear-gradient(
-    174deg,
-    rgba(255, 255, 255, 0) 5.76%,
-    #fff 51.24%
+  background-image: linear-gradient(
+    0deg,
+    rgb(255, 255, 255) 20%,
+    transparent 400%
   );
 `;
