@@ -111,7 +111,7 @@ export const theme = {
     button: {
       1: {
         size: '24px',
-        fontweight: '400',
+        fontweight: '600',
       },
       2: {
         size: '18px',
