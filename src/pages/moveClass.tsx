@@ -19,8 +19,6 @@ const MoveClass = () => {
     'OK',
   );
 
-  const { handleAcceptListClick } = useSelectionStore();
-
   const handleFloorChange = (selectedOption: number | string) => {
     setSelectFloor(Number(selectedOption));
   };
@@ -56,7 +54,7 @@ const MoveClass = () => {
       <Wrap>
         {ChangingClass?.map((item) => (
           <ClassMoveList
-            onClick={() => handleAcceptListClick(item.id, item.username)}
+            onClick={() => {}}
             name={getStudentString(item)}
             preClass={item.move}
             nextClass={item.classroom_name}
@@ -76,9 +74,8 @@ const SubTitle = styled.p`
 `;
 
 const Wrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   row-gap: 36px;
 `;
