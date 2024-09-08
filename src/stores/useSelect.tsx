@@ -3,6 +3,7 @@ interface AcceptListSelectionState {
   selectedStudents: string[];
   selectedStudentName: string[];
   handleAcceptListClick: (id: string, name: string) => void;
+  resetSelection: () => void;
 }
 const useSelectionStore = create<AcceptListSelectionState>((set) => ({
   selectedStudents: [],
@@ -25,5 +26,11 @@ const useSelectionStore = create<AcceptListSelectionState>((set) => ({
         selectedStudentName: updatedNames,
       };
     }),
+  resetSelection: () =>
+    set(() => ({
+      selectedStudents: [],
+      selectedStudentName: [],
+    })),
 }));
+
 export default useSelectionStore;
