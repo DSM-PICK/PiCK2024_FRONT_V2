@@ -6,7 +6,7 @@ import { GetAllMeals, GetClassWeekendMeal } from '@/apis/weekend-meals';
 import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
 import WeekEndList from '@/components/list/weekendMeal';
-import { DownLoad } from '@/apis/meal';
+import { ClassDownLoadExcel, DownLoad } from '@/apis/meal';
 import { setStudentNum } from '@/utils/utils';
 import { Class_numOption, GradeOption } from '@/utils/dropdown';
 
@@ -15,6 +15,10 @@ const WeekedMeal = () => {
   const { downloadExcel } = DownLoad();
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
+  const { ClassDownloadExcel } = ClassDownLoadExcel(
+    selectedGrade,
+    selectedClass,
+  );
   const { data: GetClassList } = GetClassWeekendMeal(
     selectedGrade,
     selectedClass,
@@ -49,11 +53,10 @@ const WeekedMeal = () => {
               엑셀 출력하기
             </Button>
           ) : (
-            <Button onClick={downloadExcel} type="main" size="small">
-              담임 확인하기
+            <Button onClick={ClassDownloadExcel} type="main" size="small">
+              반별 주말급식 출력하기
             </Button>
           )}
-
           <Dropdown
             options={GradeOption}
             value={selectedGrade}
@@ -149,11 +152,6 @@ const NoticeWrap = styled.div`
 const ResTitle = styled.p`
   font-size: ${theme.font.heading[2].size};
   font-weight: ${theme.font.heading[2].fontweight};
-`;
-
-const SubTitle = styled.p`
-  font-size: ${theme.font.heading[4].size};
-  color: ${theme.color.gray[500]};
 `;
 
 const ClassProp = styled.div`

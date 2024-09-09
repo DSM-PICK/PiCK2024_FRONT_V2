@@ -43,8 +43,8 @@ export interface MynameType {
 
 export interface OutListProp {
   username: string;
-  startTime: string;
-  endTime: string;
+  start: string;
+  end: string;
   grade: number;
   class_num: number;
   num: number;
@@ -70,12 +70,12 @@ export interface UploadNoticeType {
 
 export interface applicationDataProp {
   class_num: number;
-  end_time: string;
+  end: string;
   grade: number;
   id: string;
   num: number;
   reason: string;
-  start_time: string;
+  start: string;
   user_id: string;
   username: string;
 }

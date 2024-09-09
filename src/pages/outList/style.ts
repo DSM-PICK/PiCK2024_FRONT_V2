@@ -12,9 +12,8 @@ export const SemiTitle = styled.p`
 `;
 
 export const OutListContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   row-gap: 40px;
   column-gap: 60px;
 `;

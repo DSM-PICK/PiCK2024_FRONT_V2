@@ -1,37 +1,51 @@
 import { AcceptListApi, RequestChange } from '@/apis/class-room';
-import { ClassChangeType } from '@/apis/class-room/type';
 import { Button } from '@/components/Button';
 import BottomButtonWrap from '@/components/Button/bottom';
 import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import { ClassMoveList } from '@/components/list/classmove';
 import Modal from '@/components/modal';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
 import { getStudentString } from '@/utils/utils';
 import { FloorOption } from '@/utils/dropdown';
-import { toast } from 'react-toastify';
 import useSelectionStore from '@/stores/useSelect';
+import { showToast } from '@/components/toast';
 
 const RequestClass = () => {
   const nav = useNavigate();
 
-  const { selectedStudents, handleAcceptListClick, selectedStudentName } =
-    useSelectionStore();
+  const {
+    selectedStudents,
+    handleAcceptListClick,
+    selectedStudentName,
+    resetSelection,
+  } = useSelectionStore();
 
-  const disabled = selectedStudents.length !== 0;
+  useEffect(() => {
+    resetSelection();
+  }, []);
+
+  const disabled = selectedStudents.length === 0;
 
   const [selectedFloor, setSelectFloor] = useState<number>(5);
   const [modal, setModal] = useState<boolean>(false);
   const [state, setState] = useState<'OK' | 'NO'>('OK');
 
-  const { data: GetRequestChange } = RequestChange(selectedFloor, 'QUIET');
+  const { data: GetRequestChange, refetch: ReGetRequestChange } = RequestChange(
+    selectedFloor,
+    'QUIET',
+  );
   const { mutate: AccpetList } = AcceptListApi(state, selectedStudents, {
     onSuccess: () => {
-      toast.success('교실이동이 수락되었습니다');
+      showToast({
+        type: 'success',
+        message: `교실이동이 ${state === 'NO' ? '거절' : '수락'}되었습니다`,
+      });
       setModal(false);
+      ReGetRequestChange();
     },
   });
 
@@ -80,13 +94,18 @@ const RequestClass = () => {
       <BottomButtonWrap
         firstContent="거절"
         disabled={disabled}
-        firstOnclick={() => confirm('NO')}
+        firstOnclick={() => {
+          setState('NO');
+          AccpetList();
+        }}
         firstSize="standard"
         firstType="error"
         second={true}
         secondContent="수락"
         secondSize="standard"
-        secondOnclick={() => setModal(true)}
+        secondOnclick={() => {
+          setModal(true);
+        }}
         secondType="main"
       />
       {modal && (
