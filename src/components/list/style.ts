@@ -10,7 +10,6 @@ export const OutAcceptWrap = styled.div<AcceptListProp>`
   padding: 20px;
   gap: 10px;
   border-radius: 16px;
-  width: calc(100% / 3.28);
   min-width: min-content;
   background-color: ${theme.color.main[50]};
   border: 2px solid

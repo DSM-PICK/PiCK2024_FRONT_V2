@@ -43,7 +43,7 @@ const MoveContentWrap = styled.div<{ isActive: boolean }>`
   flex-direction: column;
   gap: 12px;
   padding: 16px 20px;
-
+  min-width: fit-content;
   background-color: ${theme.color.main[50]};
   border-radius: 16px;
   &:hover {

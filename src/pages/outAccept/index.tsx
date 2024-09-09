@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Layout } from '@/components/layout';
 import OutAcceptList from '@/components/list';
 import BottomButtonWrap from '@/components/Button/bottom';
@@ -12,16 +12,29 @@ import { showToast } from '@/components/toast';
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
-  const {
-    data: GetOutRequest,
-    refetch: ReGetOutRequest,
-    isLoading,
-  } = OutRequest(selectedGrade, selectedClass);
-  const { selectedStudents, handleAcceptListClick } = useSelectionStore();
-  const { mutate: OutAcceptMutate } = useOutAccept('OK', selectedStudents, {
+  const [state, setState] = useState<'OK' | 'NO'>('OK');
+  const { data: GetOutRequest, refetch: ReGetOutRequest } = OutRequest(
+    selectedGrade,
+    selectedClass,
+  );
+  const { selectedStudents, handleAcceptListClick, resetSelection } =
+    useSelectionStore();
+
+  console.log(selectedStudents);
+  const { mutate: OutAcceptMutate } = useOutAccept(state, selectedStudents, {
     onSuccess: () => {
       ReGetOutRequest();
-      showToast({ type: 'success', message: '외출수락이 됨' });
+      resetSelection();
+      showToast({
+        type: 'success',
+        message: `외출신청이 ${state === 'OK' ? '수락' : '거절'}되었습니다`,
+      });
+    },
+    onError: () => {
+      showToast({
+        type: 'error',
+        message: '수락 처리 중 오류가 발생했습니다',
+      });
     },
   });
 
@@ -56,17 +69,19 @@ const OutAccept = () => {
         }
       >
         <OutAcceptContainer>
-          {GetOutRequest?.map((item, index) => (
-            <OutAcceptList
-              key={index}
-              name={item.username}
-              content={item.reason}
-              date={`${item.start_time}~${item.end_time}`}
-              onClick={() => {
-                handleAcceptListClick(item.id, item.username);
-              }}
-            />
-          ))}
+          {GetOutRequest?.length ? (
+            GetOutRequest.map((item, index) => (
+              <OutAcceptList
+                key={index}
+                name={item.username}
+                content={item.reason}
+                date={`${item.start}~${item.end}`}
+                onClick={() => handleAcceptListClick(item.id, item.username)}
+              />
+            ))
+          ) : (
+            <p>외출 신청이 없습니다</p>
+          )}
         </OutAcceptContainer>
       </Layout>
       <BottomButtonWrap
@@ -74,12 +89,14 @@ const OutAccept = () => {
         secondContent="수락하기"
         disabled={disabled}
         firstOnclick={() => {
+          setState('NO');
           OutAcceptMutate();
         }}
         firstSize="standard"
         firstType="error"
         second={true}
         secondOnclick={() => {
+          setState('OK');
           OutAcceptMutate();
         }}
         secondSize="standard"
