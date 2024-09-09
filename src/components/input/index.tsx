@@ -12,6 +12,7 @@ interface InputProp {
   value: string;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   password?: boolean;
+  error?: boolean;
 }
 
 const Input = ({
@@ -23,6 +24,7 @@ const Input = ({
   value,
   onKeyDown,
   password,
+  error,
 }: InputProp) => {
   const [showOpen, setShowOpen] = useState<boolean>(false);
   const [inputType, setInputType] = useState<string>('password');
@@ -35,7 +37,7 @@ const Input = ({
   return (
     <S.InputWrap>
       <S.inputLabel>{label}</S.inputLabel>
-      <S.InputContainer type={widthtype}>
+      <S.InputContainer type={widthtype} error={error}>
         <S.inputContent
           type={password ? inputType : 'text'}
           placeholder={placeholder}

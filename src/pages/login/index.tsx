@@ -23,6 +23,7 @@ const Login = () => {
     admin_id: '',
     password: '',
   });
+  const [error, setError] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -54,13 +55,8 @@ const Login = () => {
           localStorage.clear();
           navigate('/main');
         },
-        onError: (error) => {
-          console.error('Login error:', error);
-          if (error.message === 'Request failed with status code 500') {
-            alert('아이디 혹은 비밀번호가 일치하지 않습니다');
-          } else if (error.message === 'Request failed with status code 401') {
-            alert('아이디 혹은 비밀번호가 일치하지 않습니다');
-          }
+        onError: () => {
+          setError(true);
         },
       });
     } catch (error) {
@@ -80,6 +76,7 @@ const Login = () => {
           value={data.admin_id}
           label="아이디"
           name="admin_id"
+          error={error}
         />
         <Input
           onChange={handleChange}
@@ -89,7 +86,9 @@ const Login = () => {
           password={true}
           name="password"
           onKeyDown={handleKeyDown}
+          error={error}
         />
+        {error && <S.Error>아이디와 비밀번호를 다시 확인해주세요</S.Error>}
         <Button
           onClick={onClickBtn}
           type="main"

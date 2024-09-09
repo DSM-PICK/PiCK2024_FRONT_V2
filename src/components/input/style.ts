@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
+import { error } from 'console';
 
 export const inputContent = styled.input`
   display: flex;
@@ -31,6 +32,7 @@ export const inputLabel = styled.p`
 
 export const InputContainer = styled.div<{
   type: 'long' | 'login' | 'password';
+  error?: boolean;
 }>`
   padding: 12px 24px;
   display: flex;
@@ -40,8 +42,11 @@ export const InputContainer = styled.div<{
   height: 48px;
   background-color: ${theme.color.gray[50]};
   border-radius: 12px;
+  border: 1px solid
+    ${({ error }) => (error ? theme.color.error[500] : theme.color.gray[50])};
   &:hover {
-    border: 1px solid ${theme.color.main[500]};
+    border: 1px solid
+      ${({ error }) => (error ? theme.color.error[500] : theme.color.main[500])};
     outline: none;
   }
   box-sizing: border-box;

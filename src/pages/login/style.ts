@@ -35,3 +35,7 @@ export const Pickman = styled.image`
   align-items: center;
   bottom: 0%;
 `;
+
+export const Error = styled.p`
+  color: ${theme.color.error[500]};
+`;
