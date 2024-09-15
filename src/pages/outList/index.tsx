@@ -45,6 +45,10 @@ const OutList = () => {
   const disabled = selectedStudents.length === 0;
 
   useEffect(() => {
+    resetSelection();
+  }, []);
+
+  useEffect(() => {
     refetchOutList();
   }, [selectedFloor]);
 
@@ -68,7 +72,7 @@ const OutList = () => {
               key={index}
               name={item.username}
               content={item.reason}
-              date={`${item.end}`}
+              date={`${item.start} ~ ${item.end}`}
               onClick={() => handleAcceptListClick(item.id, item.username)}
             />
           ))}
