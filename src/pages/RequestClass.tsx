@@ -58,7 +58,6 @@ const RequestClass = () => {
       <Layout
         now="교실 이동 수락"
         title="교실 이동 수락"
-        date={true}
         right={
           <>
             <Button

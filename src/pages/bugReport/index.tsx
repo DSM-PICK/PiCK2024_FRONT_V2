@@ -59,8 +59,6 @@ const BugReport = () => {
           },
         },
       );
-
-      console.log('Uploaded:', response);
     } catch (error) {
       console.error('Upload failed:', error);
     }

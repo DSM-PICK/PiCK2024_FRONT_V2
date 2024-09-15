@@ -100,7 +100,7 @@ export const FloorTitle = styled.p`
 export const SelfStudyListWrap = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 `;
 
 export const ScheduleLine = styled.div`

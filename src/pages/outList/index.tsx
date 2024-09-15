@@ -36,13 +36,15 @@ const OutList = () => {
     },
   });
 
-  console.log(selectedStudents);
-
   const handleFloorChange = (option: number | string) => {
     setSelectedFloor(Number(option));
   };
 
   const disabled = selectedStudents.length === 0;
+
+  useEffect(() => {
+    resetSelection();
+  }, []);
 
   useEffect(() => {
     refetchOutList();
@@ -68,7 +70,7 @@ const OutList = () => {
               key={index}
               name={item.username}
               content={item.reason}
-              date={`${item.end}`}
+              date={`${item.start} ~ ${item.end}`}
               onClick={() => handleAcceptListClick(item.id, item.username)}
             />
           ))}

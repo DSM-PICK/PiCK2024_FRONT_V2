@@ -8,7 +8,3 @@ export const MainContainer = styled.div`
   gap: 120px;
   margin-top: 80px;
 `;
-
-export const ButtonBox = styled.div`
-  width: 890px;
-`;
