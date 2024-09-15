@@ -9,6 +9,7 @@ interface ClassMoveListProp {
   nextClass: string;
   moveTime: string;
   onClick: () => void;
+  notSelect?: boolean;
 }
 
 export const ClassMoveList = ({
@@ -17,6 +18,7 @@ export const ClassMoveList = ({
   nextClass,
   moveTime,
   onClick,
+  notSelect,
 }: ClassMoveListProp) => {
   const [isActive, setIsActive] = useState<boolean>(false);
 
@@ -26,7 +28,11 @@ export const ClassMoveList = ({
   };
 
   return (
-    <MoveContentWrap onClick={handleClick} isActive={isActive}>
+    <MoveContentWrap
+      notSelect={notSelect}
+      onClick={handleClick}
+      isActive={isActive}
+    >
       <Name>{name}</Name>
       <ClassRoomWrap>
         <PreClass>{preClass}</PreClass>
@@ -38,7 +44,7 @@ export const ClassMoveList = ({
   );
 };
 
-const MoveContentWrap = styled.div<{ isActive: boolean }>`
+const MoveContentWrap = styled.div<{ isActive: boolean; notSelect?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -47,11 +53,16 @@ const MoveContentWrap = styled.div<{ isActive: boolean }>`
   background-color: ${theme.color.main[50]};
   border-radius: 16px;
   &:hover {
-    border: 2px solid ${theme.color.main[500]};
+    border: 2px solid
+      ${({ notSelect }) => (notSelect ? 'none' : theme.color.main[500])};
   }
   border: 2px solid
-    ${({ isActive }) =>
-      isActive ? theme.color.main[500] : theme.color.main[50]};
+    ${({ isActive, notSelect }) =>
+      notSelect
+        ? 'none'
+        : isActive
+          ? theme.color.main[500]
+          : theme.color.main[50]};
 `;
 
 const ClassRoomWrap = styled.div`

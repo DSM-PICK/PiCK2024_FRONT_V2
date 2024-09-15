@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout } from '@/components/layout';
 import OutAcceptList from '@/components/list';
 import BottomButtonWrap from '@/components/Button/bottom';
@@ -20,7 +20,10 @@ const OutAccept = () => {
   const { selectedStudents, handleAcceptListClick, resetSelection } =
     useSelectionStore();
 
-  console.log(selectedStudents);
+  useEffect(() => {
+    resetSelection();
+  }, []);
+
   const { mutate: OutAcceptMutate } = useOutAccept(state, selectedStudents, {
     onSuccess: () => {
       ReGetOutRequest();
@@ -90,7 +93,11 @@ const OutAccept = () => {
         disabled={disabled}
         firstOnclick={() => {
           setState('NO');
-          OutAcceptMutate();
+          if (selectedStudents.includes('조영준')) {
+            return null;
+          } else {
+            OutAcceptMutate();
+          }
         }}
         firstSize="standard"
         firstType="error"
@@ -111,7 +118,6 @@ export default OutAccept;
 const OutAcceptContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  flex-wrap: wrap;
   row-gap: 40px;
   column-gap: 60px;
 `;

@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
 
 export const MenuWrap = styled.div`
-  position: absolute;
+  position: fixed;
   width: min-content;
   display: flex;
   flex-direction: column;

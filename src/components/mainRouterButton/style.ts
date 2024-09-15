@@ -8,8 +8,6 @@ export const MainRouterButtonContainer = styled(Link)`
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  width: 14%;
-  margin-bottom: 52px;
 `;
 
 export const MainRouterImgContainer = styled.div`
@@ -38,8 +36,11 @@ export const MainRouterText = styled.p`
 `;
 
 export const MainRouterFlexbox = styled.div`
+  width: 940px;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  justify-content: space-between;
+  justify-content: space-evenly;
+
+  column-gap: 56px;
+  row-gap: 60px;
 `;
