@@ -56,11 +56,6 @@ const MainRouterButton = () => {
       router: '/classManage',
     },
     {
-      img: afterSchool,
-      text: '방과후 관리',
-      router: '/afterSchool',
-    },
-    {
       img: clubManagement,
       text: '전공 동아리 관리',
       router: '/club',
@@ -74,11 +69,6 @@ const MainRouterButton = () => {
       img: academicCalendar,
       text: '학사 일정 변경',
       router: '/schedule',
-    },
-    {
-      img: timetableChange,
-      text: '시간표 변경',
-      router: '/changeTimeTable',
     },
     {
       img: selfStudyImg,

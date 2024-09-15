@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout } from '@/components/layout';
 import nextSvg from '@/assets/svg/next.svg';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -14,6 +14,13 @@ const NoticeDetail = () => {
   const { data: GetDetailNotice } = DetailNotice(noticeId);
   const { mutate: DeleteNotice } = useDeleteNotice();
   const [deleteNotice, setDeleteNotice] = useState<boolean>(false);
+  const [name, setName] = useState<string>('');
+  useEffect(() => {
+    const storedName = localStorage.getItem('name');
+    if (storedName) {
+      setName(storedName);
+    }
+  }, []);
 
   const router = useNavigate();
   return (
@@ -43,17 +50,19 @@ const NoticeDetail = () => {
       }
     >
       <S.NoticeDetailContent>{GetDetailNotice?.content}</S.NoticeDetailContent>
-      <BottomButtonWrap
-        second
-        firstContent="수정"
-        firstOnclick={() => {}}
-        firstSize="standard"
-        firstType="black"
-        secondContent="삭제"
-        secondOnclick={() => setDeleteNotice(true)}
-        secondSize="standard"
-        secondType="error2"
-      />
+      {GetDetailNotice?.teacher === name && (
+        <BottomButtonWrap
+          second
+          firstContent="수정"
+          firstOnclick={() => {}}
+          firstSize="standard"
+          firstType="black"
+          secondContent="삭제"
+          secondOnclick={() => setDeleteNotice(true)}
+          secondSize="standard"
+          secondType="error2"
+        />
+      )}
       {deleteNotice && (
         <Modal
           title="이 공지를 삭제하시겠습니까?"

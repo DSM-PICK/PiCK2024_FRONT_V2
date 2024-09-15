@@ -63,4 +63,10 @@ const ContentWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
+  @media (max-width: 1600px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 `;

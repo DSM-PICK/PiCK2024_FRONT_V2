@@ -54,6 +54,7 @@ const MoveClass = () => {
       <Wrap>
         {ChangingClass?.map((item) => (
           <ClassMoveList
+            notSelect
             onClick={() => {}}
             name={getStudentString(item)}
             preClass={item.move}
