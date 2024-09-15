@@ -62,7 +62,6 @@ export const Modal = ({
   const { data: Schedule } = DaySchedule(date);
 
   useEffect(() => {
-    SelectSelfList?.map((item) => console.log(item.floor, item.teacher));
     if (SelectSelfList) {
       SelectSelfList.forEach((val) => {
         switch (val.floor) {
@@ -79,8 +78,6 @@ export const Modal = ({
       });
     }
   }, [SelectSelfList]);
-
-  console.log(date + 'frnnunjnwe');
 
   const onClickDelete = async (id: string) => {
     await Delete(
