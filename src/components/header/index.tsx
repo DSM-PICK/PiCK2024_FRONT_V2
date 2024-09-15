@@ -116,11 +116,11 @@ const Header = () => {
             alt="아이콘"
             onClick={() => handleIconClick('help')}
           />
-          <S.IconStyle
+          {/* <S.IconStyle
             src={AlarmSvg}
             alt="아이콘"
             onClick={() => handleIconClick('alarm')}
-          />
+          /> */}
           <S.IconStyle
             src={MenuSvg}
             alt="아이콘"
@@ -133,11 +133,11 @@ const Header = () => {
           <HelfMenu />
         </div>
       )}
-      {alarmModalOpen && (
+      {/* {alarmModalOpen && (
         <div ref={alarmModalRef}>
           <Alarm />
         </div>
-      )}
+      )} */}
       {menuModalOpen && (
         <div ref={menuModalRef}>
           <Menu closeOnClick={MenuOnClick} />
