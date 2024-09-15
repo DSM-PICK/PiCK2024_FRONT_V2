@@ -29,7 +29,7 @@ interface DataItem {
 }
 
 interface ScheduleData {
-  event_name: string;
+  event: string;
   date: string;
 }
 
@@ -45,7 +45,7 @@ export const Modal = ({
   const [thirdData, setThirdData] = useState({ floor: 3, teacher: '' });
   const [fourthData, setFourthData] = useState({ floor: 4, teacher: '' });
   const [addSchedule, setAddSchedule] = useState<ScheduleData>({
-    event_name: '',
+    event: '',
     date: initialDate
       ? format(new Date(initialDate), 'yyyy-MM-dd')
       : format(new Date(), 'yyyy-MM-dd'),
@@ -62,22 +62,25 @@ export const Modal = ({
   const { data: Schedule } = DaySchedule(date);
 
   useEffect(() => {
+    SelectSelfList?.map((item) => console.log(item.floor, item.teacher));
     if (SelectSelfList) {
       SelectSelfList.forEach((val) => {
         switch (val.floor) {
           case 2:
-            setSecondData({ floor: 2, teacher: val?.teacher_name });
+            setSecondData({ floor: 2, teacher: val?.teacher });
             break;
           case 3:
-            setThirdData({ floor: 3, teacher: val?.teacher_name });
+            setThirdData({ floor: 3, teacher: val?.teacher });
             break;
           case 4:
-            setFourthData({ floor: 4, teacher: val?.teacher_name });
+            setFourthData({ floor: 4, teacher: val?.teacher });
             break;
         }
       });
     }
   }, [SelectSelfList]);
+
+  console.log(date + 'frnnunjnwe');
 
   const onClickDelete = async (id: string) => {
     await Delete(
@@ -104,7 +107,7 @@ export const Modal = ({
 
       await postTeacherMutate(postData, {
         onSuccess: () => {
-          location.reload();
+          // location.reload();
         },
       });
     } catch (error) {
@@ -218,9 +221,9 @@ export const Modal = ({
               <S.ScheduleItemText>
                 <SearchInput
                   onChange={SchedulehandleChange}
-                  value={addSchedule.event_name}
+                  value={addSchedule.event}
                   type="schedule"
-                  name="event_name"
+                  name="event"
                   placeholder="새로운 일정을 입력해주세요"
                 />
               </S.ScheduleItemText>

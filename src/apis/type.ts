@@ -1,6 +1,6 @@
 export interface todaySelfStudTeacher {
   floor: number;
-  teacher_name: string;
+  teacher: string;
 }
 
 export interface TodayMealsType {
