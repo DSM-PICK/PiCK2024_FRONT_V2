@@ -47,10 +47,11 @@ export const SelectTeacher = (date: string) => {
     queryKey: ['SelectTeacher', date],
     queryFn: async () => {
       try {
-        const response = await instance.get<todaySelfStudTeacher[]>(
+        const { data } = await instance.get<todaySelfStudTeacher[]>(
           `self-study/date?date=${date}`,
         );
-        return response.data;
+
+        return data;
       } catch (error) {
         console.log('');
       }

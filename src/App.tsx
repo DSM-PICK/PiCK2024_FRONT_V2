@@ -3,7 +3,6 @@ import { Router } from './router/router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GlobalStyle, theme } from './styles/theme';
 import { ThemeProvider } from 'styled-components';
-import { ToastContainer } from 'react-toastify';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import 'react-toastify/dist/ReactToastify.css';
 import Toast from './components/toast';
