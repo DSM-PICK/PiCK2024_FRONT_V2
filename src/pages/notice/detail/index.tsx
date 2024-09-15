@@ -16,7 +16,10 @@ const NoticeDetail = () => {
   const [deleteNotice, setDeleteNotice] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   useEffect(() => {
-    setName(localStorage.getItem('name')!);
+    const storedName = localStorage.getItem('name');
+    if (storedName) {
+      setName(storedName);
+    }
   }, []);
 
   const router = useNavigate();

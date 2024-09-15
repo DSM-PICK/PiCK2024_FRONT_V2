@@ -93,11 +93,7 @@ const OutAccept = () => {
         disabled={disabled}
         firstOnclick={() => {
           setState('NO');
-          if (selectedStudents.includes('조영준')) {
-            return null;
-          } else {
-            OutAcceptMutate();
-          }
+          OutAcceptMutate();
         }}
         firstSize="standard"
         firstType="error"
