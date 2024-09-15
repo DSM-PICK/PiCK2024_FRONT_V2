@@ -36,8 +36,6 @@ const OutList = () => {
     },
   });
 
-  console.log(selectedStudents);
-
   const handleFloorChange = (option: number | string) => {
     setSelectedFloor(Number(option));
   };
