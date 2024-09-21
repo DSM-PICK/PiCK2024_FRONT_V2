@@ -56,6 +56,7 @@ const Container = styled(ToastContainer)`
     height: auto;
     padding: 16px 36px;
     min-height: 0;
+    width: max-content;
   }
   .Toastify__toast-body {
     padding: 0;
