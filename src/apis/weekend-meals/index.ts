@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { MutationOptions, useMutation, useQuery } from '@tanstack/react-query';
 import { instance } from '..';
 import { ChangeStateParams, GetAllMealsType } from './type';
 
@@ -40,6 +40,21 @@ export const GetClassWeekendMeal = (grade: number, class_num: number) => {
       } catch (error) {
         console.log(error);
       }
+    },
+  });
+};
+
+export const useChangeWeekendMealPeriod = (
+  start: string,
+  end: string,
+  month: number,
+  option: MutationOptions,
+) => {
+  const data = { start, end, month };
+  return useMutation({
+    ...option,
+    mutationFn: async () => {
+      await instance.patch(`${router}/period`, data);
     },
   });
 };
