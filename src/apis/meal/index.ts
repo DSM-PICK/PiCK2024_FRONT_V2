@@ -68,3 +68,12 @@ export const ClassDownLoadExcel = (grade: number, class_num: number) => {
 
   return { ClassDownloadExcel };
 };
+
+export const WeekendMealStartEnd = () => {
+  return useMutation({
+    mutationFn: async (param) => {
+      const { data } = await instance.patch(`${mealrouter}/period`, param);
+      return data;
+    },
+  });
+};
