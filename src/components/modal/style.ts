@@ -19,8 +19,9 @@ export const ModalStyle = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
+  gap: 30px;
   background-color: ${theme.color.normal.white};
-  max-width: 565px;
+  max-width: 640px;
   border-radius: 12px;
   opacity: 1;
 `;
@@ -36,6 +37,7 @@ export const ModalTitle = styled.p`
   text-align: center;
   font-size: ${theme.font.heading[2].size};
   font-weight: ${theme.font.heading[2].fontweight};
+  white-space: nowrap;
 `;
 
 export const ModalSubTitle = styled.p`
@@ -80,7 +82,7 @@ export const TextWrap = styled.div`
   gap: 20px;
   flex-direction: column;
   width: 100%;
-  padding: 48px 62px;
+  padding: 48px 51px 0px 51px;
 `;
 
 export const SelfInputWrap = styled.div`
@@ -145,3 +147,5 @@ export const FixContent = styled.div`
   flex-direction: column;
   gap: 4px;
 `;
+
+export const DateInput = styled.div``;

@@ -18,6 +18,19 @@ export const FloorOption = [
   { label: '전체', value: 5 },
 ];
 
+export const NotAllGradeOption = [
+  { label: '1학년', value: 1 },
+  { label: '2학년', value: 2 },
+  { label: '3학년', value: 3 },
+];
+
+export const NotAllClassOption = [
+  { label: '1반', value: 1 },
+  { label: '2반', value: 2 },
+  { label: '3반', value: 3 },
+  { label: '4반', value: 4 },
+];
+
 export interface Option {
   value: number;
   label: string | number;

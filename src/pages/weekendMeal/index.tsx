@@ -6,15 +6,18 @@ import { GetAllMeals, GetClassWeekendMeal } from '@/apis/weekend-meals';
 import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
 import WeekEndList from '@/components/list/weekendMeal';
-import { ClassDownLoadExcel, DownLoad } from '@/apis/meal';
+import { ClassDownLoadExcel, DownLoad, WeekendMealStartEnd } from '@/apis/meal';
 import { setStudentNum } from '@/utils/utils';
 import { Class_numOption, GradeOption } from '@/utils/dropdown';
+import Modal from '@/components/modal';
+import { WeekendMealModal } from '@/components/modal/weekendmealModal';
 
 const WeekedMeal = () => {
   const { data: GetAllList } = GetAllMeals();
   const { downloadExcel } = DownLoad();
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
+  const [modal, setModal] = useState<boolean>(false);
   const { ClassDownloadExcel } = ClassDownLoadExcel(
     selectedGrade,
     selectedClass,
@@ -49,9 +52,14 @@ const WeekedMeal = () => {
       right={
         <>
           {selectedGrade === 5 && selectedClass === 5 ? (
-            <Button onClick={downloadExcel} type="main" size="small">
-              엑셀 출력하기
-            </Button>
+            <>
+              <Button onClick={() => setModal(true)} type="main" size="small">
+                주말급식 기간 설정
+              </Button>
+              <Button onClick={downloadExcel} type="main" size="small">
+                엑셀 출력하기
+              </Button>
+            </>
           ) : (
             <Button onClick={ClassDownloadExcel} type="main" size="small">
               반별 주말급식 출력하기
@@ -131,6 +139,14 @@ const WeekedMeal = () => {
             )}
           </Wrap>
         </ClassProp>
+      )}
+      {modal && (
+        <WeekendMealModal
+          setState={setModal}
+          title="주말 급식 신청을 받을 기간을 설정해주세요"
+          subTitle="설정 된 기간에만 신청할 수 있습니다."
+          onCancel={() => setModal(false)}
+        />
       )}
     </Layout>
   );
