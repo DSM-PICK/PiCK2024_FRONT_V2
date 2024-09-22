@@ -76,10 +76,10 @@ const OutAccept = () => {
             GetOutRequest.map((item, index) => (
               <OutAcceptList
                 key={index}
-                name={item.username}
+                name={item.user_name}
                 content={item.reason}
                 date={`${item.start}~${item.end}`}
-                onClick={() => handleAcceptListClick(item.id, item.username)}
+                onClick={() => handleAcceptListClick(item.id, item.user_name)}
               />
             ))
           ) : (

@@ -33,7 +33,7 @@ const ApplicationDetail = ({
 export default ApplicationDetail;
 
 const Content = styled.div`
-  min-width: fit-content;
+  min-width: 100%;
   white-space: nowrap;
   background-color: ${theme.color.main[50]};
   padding: 20px 20px 60px 20px;
