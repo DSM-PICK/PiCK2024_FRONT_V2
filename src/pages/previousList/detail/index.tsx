@@ -22,13 +22,13 @@ const PreviousDetail = () => {
           >
             이전 외출 기록
           </span>
-          <img src={nextSvg} alt="" /> <span>{data?.username}</span>
+          <img src={nextSvg} alt="" /> <span>{data?.user_name}</span>
         </>
       }
-      title={`${data?.username}의 이전 외출 기록`}
+      title={`${data?.user_name}의 이전 외출 기록`}
     >
       <SemiTitle>
-        <Highlight>{data?.username}</Highlight>의 이전 외출
+        <Highlight>{data?.user_name}</Highlight>의 이전 외출
       </SemiTitle>
       <ContentWrap>
         {data?.application_story.map((item) => (
@@ -60,6 +60,12 @@ const SemiTitle = styled.p`
 const ContentWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  @media (max-width: 1660px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (max-width: 1250px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
   column-gap: 40px;
   row-gap: 20px;
 `;

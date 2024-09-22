@@ -42,7 +42,7 @@ export interface MynameType {
 }
 
 export interface OutListProp {
-  username: string;
+  user_name: string;
   start: string;
   end: string;
   grade: number;
@@ -77,12 +77,12 @@ export interface applicationDataProp {
   reason: string;
   start: string;
   user_id: string;
-  username: string;
+  user_name: string;
 }
 
 export interface OutListProp {
   id: string;
-  username: string;
+  user_name: string;
   end_time: string;
   grade: number;
   class_num: number;

@@ -18,6 +18,7 @@ import SelfStudy from '@/pages/self-study';
 import Schedule from '@/pages/schedule';
 import NotFound from '@/pages/404Page';
 import BugReport from '@/pages/bugReport';
+import { TimeTable } from '@/pages/titmetable';
 
 export const Router = createBrowserRouter([
   {
@@ -113,6 +114,10 @@ export const Router = createBrowserRouter([
       {
         path: 'bugReport',
         element: <BugReport />,
+      },
+      {
+        path: 'timetable',
+        element: <TimeTable />,
       },
     ],
   },

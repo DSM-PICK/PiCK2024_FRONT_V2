@@ -9,7 +9,7 @@ export interface ApplicationCount {
 }
 
 export interface DetailApplication {
-  username: string;
+  user_name: string;
   application_story: {
     reason: string;
     start_time: string;

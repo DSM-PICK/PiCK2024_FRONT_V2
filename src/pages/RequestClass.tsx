@@ -81,7 +81,9 @@ const RequestClass = () => {
         <Wrap>
           {GetRequestChange?.map((item) => (
             <ClassMoveList
-              onClick={() => handleAcceptListClick(item.user_id, item.username)}
+              onClick={() =>
+                handleAcceptListClick(item.user_id, item.user_name)
+              }
               name={getStudentString(item)}
               preClass={item.move}
               nextClass={item.classroom_name}
