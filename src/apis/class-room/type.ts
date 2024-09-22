@@ -1,6 +1,6 @@
 export interface ClassChangeType {
   user_id: string;
-  username: string;
+  user_name: string;
   classroom_name: string;
   move: string;
   grade: number;

@@ -28,7 +28,7 @@ export const OutRequest = (grade: number, class_num: number) => {
 
 export const useOutAccept = (
   status: 'OK' | 'NO',
-  ids: string[],
+  id_list: string[],
   option: MutateOptions,
 ) => {
   return useMutation({
@@ -36,7 +36,7 @@ export const useOutAccept = (
     mutationFn: async () => {
       try {
         await instance.patch(`${router}/status`, {
-          ids: ids,
+          id_list: id_list,
           status: status,
         });
       } catch (error) {
