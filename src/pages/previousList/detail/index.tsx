@@ -31,15 +31,20 @@ const PreviousDetail = () => {
         <Highlight>{data?.user_name}</Highlight>의 이전 외출
       </SemiTitle>
       <ContentWrap>
-        {data?.application_story.map((item) => (
-          <ApplicationDetail
-            start_time={item.start_time}
-            end_time={item.end_time}
-            date={item.date}
-            reason={item.reason}
-            type={item.type}
-          />
-        ))}
+        {data?.application_story.length !== 0 ? (
+          data?.application_story.map((item, index) => (
+            <ApplicationDetail
+              key={index}
+              start_time={item.start_time}
+              end_time={item.end_time}
+              date={item.date}
+              reason={item.reason}
+              type={item.type}
+            />
+          ))
+        ) : (
+          <p>이전 외출 기록이 없습니다</p>
+        )}
       </ContentWrap>
     </Layout>
   );
