@@ -1,10 +1,4 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import Calendar from '@/components/calendar';
-import WeeklyCalendar from '@/components/calendar/dateCalendar/weeklyCalendat';
-import useCalendarContext from '@/components/calendar/dateCalendar/useCalendarContext';
-import downArrow from '@/assets/svg/nextarrow.svg';
-import { theme } from '@/styles/theme';
 import DateCalendar from '@/components/calendar/dateCalendar';
 
 interface Props {
