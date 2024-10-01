@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import WrappedCalendarComponents from './components/test';
+import WrappedCalendarComponents from './components/calendar';
 import { theme } from '@/styles/theme';
 import useCalendar from '@/hook/useCalendar';
 import * as S from './style';
