@@ -18,7 +18,7 @@ export const RequestChange = (floor: number, status: 'OK' | 'QUIET') => {
 
 export const AcceptListApi = (
   status: 'OK' | 'NO',
-  ids: string[],
+  id_list: string[],
   option: MutationOptions,
 ) => {
   return useMutation({
@@ -26,7 +26,7 @@ export const AcceptListApi = (
     mutationFn: async () => {
       await instance.patch(`${router}/status`, {
         status,
-        ids,
+        id_list,
       });
     },
   });

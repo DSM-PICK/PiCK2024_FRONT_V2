@@ -58,6 +58,7 @@ const Date = styled.p`
 const Time = styled.p`
   font-size: ${theme.font.subTitle[1].size};
   color: ${theme.color.gray[900]};
+  white-space: normal;
 `;
 
 const Bedge = styled.div`
