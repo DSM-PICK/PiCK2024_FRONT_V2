@@ -59,12 +59,12 @@ export const OutListFloor = (floor: number, status: string) => {
   });
 };
 
-export const ReturnSchool = (ids: string[], option: MutateOptions) => {
+export const ReturnSchool = (id_list: string[], option: MutateOptions) => {
   return useMutation({
     ...option,
     mutationFn: async () => {
       try {
-        await instance.patch(`${router}/return`, ids, {
+        await instance.patch(`${router}/return`, id_list, {
           headers: {
             'Content-Type': 'application/json',
           },
