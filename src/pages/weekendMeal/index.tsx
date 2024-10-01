@@ -113,7 +113,7 @@ const WeekedMeal = () => {
                     grade
                     id={item.id}
                     number={setStudentNum(item)}
-                    name={item.name}
+                    name={item.user_name}
                     status={item.status}
                   />
                 ),
@@ -132,7 +132,7 @@ const WeekedMeal = () => {
                     grade
                     id={item.id}
                     number={setStudentNum(item)}
-                    name={item.name}
+                    name={item.user_name}
                     status={item.status}
                   />
                 ),

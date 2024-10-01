@@ -32,8 +32,9 @@ const PreviousDetail = () => {
       </SemiTitle>
       <ContentWrap>
         {data?.application_story.length !== 0 ? (
-          data?.application_story.map((item) => (
+          data?.application_story.map((item, index) => (
             <ApplicationDetail
+              key={index}
               start_time={item.start_time}
               end_time={item.end_time}
               date={item.date}
