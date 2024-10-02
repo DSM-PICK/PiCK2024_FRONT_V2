@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/Button';
 import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
@@ -6,10 +6,9 @@ import { GetAllMeals, GetClassWeekendMeal } from '@/apis/weekend-meals';
 import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
 import WeekEndList from '@/components/list/weekendMeal';
-import { ClassDownLoadExcel, DownLoad, WeekendMealStartEnd } from '@/apis/meal';
+import { ClassDownLoadExcel, DownLoad } from '@/apis/meal';
 import { setStudentNum } from '@/utils/utils';
 import { Class_numOption, GradeOption } from '@/utils/dropdown';
-import Modal from '@/components/modal';
 import { WeekendMealModal } from '@/components/modal/weekendmealModal';
 
 const WeekedMeal = () => {
