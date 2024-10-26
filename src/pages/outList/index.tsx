@@ -10,6 +10,8 @@ import { FloorOption } from '@/utils/dropdown';
 import { toast } from 'react-toastify';
 import useSelectionStore from '@/stores/useSelect';
 import { showToast } from '@/components/toast';
+import { Toggle } from '@/components/toggle';
+import { useGetEarlyReturnList } from '@/apis/early-return';
 
 const OutList = () => {
   const {
@@ -19,10 +21,15 @@ const OutList = () => {
     resetSelection,
   } = useSelectionStore();
   const [selectedFloor, setSelectedFloor] = useState<number>(5);
+  const [currentMenu, setCurrentMenu] = useState<
+    'application' | 'early-return'
+  >('application');
   const { data: OutListFloorData, refetch: refetchOutList } = OutListFloor(
     selectedFloor,
     'OK',
+    'application',
   );
+  const { data: earlyreturnListData } = useGetEarlyReturnList();
   const [modal, setModal] = useState<boolean>(false);
   const { mutate: Return } = ReturnSchool(selectedStudents, {
     onSuccess: () => {
@@ -47,6 +54,10 @@ const OutList = () => {
   }, []);
 
   useEffect(() => {
+    resetSelection();
+  }, [currentMenu]);
+
+  useEffect(() => {
     refetchOutList();
   }, [selectedFloor]);
 
@@ -56,33 +67,50 @@ const OutList = () => {
         now="외출자 목록"
         title="외출자 목록"
         right={
-          <Dropdown
-            options={FloorOption}
-            value={selectedFloor}
-            changeHandler={handleFloorChange}
-          />
+          <>
+            <Toggle onChange={setCurrentMenu} />
+            <Dropdown
+              options={FloorOption}
+              value={selectedFloor}
+              changeHandler={handleFloorChange}
+            />
+          </>
         }
       >
-        <S.SemiTitle>오늘 외출한 학생</S.SemiTitle>
+        <S.SemiTitle>
+          오늘 {currentMenu === 'application' ? '외출' : '조기귀가'}한 학생
+        </S.SemiTitle>
         <S.OutListContainer>
-          {OutListFloorData?.map((item, index) => (
-            <OutAcceptList
-              key={index}
-              name={item.user_name}
-              content={item.reason}
-              date={`${item.start} ~ ${item.end}`}
-              onClick={() => handleAcceptListClick(item.id, item.user_name)}
-            />
-          ))}
+          {currentMenu === 'application'
+            ? OutListFloorData?.map((item, index) => (
+                <OutAcceptList
+                  key={index}
+                  name={item.user_name}
+                  content={item.reason}
+                  date={`${item.start} ~ ${item.end}`}
+                  onClick={() => handleAcceptListClick(item.id, item.user_name)}
+                />
+              ))
+            : earlyreturnListData?.map((item) => (
+                <OutAcceptList
+                  key={item.class_num}
+                  name={item.user_name}
+                  content={item.reason}
+                  date={item.start}
+                  onClick={() => {}}
+                />
+              ))}
         </S.OutListContainer>
       </Layout>
-      <BottomButtonWrap
-        firstContent="복귀 시키기"
-        firstOnclick={() => setModal(true)}
-        firstSize="standard"
-        firstType="main"
-        disabled={disabled}
-      />
+      {currentMenu === 'application' && (
+        <BottomButtonWrap
+          firstContent="복귀 시키기"
+          firstOnclick={() => setModal(true)}
+          firstSize="standard"
+          firstType="main"
+          disabled={disabled}
+        />
+      )}
       {modal && (
         <Modal
           type="red"

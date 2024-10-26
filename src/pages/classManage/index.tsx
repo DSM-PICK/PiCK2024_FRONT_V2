@@ -6,7 +6,7 @@ import { theme } from '@/styles/theme';
 import styled from 'styled-components';
 import { GetClassStatus } from '@/apis/status';
 import { setStudentNum } from '@/utils/utils';
-import { Class_numOption, GradeOption, Option } from '@/utils/dropdown';
+import { Class_numOption, GradeOption } from '@/utils/dropdown';
 
 const ClassManage = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(1);
@@ -57,7 +57,7 @@ const ClassManage = () => {
             id={item.user_id}
             name={item.name}
             number={setStudentNum(item)}
-            status={item.status}
+            status6={item.status}
           />
         ))}
       </ContentWrap>

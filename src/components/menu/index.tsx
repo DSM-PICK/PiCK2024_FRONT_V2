@@ -48,11 +48,11 @@ const Menu = ({ closeOnClick }: MenuProp) => {
           <S.MealWrap>
             <MealInfo
               title="점심"
-              content={mealsData?.meals?.lunch?.menu.slice(0) || []}
+              content={mealsData?.meal_list?.lunch?.menu.slice(0) || []}
             />
             <MealInfo
               title="저녁"
-              content={mealsData?.meals?.dinner?.menu.slice(0) || []}
+              content={mealsData?.meal_list?.dinner?.menu.slice(0) || []}
             />
           </S.MealWrap>
           <S.MenuText>오늘의 자습감독</S.MenuText>
@@ -60,10 +60,7 @@ const Menu = ({ closeOnClick }: MenuProp) => {
             {selfStudyData?.length === 0
               ? '오늘의 자습감독 정보가 없습니다'
               : selfStudyData?.map((item) => (
-                  <SelfStudyList
-                    floor={item.floor}
-                    teacher={item.teacher_name}
-                  />
+                  <SelfStudyList floor={item.floor} teacher={item.teacher} />
                 ))}
           </S.SelfStudyListWrap>
           <S.MiniMenuContent>
