@@ -103,7 +103,7 @@ export interface dataType {
   date: string;
 }
 
-export interface EalryRetirnType {
+export interface EarlyReturnType {
   id: string;
   user_name: string;
   start: string;

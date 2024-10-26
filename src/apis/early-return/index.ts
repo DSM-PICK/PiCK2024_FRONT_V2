@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { instance } from '..';
-import { EalryRetirnType } from '../type';
+import { EarlyReturnType } from '../type';
 
 const router = '/early-return';
 
-export const useGetEalryReturnList = () => {
+export const useGetEarlyReturnList = () => {
   return useQuery({
-    queryKey: ['EalryReturnList'],
+    queryKey: ['EarlyReturnList'],
     queryFn: async () => {
-      const { data } = await instance.get<EalryRetirnType[]>(`${router}/ok`);
+      const { data } = await instance.get<EarlyReturnType[]>(`${router}/ok`);
       return data;
     },
   });
