@@ -14,12 +14,16 @@ export const StudentStateCount = () => {
   });
 };
 
-export const OutRequest = (grade: number, class_num: number) => {
+export const OutRequest = (
+  grade: number,
+  class_num: number,
+  type: 'application' | 'early-return',
+) => {
   return useQuery({
-    queryKey: ['OutRequest', grade, class_num],
+    queryKey: ['OutRequest', grade, class_num, type],
     queryFn: async () => {
       const { data } = await instance.get<applicationDataProp[]>(
-        `${router}/grade?grade=${grade}&class_num=${class_num}`,
+        `${type}/grade?grade=${grade}&class_num=${class_num}`,
       );
       return data;
     },
@@ -27,6 +31,7 @@ export const OutRequest = (grade: number, class_num: number) => {
 };
 
 export const useOutAccept = (
+  type: 'application' | 'early-return',
   status: 'OK' | 'NO',
   id_list: string[],
   option: MutateOptions,
@@ -35,7 +40,7 @@ export const useOutAccept = (
     ...option,
     mutationFn: async () => {
       try {
-        await instance.patch(`${router}/status`, {
+        await instance.patch(`${type}/status`, {
           id_list: id_list,
           status: status,
         });
@@ -47,12 +52,16 @@ export const useOutAccept = (
   });
 };
 
-export const OutListFloor = (floor: number, status: string) => {
+export const OutListFloor = (
+  floor: number,
+  status: string,
+  type: 'application' | 'early-return',
+) => {
   return useQuery({
-    queryKey: ['OutListFloor', floor, status],
+    queryKey: ['OutListFloor', floor, status, type],
     queryFn: async () => {
       const { data } = await instance.get<OutListProp[]>(
-        `${router}/floor?floor=${floor}&status=${status}`,
+        `${type}/floor?floor=${floor}&status=${status}`,
       );
       return data;
     },
