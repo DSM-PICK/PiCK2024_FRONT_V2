@@ -1,8 +1,6 @@
-import { useGetAttendaceStatus } from '@/apis/attendance';
+import { useGetAttendanceStatus } from '@/apis/attendance';
 import Dropdown from '@/components/dropdown';
-import StatusDrop from '@/components/dropdown/status';
 import { Layout } from '@/components/layout';
-import AfterStatus from '@/components/list/Afterstatus';
 import ClassList from '@/components/list/class';
 import { theme } from '@/styles/theme';
 import { NotAllClassOption, NotAllGradeOption } from '@/utils/dropdown';
@@ -13,7 +11,7 @@ import { styled } from 'styled-components';
 export const SelfStudyCheck = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(1);
   const [selectedClass, setSelectedClass] = useState<number>(1);
-  const { data: attendanceData } = useGetAttendaceStatus(
+  const { data: attendanceData } = useGetAttendanceStatus(
     selectedGrade,
     selectedClass,
   );
@@ -47,6 +45,7 @@ export const SelfStudyCheck = () => {
       <Content>
         {attendanceData?.map((item) => (
           <ClassList
+            key={item.id}
             name={item.user_name}
             number={setStudentNum(item)}
             id={item.id}
