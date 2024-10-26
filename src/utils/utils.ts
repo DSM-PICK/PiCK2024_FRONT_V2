@@ -53,3 +53,20 @@ export const ChangeOut = (type: 'APPLICATION' | 'EARLY_RETURN') => {
     return '조기귀가';
   }
 };
+
+export const useChangeStatusName = (status: string) => {
+  switch (status) {
+    case 'ATTENDANCE':
+      return '출석';
+    case 'PICNIC':
+      return '현체';
+    case 'EMPLOYMENT':
+      return '취업';
+    case 'GO_HOME':
+      return '귀가';
+    case 'DROPOUT':
+      return '자퇴';
+    default:
+      return '';
+  }
+};
