@@ -8,38 +8,49 @@ import { Class_numOption, GradeOption } from '@/utils/dropdown';
 import { styled } from 'styled-components';
 import useSelectionStore from '@/stores/useSelect';
 import { showToast } from '@/components/toast';
+import { Toggle } from '@/components/toggle';
 
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
+  const [currentMenu, setCurrentMenu] = useState<
+    'application' | 'early-return'
+  >('application');
   const [state, setState] = useState<'OK' | 'NO'>('OK');
   const { data: GetOutRequest, refetch: ReGetOutRequest } = OutRequest(
     selectedGrade,
     selectedClass,
+    currentMenu,
   );
   const { selectedStudents, handleAcceptListClick, resetSelection } =
     useSelectionStore();
 
   useEffect(() => {
+    ReGetOutRequest();
     resetSelection();
-  }, []);
+  }, [currentMenu]);
 
-  const { mutate: OutAcceptMutate } = useOutAccept(state, selectedStudents, {
-    onSuccess: () => {
-      ReGetOutRequest();
-      resetSelection();
-      showToast({
-        type: 'success',
-        message: `외출신청이 ${state === 'OK' ? '수락' : '거절'}되었습니다`,
-      });
+  const { mutate: OutAcceptMutate } = useOutAccept(
+    currentMenu,
+    state,
+    selectedStudents,
+    {
+      onSuccess: () => {
+        ReGetOutRequest();
+        resetSelection();
+        showToast({
+          type: 'success',
+          message: `외출신청이 ${state === 'OK' ? '수락' : '거절'}되었습니다`,
+        });
+      },
+      onError: () => {
+        showToast({
+          type: 'error',
+          message: '수락 처리 중 오류가 발생했습니다',
+        });
+      },
     },
-    onError: () => {
-      showToast({
-        type: 'error',
-        message: '수락 처리 중 오류가 발생했습니다',
-      });
-    },
-  });
+  );
 
   const handleGradeChange = (selectedOption: number | string) => {
     setSelectedGrade(Number(selectedOption));
@@ -57,7 +68,8 @@ const OutAccept = () => {
         now="외출 수락"
         title="외출 수락"
         right={
-          <>
+          <RightWrap>
+            <Toggle onChange={setCurrentMenu} />
             <Dropdown
               options={GradeOption}
               value={selectedGrade}
@@ -68,7 +80,7 @@ const OutAccept = () => {
               value={selectedClass}
               changeHandler={handleClassChange}
             />
-          </>
+          </RightWrap>
         }
       >
         <OutAcceptContainer>
@@ -116,4 +128,9 @@ const OutAcceptContainer = styled.div`
   grid-template-columns: repeat(3, minmax(0, 1fr));
   row-gap: 40px;
   column-gap: 60px;
+`;
+
+const RightWrap = styled.div`
+  width: 100%;
+  display: flex;
 `;
