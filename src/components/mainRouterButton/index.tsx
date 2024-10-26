@@ -71,6 +71,11 @@ const MainRouterButton = () => {
       router: '/schedule',
     },
     {
+      img: timetableChange,
+      text: '시간표 변경',
+      router: '/timetable',
+    },
+    {
       img: selfStudyImg,
       text: '자습시간 출결',
       router: '/attendanceCheck',

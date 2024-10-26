@@ -113,7 +113,6 @@ const StatusDrop = ({ status, onChange, type }: StatusDropProps) => {
 
 export default StatusDrop;
 
-// Styled-components
 const DropdownContainer = styled.div`
   position: relative;
   display: inline-block;
@@ -127,8 +126,9 @@ const DropdownButton = styled.div<{ color: string }>`
   border-radius: 8px;
   font-size: ${theme.font.button[2].size};
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
   align-items: center;
+  gap: 8px;
 `;
 
 const DropdownMenu = styled.div`

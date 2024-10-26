@@ -19,6 +19,7 @@ import Schedule from '@/pages/schedule';
 import NotFound from '@/pages/404Page';
 import BugReport from '@/pages/bugReport';
 import { TimeTable } from '@/pages/titmetable';
+import { SelfStudyCheck } from '@/pages/selfStudyCheck';
 
 export const Router = createBrowserRouter([
   {
@@ -118,6 +119,10 @@ export const Router = createBrowserRouter([
       {
         path: 'timetable',
         element: <TimeTable />,
+      },
+      {
+        path: 'attendanceCheck',
+        element: <SelfStudyCheck />,
       },
     ],
   },
