@@ -204,6 +204,7 @@ const Calendar = ({ type }: CalendarProp) => {
           subTitle="오늘의 자습감독 선생님"
           onCancel={() => setModal(false)}
           onConfirm={() => {}}
+          setState={setModal}
           initialDate={`${selectedYear}-${selectedMonth}-${selectedDay}`}
         />
       )}

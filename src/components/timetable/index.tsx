@@ -24,8 +24,14 @@ export const DayTimeTable = ({
 }: DayTimeTableProps) => {
   const { mutate: ChangeSubject } = useTimeTableChange();
 
-  const [subjects, setSubjects] = useState<{ period: number; name: string }[]>(
-    data.map((item) => ({ period: item.period, name: item.subject_name })),
+  const [subjects, setSubjects] = useState<
+    { period: number; name: string; id: string }[]
+  >(
+    data.map((item) => ({
+      period: item.period,
+      name: item.subject_name,
+      id: item.id,
+    })),
   );
 
   const handleSubjectChange = (index: number, newSubject: string) => {
@@ -37,6 +43,7 @@ export const DayTimeTable = ({
   const onClickBtn = () => {
     subjects.forEach((subject) => {
       ChangeSubject({
+        id: subject.id,
         day_week: dayIndex + 1,
         subject: subject.name,
         period: subject.period,

@@ -11,6 +11,7 @@ export interface TimetableProp {
 }
 
 export interface TimeTableChangeProps {
+  id: string;
   day_week: number;
   period: number;
   grade: number;

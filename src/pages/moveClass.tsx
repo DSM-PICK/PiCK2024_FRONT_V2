@@ -59,7 +59,7 @@ const MoveClass = () => {
             name={getStudentString(item)}
             preClass={item.move}
             nextClass={item.classroom_name}
-            moveTime={`${item.start_period}교시 ~ ${item.end_period}교시`}
+            moveTime={`${item.start}교시 ~ ${item.end}교시`}
           />
         ))}
       </Wrap>
