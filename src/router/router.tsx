@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Login from '@/pages/login';
-import Main from '@/pages/Main';
 import RequestClass from '@/pages/RequestClass';
 import ClassManage from '@/pages/classManage';
 import MoveClass from '@/pages/moveClass';
@@ -11,7 +10,6 @@ import OutAccept from '@/pages/outAccept';
 import OutList from '@/pages/outList';
 import PreviousList from '@/pages/previousList/index';
 import WeekedMeal from '@/pages/weekendMeal';
-import Calendar from '@/components/calendar';
 import ChangePassword from '@/pages/changePassword';
 import PreviousDetail from '@/pages/previousList/detail';
 import SelfStudy from '@/pages/self-study';
@@ -20,6 +18,7 @@ import NotFound from '@/pages/404Page';
 import BugReport from '@/pages/bugReport';
 import { TimeTable } from '@/pages/titmetable';
 import { SelfStudyCheck } from '@/pages/selfStudyCheck';
+import Main from '@/pages/Main';
 
 export const Router = createBrowserRouter([
   {

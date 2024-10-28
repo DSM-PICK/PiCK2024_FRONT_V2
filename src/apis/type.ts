@@ -7,6 +7,11 @@ export type AttendanceType =
 
 export interface todaySelfStudTeacher {
   floor: number;
+  teacher_name: string;
+}
+
+export interface SelectedDaySelfStudTeacher {
+  floor: number;
   teacher: string;
 }
 

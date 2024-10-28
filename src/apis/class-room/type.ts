@@ -6,6 +6,6 @@ export interface ClassChangeType {
   grade: number;
   class_num: number;
   num: number;
-  start_period: number;
-  end_period: number;
+  start: number;
+  end: number;
 }

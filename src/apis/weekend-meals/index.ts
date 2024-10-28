@@ -1,4 +1,9 @@
-import { MutationOptions, useMutation, useQuery } from '@tanstack/react-query';
+import {
+  MutationOptions,
+  useMutation,
+  useQuery,
+  useQueries,
+} from '@tanstack/react-query';
 import { instance } from '..';
 import { ChangeStateParams, GetAllMealsType } from './type';
 
@@ -56,5 +61,32 @@ export const useChangeWeekendMealPeriod = (
     mutationFn: async () => {
       await instance.patch(`${router}/period`, data);
     },
+  });
+};
+
+export const useGetWeekendMealInfo = () => {
+  return useQueries({
+    queries: [
+      {
+        queryKey: ['useGetWeekendMealPeriod'],
+        queryFn: async () => {
+          const { data } = await instance.get<{
+            start: string;
+            end: string;
+          }>(`${router}/period`);
+          return data;
+        },
+      },
+      {
+        queryKey: ['useGetWeekendMealCheck'],
+        queryFn: async () => {
+          const { data } = await instance.get<{
+            status: boolean;
+            month: number;
+          }>(`${router}/application`);
+          return data;
+        },
+      },
+    ],
   });
 };
