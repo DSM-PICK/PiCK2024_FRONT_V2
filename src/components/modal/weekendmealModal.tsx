@@ -4,7 +4,10 @@ import WrappedCalendarComponents from './components/calendar';
 import { theme } from '@/styles/theme';
 import useCalendar from '@/hook/useCalendar';
 import * as S from './style';
-import { useChangeWeekendMealPeriod } from '@/apis/weekend-meals';
+import {
+  useChangeWeekendMealPeriod,
+  useGetWeekendMealInfo,
+} from '@/apis/weekend-meals';
 import { showToast } from '../toast';
 
 interface ModalProp {
@@ -24,7 +27,10 @@ export const WeekendMealModal = ({
   const [isEndOpen, setIsEndOpen] = useState<boolean>(false);
   const [isStartOpen, setIsStartOpen] = useState<boolean>(false);
   const { selectedDate } = useCalendar();
-  const [startData, setStartData] = useState<string>('');
+  const weekendMealInfo = useGetWeekendMealInfo();
+  const [startData, setStartData] = useState<string>(
+   ''
+  );
   const [endData, setEndData] = useState<string>('');
   const [month, setMonth] = useState<number>();
   const { mutate: ChangePeriod } = useChangeWeekendMealPeriod(
@@ -50,6 +56,8 @@ export const WeekendMealModal = ({
     },
   );
 
+
+  console.log(startData, endData, month);
   const handleChange = (selected: any) => {
     const data = selected.target.value;
     setMonth(data);
@@ -81,6 +89,13 @@ export const WeekendMealModal = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(()=>{
+    setEndData(weekendMealInfo[0].data?.end!)
+    setStartData(weekendMealInfo[0].data?.start!)
+    setMonth(weekendMealInfo[1].data?.month!)
+  },[weekendMealInfo])
+
   return (
     <S.ModalWrap>
       <S.ModalStyle>

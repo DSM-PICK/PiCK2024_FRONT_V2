@@ -13,6 +13,7 @@ import { getStudentString } from '@/utils/utils';
 import { FloorOption } from '@/utils/dropdown';
 import useSelectionStore from '@/stores/useSelect';
 import { showToast } from '@/components/toast';
+import { useAcceptModal } from '@/hook/useModal';
 
 const RequestClass = () => {
   const nav = useNavigate();
@@ -87,7 +88,7 @@ const RequestClass = () => {
               name={getStudentString(item)}
               preClass={item.move}
               nextClass={item.classroom_name}
-              moveTime={`${item.start_period}교시 ~ ${item.end_period}교시`}
+              moveTime={`${item.start}교시 ~ ${item.end}교시`}
             />
           ))}
         </Wrap>
@@ -116,12 +117,12 @@ const RequestClass = () => {
             setModal(false);
           }}
           onConfirm={AccpetList}
-          title={`${selectedStudentName[0]}외 ${
-            selectedStudents.length - 1
-          }학생의 교실이동을 수락하시겠습니까?`}
-          subTitle={`확인 시 ${selectedStudentName[0]}외 ${
-            selectedStudents.length - 1
-          } 학생에게 알림이 보내집니다.`}
+          title={useAcceptModal({
+            students: selectedStudentName,
+            accept: state,
+            option: '교실이동을',
+          })}
+          subTitle={''}
         />
       )}
     </>

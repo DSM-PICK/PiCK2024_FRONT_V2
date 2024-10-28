@@ -9,6 +9,8 @@ import { styled } from 'styled-components';
 import useSelectionStore from '@/stores/useSelect';
 import { showToast } from '@/components/toast';
 import { Toggle } from '@/components/toggle';
+import Modal from '@/components/modal';
+import { useAcceptModal } from '@/hook/useModal';
 
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
@@ -22,8 +24,13 @@ const OutAccept = () => {
     selectedClass,
     currentMenu,
   );
-  const { selectedStudents, handleAcceptListClick, resetSelection } =
-    useSelectionStore();
+  const {
+    selectedStudents,
+    handleAcceptListClick,
+    resetSelection,
+    selectedStudentName,
+  } = useSelectionStore();
+  const [modal, setModal] = useState<boolean>(false);
 
   useEffect(() => {
     ReGetOutRequest();
@@ -38,6 +45,7 @@ const OutAccept = () => {
       onSuccess: () => {
         ReGetOutRequest();
         resetSelection();
+        setModal(false);
         showToast({
           type: 'success',
           message: `외출신청이 ${state === 'OK' ? '수락' : '거절'}되었습니다`,
@@ -53,10 +61,20 @@ const OutAccept = () => {
   );
 
   const handleGradeChange = (selectedOption: number | string) => {
+    if (selectedOption === 5) {
+      setSelectedClass(5);
+    } else if (selectedClass === 5) {
+      setSelectedClass(1);
+    }
     setSelectedGrade(Number(selectedOption));
   };
 
   const handleClassChange = (selectedOption: number | string) => {
+    if (selectedOption === 5) {
+      setSelectedGrade(5);
+    } else if (selectedGrade === 5) {
+      setSelectedGrade(1);
+    }
     setSelectedClass(Number(selectedOption));
   };
 
@@ -105,18 +123,31 @@ const OutAccept = () => {
         disabled={disabled}
         firstOnclick={() => {
           setState('NO');
-          OutAcceptMutate();
+          setModal(true);
         }}
         firstSize="standard"
         firstType="error"
         second={true}
         secondOnclick={() => {
           setState('OK');
-          OutAcceptMutate();
+          setModal(true);
         }}
         secondSize="standard"
         secondType="main"
       />
+      {modal && (
+        <Modal
+          type="check"
+          title={useAcceptModal({
+            students: selectedStudentName,
+            accept: state,
+            option: '외출을',
+          })}
+          subTitle=""
+          onCancel={() => setModal(false)}
+          onConfirm={OutAcceptMutate}
+        />
+      )}
     </>
   );
 };
@@ -133,4 +164,5 @@ const OutAcceptContainer = styled.div`
 const RightWrap = styled.div`
   width: 100%;
   display: flex;
+  gap: 12px;
 `;
