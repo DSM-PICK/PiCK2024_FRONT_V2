@@ -73,6 +73,7 @@ export const useGetWeekendMealInfo = () => {
           const { data } = await instance.get<{
             start: string;
             end: string;
+            status: boolean;
           }>(`${router}/period`);
           return data;
         },

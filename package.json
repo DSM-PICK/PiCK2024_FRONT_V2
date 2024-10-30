@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "dependencies": {
+    "@channel.io/channel-web-sdk-loader": "^2.0.0",
     "@storybook/react-vite": "^8.2.4",
     "@tanstack/react-query": "^5.40.1",
     "@types/node": "^16.7.13",
@@ -12,6 +13,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "axios": "^1.6.8",
     "date-fns": "^3.6.0",
+    "global": "^4.4.0",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-cookie": "^7.1.4",
@@ -23,6 +25,7 @@
     "storybook": "^8.2.4",
     "styled-components": "^6.1.9",
     "typescript": "^4.4.2",
+    "vercel": "^37.8.0",
     "vite": "^5.3.1",
     "vite-plugin-svgr": "^4.2.0",
     "zustand": "^4.5.2"
@@ -33,7 +36,8 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6008",
     "build-storybook": "storybook build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "vercel-deploy": "yarn build"
   },
   "eslintConfig": {
     "extends": [

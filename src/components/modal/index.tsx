@@ -15,6 +15,7 @@ interface ModalProp {
   onCancel: () => void;
   onConfirm: () => void;
   initialDate?: string;
+  setState?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface ChangeProps {
@@ -29,7 +30,7 @@ interface DataItem {
 }
 
 interface ScheduleData {
-  event: string;
+  event_name: string;
   date: string;
 }
 
@@ -40,12 +41,13 @@ export const Modal = ({
   onConfirm,
   type,
   initialDate,
+  setState,
 }: ModalProp) => {
   const [secondData, setSecondData] = useState({ floor: 2, teacher: '' });
   const [thirdData, setThirdData] = useState({ floor: 3, teacher: '' });
   const [fourthData, setFourthData] = useState({ floor: 4, teacher: '' });
   const [addSchedule, setAddSchedule] = useState<ScheduleData>({
-    event: '',
+    event_name: '',
     date: initialDate
       ? format(new Date(initialDate), 'yyyy-MM-dd')
       : format(new Date(), 'yyyy-MM-dd'),
@@ -62,21 +64,19 @@ export const Modal = ({
   const { data: Schedule } = DaySchedule(date);
 
   useEffect(() => {
-    if (SelectSelfList) {
-      SelectSelfList.forEach((val) => {
-        switch (val.floor) {
-          case 2:
-            setSecondData({ floor: 2, teacher: val?.teacher });
-            break;
-          case 3:
-            setThirdData({ floor: 3, teacher: val?.teacher });
-            break;
-          case 4:
-            setFourthData({ floor: 4, teacher: val?.teacher });
-            break;
-        }
-      });
-    }
+    SelectSelfList?.forEach((val) => {
+      switch (val.floor) {
+        case 2:
+          setSecondData({ floor: 2, teacher: val?.teacher });
+          break;
+        case 3:
+          setThirdData({ floor: 3, teacher: val?.teacher });
+          break;
+        case 4:
+          setFourthData({ floor: 4, teacher: val?.teacher });
+          break;
+      }
+    });
   }, [SelectSelfList]);
 
   const onClickDelete = async (id: string) => {
@@ -92,23 +92,26 @@ export const Modal = ({
   };
 
   const submitTeachers = async () => {
-    try {
-      const postData = {
-        date: date,
-        teacher: [
-          { floor: secondData.floor, teacher: secondData.teacher },
-          { floor: thirdData.floor, teacher: thirdData.teacher },
-          { floor: fourthData.floor, teacher: fourthData.teacher },
-        ],
-      };
+    if (setState) {
+      try {
+        const postData = {
+          date: date,
+          teacher: [
+            { floor: secondData.floor, teacher: secondData.teacher },
+            { floor: thirdData.floor, teacher: thirdData.teacher },
+            { floor: fourthData.floor, teacher: fourthData.teacher },
+          ],
+        };
 
-      await postTeacherMutate(postData, {
-        onSuccess: () => {
-          // location.reload();
-        },
-      });
-    } catch (error) {
-      console.error(error);
+        await postTeacherMutate(postData, {
+          onSuccess: () => {
+            setState(false);
+          },
+        });
+      } catch (error) {
+        setState(false);
+        console.error(error);
+      }
     }
   };
 
@@ -218,9 +221,9 @@ export const Modal = ({
               <S.ScheduleItemText>
                 <SearchInput
                   onChange={SchedulehandleChange}
-                  value={addSchedule.event}
+                  value={addSchedule.event_name}
                   type="schedule"
-                  name="event"
+                  name="event_name"
                   placeholder="새로운 일정을 입력해주세요"
                 />
               </S.ScheduleItemText>

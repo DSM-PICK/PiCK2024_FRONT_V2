@@ -56,8 +56,6 @@ export const WeekendMealModal = ({
     },
   );
 
-
-  console.log(startData, endData, month);
   const handleChange = (selected: any) => {
     const data = selected.target.value;
     setMonth(data);
@@ -95,6 +93,14 @@ export const WeekendMealModal = ({
     setStartData(weekendMealInfo[0].data?.start!)
     setMonth(weekendMealInfo[1].data?.month!)
   },[weekendMealInfo])
+
+      if (status) {
+        setEndData(start);
+        setStartData(end);
+        setMonth(month);
+      }
+    }
+  }, [weekendMealInfo]);
 
   return (
     <S.ModalWrap>

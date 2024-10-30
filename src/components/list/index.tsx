@@ -16,7 +16,7 @@ const OutAcceptList = ({ name, date, content, onClick }: OutAcceptProp) => {
     onClick();
   };
   return (
-    <S.OutAcceptWrap isActive={isActive} onClick={handleClick}>
+    <S.OutAcceptWrap draggable isActive={isActive} onClick={handleClick}>
       <S.OutAcceptTitle>{name}</S.OutAcceptTitle>
       <div>외출</div>
       <S.OutAcceptDate>{date}</S.OutAcceptDate>
