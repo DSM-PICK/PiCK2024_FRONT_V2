@@ -39,7 +39,6 @@ export const MainRouterFlexbox = styled.div`
   width: 940px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
 
   column-gap: 56px;
   row-gap: 60px;

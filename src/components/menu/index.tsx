@@ -60,7 +60,10 @@ const Menu = ({ closeOnClick }: MenuProp) => {
             {selfStudyData?.length === 0
               ? '오늘의 자습감독 정보가 없습니다'
               : selfStudyData?.map((item) => (
-                  <SelfStudyList floor={item.floor} teacher={item.teacher} />
+                  <SelfStudyList
+                    floor={item.floor}
+                    teacher={item.teacher_name}
+                  />
                 ))}
           </S.SelfStudyListWrap>
           <S.MiniMenuContent>
