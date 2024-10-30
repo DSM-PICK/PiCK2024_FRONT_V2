@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Login from '@/pages/login';
 import RequestClass from '@/pages/RequestClass';
 import ClassManage from '@/pages/classManage';
 import MoveClass from '@/pages/moveClass';
@@ -19,6 +18,7 @@ import BugReport from '@/pages/bugReport';
 import { TimeTable } from '@/pages/titmetable';
 import { SelfStudyCheck } from '@/pages/selfStudyCheck';
 import Main from '@/pages/Main';
+import Login from '@/pages/login';
 
 export const Router = createBrowserRouter([
   {

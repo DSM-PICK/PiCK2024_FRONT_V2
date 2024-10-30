@@ -52,10 +52,12 @@ const MenuContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  height: 43px;
 `;
 
 const MenuWrapper = styled.div`
   display: flex;
+  height: 43px;
 `;
 
 const StyledBtn = styled.button<{ isActive: boolean }>`
@@ -64,6 +66,7 @@ const StyledBtn = styled.button<{ isActive: boolean }>`
   padding: 10px;
   cursor: pointer;
   width: 136px;
+  height: 43px;
   font-size: ${theme.font.body[2].size};
   font-weight: ${theme.font.body[2].fontweight};
   color: ${(props) =>
@@ -77,7 +80,6 @@ const UnderLine = styled.div<{ left?: number }>`
   border-radius: 32px;
   background-color: ${theme.color.main[500]};
   position: absolute;
-  top: 10%;
   left: ${(props) => (props.left ?? 0) + 'px'};
   transition: left 0.5s ease;
   z-index: 0;
