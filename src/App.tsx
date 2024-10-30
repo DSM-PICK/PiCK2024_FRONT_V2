@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import 'react-toastify/dist/ReactToastify.css';
 import Toast from './components/toast';
+import * as ChannelService from '@channel.io/channel-web-sdk-loader';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,6 +16,16 @@ const queryClient = new QueryClient({
       retry: 1,
     },
   },
+});
+
+const CHATKEY = import.meta.env.VITE_PUBLIC_CHAT_KEY || '';
+
+console.log(CHATKEY);
+
+ChannelService.loadScript();
+
+ChannelService.boot({
+  pluginKey: CHATKEY,
 });
 
 const App = () => {
