@@ -66,6 +66,8 @@ export const useChangeStatusName = (status: string) => {
       return '귀가';
     case 'DROPOUT':
       return '자퇴';
+    case 'GO_OUT':
+      return '외출';
     default:
       return '';
   }
