@@ -47,6 +47,10 @@ const StatusDrop = ({ status, onChange, type }: StatusDropProps) => {
         return 'EMPLOYMENT';
       case '자퇴':
         return 'DROPOUT';
+      case '외출':
+        return 'GO_OUT';
+      case '이동':
+        return 'MOVEMENT';
       default:
         return '';
     }
@@ -70,6 +74,9 @@ const StatusDrop = ({ status, onChange, type }: StatusDropProps) => {
         return theme.color.main[500];
       case '자퇴':
         return theme.color.error[500];
+      case '외출':
+      case '이동':
+        return theme.color.gray[300];
       default:
         return theme.color.gray[500];
     }
