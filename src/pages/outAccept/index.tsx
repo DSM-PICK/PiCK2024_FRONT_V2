@@ -61,21 +61,18 @@ const OutAccept = () => {
   );
 
   const handleGradeChange = (selectedOption: number | string) => {
-    if (selectedOption === 5) {
-      setSelectedClass(5);
-    } else if (selectedClass === 5) {
-      setSelectedClass(1);
-    }
-    setSelectedGrade(Number(selectedOption));
+    const newGrade = Number(selectedOption);
+    setSelectedClass(
+      newGrade === 5 ? 5 : selectedClass === 5 ? 1 : selectedClass,
+    );
+    setSelectedGrade(newGrade);
   };
-
   const handleClassChange = (selectedOption: number | string) => {
-    if (selectedOption === 5) {
-      setSelectedGrade(5);
-    } else if (selectedGrade === 5) {
-      setSelectedGrade(1);
-    }
-    setSelectedClass(Number(selectedOption));
+    const newClass = Number(selectedOption);
+    setSelectedGrade(
+      newClass === 5 ? 5 : selectedGrade === 5 ? 1 : selectedGrade,
+    );
+    setSelectedClass(newClass);
   };
 
   const disabled = selectedStudents.length === 0;

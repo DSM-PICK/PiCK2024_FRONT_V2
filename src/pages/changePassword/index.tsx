@@ -4,7 +4,6 @@ import Input from '@/components/input';
 import { Layout } from '@/components/layout';
 import { theme } from '@/styles/theme';
 import { styled } from 'styled-components';
-import { ChangeProps } from '@/apis/type';
 
 const ChangePassword = () => {
   const [newPassword, setNewpassword] = useState<string>('');

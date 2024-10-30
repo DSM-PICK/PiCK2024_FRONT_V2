@@ -60,7 +60,6 @@ export const WeekendMealModal = ({
     },
   );
 
-  console.log('s' + startData + 'e' + endData + 'm' + month);
   const handleChange = (selected: any) => {
     const data = selected.target.value;
     setMonth(data);
@@ -113,6 +112,8 @@ export const WeekendMealModal = ({
               onChange={handleChange}
               name="month"
               value={month}
+              min={1}
+              max={12}
             />
             월 주말급식
           </Test>
