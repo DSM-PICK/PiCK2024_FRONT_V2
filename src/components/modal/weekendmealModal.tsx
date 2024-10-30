@@ -94,14 +94,6 @@ export const WeekendMealModal = ({
     setMonth(weekendMealInfo[1].data?.month!)
   },[weekendMealInfo])
 
-      if (status) {
-        setEndData(start);
-        setStartData(end);
-        setMonth(month);
-      }
-    }
-  }, [weekendMealInfo]);
-
   return (
     <S.ModalWrap>
       <S.ModalStyle>
@@ -116,6 +108,8 @@ export const WeekendMealModal = ({
               onChange={handleChange}
               name="month"
               value={month}
+              min={1}
+              max={12}
             />
             월 주말급식
           </Test>

@@ -64,17 +64,18 @@ export const Modal = ({
   const { data: Schedule } = DaySchedule(date);
 
   useEffect(() => {
-    SelectSelfList?.forEach((val) => {
-      switch (val.floor) {
-        case 2:
-          setSecondData({ floor: 2, teacher: val?.teacher });
-          break;
-        case 3:
-          setThirdData({ floor: 3, teacher: val?.teacher });
-          break;
-        case 4:
-          setFourthData({ floor: 4, teacher: val?.teacher });
-          break;
+    if (!SelectSelfList?.length) return;
+
+    const setters = {
+      2: setSecondData,
+      3: setThirdData,
+      4: setFourthData,
+    };
+
+    SelectSelfList.forEach((val) => {
+      const setter = setters[val.floor];
+      if (setter) {
+        setter({ floor: val.floor, teacher: val.teacher });
       }
     });
   }, [SelectSelfList]);

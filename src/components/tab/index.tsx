@@ -14,8 +14,6 @@ const Tabbar: React.FC<TabbarProps> = ({ selectedTab, onTabPress }) => {
     translateX.current = selectedTab === '외출' ? 0 : 135;
   }, [selectedTab]);
 
-  console.log(translateX);
-
   return (
     <Container>
       <TabBackground>
