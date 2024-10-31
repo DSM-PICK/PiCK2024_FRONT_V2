@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { TextareaHTMLAttributes, useEffect, useState } from 'react';
 import { Layout } from '@/components/layout';
 import nextSvg from '@/assets/svg/next.svg';
 import { useNavigate, useNavigation, useParams } from 'react-router-dom';
@@ -14,7 +14,8 @@ const NoticeDetail = () => {
   const params = useParams();
   const router = useNavigate();
   const noticeId = params.detail || '';
-  const { data: GetDetailNotice } = DetailNotice(noticeId);
+  const { data: GetDetailNotice, refetch: ReGetDetailNotice } =
+    DetailNotice(noticeId);
   const { mutate: DeleteNotice } = useDeleteNotice();
   const [deleteNotice, setDeleteNotice] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
@@ -51,7 +52,12 @@ const NoticeDetail = () => {
   const Modify = () => {
     ModifyNotice(data, {
       onSuccess: () => {
-        window.location.reload();
+        setEdit(false);
+        showToast({
+          type: 'error',
+          message: '공지 수정에 성공하였습니다',
+        });
+        ReGetDetailNotice();
       },
       onError: () => {
         setEdit(false);
