@@ -21,11 +21,6 @@ interface MainRouterButtonType {
 const MainRouterButton = () => {
   const mainRouterButtonArray: MainRouterButtonType[] = [
     {
-      img: classMoveImg,
-      text: '교실이동',
-      router: '/classMove',
-    },
-    {
       img: outingAllow,
       text: '외출 수락',
       router: '/outAccept',
@@ -39,6 +34,11 @@ const MainRouterButton = () => {
       img: outingHistory,
       text: '이전 외출 기록',
       router: '/previousList',
+    },
+    {
+      img: classMoveImg,
+      text: '교실이동',
+      router: '/classMove',
     },
     {
       img: weekendMeals,
@@ -66,19 +66,19 @@ const MainRouterButton = () => {
       router: '/self-study',
     },
     {
+      img: selfStudyImg,
+      text: '자습시간 출결',
+      router: '/attendanceCheck',
+    },
+    {
       img: academicCalendar,
-      text: '학사일정 관리',
+      text: '학사일정',
       router: '/schedule',
     },
     {
       img: timetableChange,
-      text: '시간표 관리',
+      text: '시간표',
       router: '/timetable',
-    },
-    {
-      img: selfStudyImg,
-      text: '자습시간 출결',
-      router: '/attendanceCheck',
     },
   ];
 

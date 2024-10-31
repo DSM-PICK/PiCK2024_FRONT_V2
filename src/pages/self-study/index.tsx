@@ -8,8 +8,8 @@ const SelfStudy = () => {
   const { data: Today } = TodaySelfStudy();
   return (
     <Layout
-      now="자습감독 변경"
-      title="자습감독 변경"
+      now="자습감독"
+      title="자습감독"
       right={
         Today?.length !== 0 ? (
           Today?.map((item) => (

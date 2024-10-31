@@ -81,8 +81,9 @@ const OutList = () => {
           오늘 {currentMenu === 'application' ? '외출' : '조기귀가'}한 학생
         </S.SemiTitle>
         <S.OutListContainer>
-          {currentMenu === 'application'
-            ? OutListFloorData?.map((item, index) => (
+          {currentMenu === 'application' ? (
+            OutListFloorData?.length ? (
+              OutListFloorData?.map((item, index) => (
                 <OutAcceptList
                   key={index}
                   name={item.user_name}
@@ -91,15 +92,22 @@ const OutList = () => {
                   onClick={() => handleAcceptListClick(item.id, item.user_name)}
                 />
               ))
-            : earlyreturnListData?.map((item) => (
-                <OutAcceptList
-                  key={item.class_num}
-                  name={item.user_name}
-                  content={item.reason}
-                  date={item.start}
-                  onClick={() => {}}
-                />
-              ))}
+            ) : (
+              <p>외출자 목록이 없습니다</p>
+            )
+          ) : earlyreturnListData?.length ? (
+            earlyreturnListData?.map((item) => (
+              <OutAcceptList
+                key={item.class_num}
+                name={item.user_name}
+                content={item.reason}
+                date={item.start}
+                onClick={() => {}}
+              />
+            ))
+          ) : (
+            <p>조기귀가 목록이 없습니다</p>
+          )}
         </S.OutListContainer>
       </Layout>
       {currentMenu === 'application' && (
