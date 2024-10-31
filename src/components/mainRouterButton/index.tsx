@@ -52,7 +52,7 @@ const MainRouterButton = () => {
     },
     {
       img: classAttendance,
-      text: '학급 출석',
+      text: '학급 관리',
       router: '/classManage',
     },
     // {
@@ -62,17 +62,17 @@ const MainRouterButton = () => {
     // },
     {
       img: changeTeacher,
-      text: '자습감독 변경',
+      text: '자습감독',
       router: '/self-study',
     },
     {
       img: academicCalendar,
-      text: '학사 일정 변경',
+      text: '학사일정 관리',
       router: '/schedule',
     },
     {
       img: timetableChange,
-      text: '시간표 변경',
+      text: '시간표 관리',
       router: '/timetable',
     },
     {

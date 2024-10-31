@@ -33,7 +33,7 @@ export const Router = createBrowserRouter([
         element: <NotFound />,
       },
       {
-        path: 'login',
+        path: '',
         element: <Login />,
       },
       {
