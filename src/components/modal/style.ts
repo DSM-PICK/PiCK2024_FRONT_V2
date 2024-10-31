@@ -5,6 +5,7 @@ export const ModalWrap = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  overflow: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +38,6 @@ export const ModalTitle = styled.p`
   text-align: center;
   font-size: ${theme.font.heading[2].size};
   font-weight: ${theme.font.heading[2].fontweight};
-  white-space: nowrap;
 `;
 
 export const ModalSubTitle = styled.p`

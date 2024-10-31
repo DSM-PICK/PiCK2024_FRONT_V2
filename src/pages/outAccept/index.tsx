@@ -61,21 +61,18 @@ const OutAccept = () => {
   );
 
   const handleGradeChange = (selectedOption: number | string) => {
-    if (selectedOption === 5) {
-      setSelectedClass(5);
-    } else if (selectedClass === 5) {
-      setSelectedClass(1);
-    }
-    setSelectedGrade(Number(selectedOption));
+    const newGrade = Number(selectedOption);
+    setSelectedClass(
+      newGrade === 5 ? 5 : selectedClass === 5 ? 1 : selectedClass,
+    );
+    setSelectedGrade(newGrade);
   };
-
   const handleClassChange = (selectedOption: number | string) => {
-    if (selectedOption === 5) {
-      setSelectedGrade(5);
-    } else if (selectedGrade === 5) {
-      setSelectedGrade(1);
-    }
-    setSelectedClass(Number(selectedOption));
+    const newClass = Number(selectedOption);
+    setSelectedGrade(
+      newClass === 5 ? 5 : selectedGrade === 5 ? 1 : selectedGrade,
+    );
+    setSelectedClass(newClass);
   };
 
   const disabled = selectedStudents.length === 0;
@@ -83,8 +80,8 @@ const OutAccept = () => {
   return (
     <>
       <Layout
-        now="외출 수락"
-        title="외출 수락"
+        now={`${currentMenu === 'application' ? '외출' : '조기귀가'} 수락`}
+        title={`${currentMenu === 'application' ? '외출' : '조기귀가'} 수락`}
         right={
           <RightWrap>
             <Toggle onChange={setCurrentMenu} />
@@ -108,12 +105,15 @@ const OutAccept = () => {
                 key={index}
                 name={item.user_name}
                 content={item.reason}
-                date={`${item.start}~${item.end}`}
+                date={item.end ? `${item.start}~${item.end}` : `${item.start}`}
                 onClick={() => handleAcceptListClick(item.id, item.user_name)}
               />
             ))
           ) : (
-            <p>외출 신청이 없습니다</p>
+            <p>
+              {currentMenu === 'application' ? '외출' : '조기귀가'} 신청이
+              없습니다
+            </p>
           )}
         </OutAcceptContainer>
       </Layout>
@@ -165,4 +165,5 @@ const RightWrap = styled.div`
   width: 100%;
   display: flex;
   gap: 12px;
+  align-items: center;
 `;

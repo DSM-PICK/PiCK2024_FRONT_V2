@@ -13,7 +13,7 @@ export const GetAllMeals = () => {
   return useQuery<GetAllMealsType[]>({
     queryKey: [],
     queryFn: async () => {
-      const { data } = await instance.get(`${router}/hey`);
+      const { data } = await instance.get(`${router}/application-list`);
       return data;
     },
   });
@@ -73,6 +73,7 @@ export const useGetWeekendMealInfo = () => {
           const { data } = await instance.get<{
             start: string;
             end: string;
+            status: boolean;
           }>(`${router}/period`);
           return data;
         },

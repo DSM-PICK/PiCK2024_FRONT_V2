@@ -28,14 +28,18 @@ export const WeekendMealModal = ({
   const [isStartOpen, setIsStartOpen] = useState<boolean>(false);
   const { selectedDate } = useCalendar();
   const weekendMealInfo = useGetWeekendMealInfo();
-  const [startData, setStartData] = useState<string>(
-   ''
+  const [startData, setStartData] = useState<string | undefined>(
+    weekendMealInfo[0].data?.start,
   );
-  const [endData, setEndData] = useState<string>('');
-  const [month, setMonth] = useState<number>();
+  const [endData, setEndData] = useState<string | undefined>(
+    weekendMealInfo[0].data?.end,
+  );
+  const [month, setMonth] = useState<number | undefined>(
+    weekendMealInfo[1].data?.month,
+  );
   const { mutate: ChangePeriod } = useChangeWeekendMealPeriod(
-    startData,
-    endData,
+    startData!,
+    endData!,
     month! - 1,
     {
       onSuccess: () => {
@@ -56,12 +60,21 @@ export const WeekendMealModal = ({
     },
   );
 
-
-  console.log(startData, endData, month);
   const handleChange = (selected: any) => {
     const data = selected.target.value;
     setMonth(data);
   };
+
+  useEffect(() => {
+    if (!weekendMealInfo?.[0]?.data || !weekendMealInfo?.[1]?.data) return;
+    const { start, end } = weekendMealInfo[0].data;
+    const { month } = weekendMealInfo[1].data;
+    if (start && end) {
+      setEndData(end);
+      setStartData(start);
+      setMonth(month);
+    }
+  }, [weekendMealInfo?.[0]?.data, weekendMealInfo?.[1]?.data]);
 
   const handleDateChange = (date: any) => {
     selectedDate.selectDate(date);
@@ -90,12 +103,6 @@ export const WeekendMealModal = ({
     };
   }, []);
 
-  useEffect(()=>{
-    setEndData(weekendMealInfo[0].data?.end!)
-    setStartData(weekendMealInfo[0].data?.start!)
-    setMonth(weekendMealInfo[1].data?.month!)
-  },[weekendMealInfo])
-
   return (
     <S.ModalWrap>
       <S.ModalStyle>
@@ -110,6 +117,8 @@ export const WeekendMealModal = ({
               onChange={handleChange}
               name="month"
               value={month}
+              min={1}
+              max={12}
             />
             월 주말급식
           </Test>
