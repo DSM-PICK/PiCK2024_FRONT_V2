@@ -1,4 +1,4 @@
-import { RouterProvider } from 'react-router-dom';
+import { RouterProvider, useNavigate } from 'react-router-dom';
 import { Router } from './router/router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GlobalStyle, theme } from './styles/theme';
@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import 'react-toastify/dist/ReactToastify.css';
 import Toast from './components/toast';
 import * as ChannelService from '@channel.io/channel-web-sdk-loader';
+import { useEffect } from 'react';
 
 const queryClient = new QueryClient({
   defaultOptions: {
