@@ -27,8 +27,8 @@ export const TimeTable = () => {
 
   return (
     <Layout
-      now="시간표 변경"
-      title="시간표 변경"
+      now="시간표"
+      title="시간표"
       right={
         <>
           <Dropdown
