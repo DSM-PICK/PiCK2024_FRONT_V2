@@ -103,12 +103,6 @@ export const WeekendMealModal = ({
     };
   }, []);
 
-  // useEffect(() => {
-  //   setEndData(weekendMealInfo[0].data?.end!);
-  //   setStartData(weekendMealInfo[0].data?.start!);
-  //   setMonth(weekendMealInfo[1].data?.month!);
-  // }, [weekendMealInfo]);
-
   return (
     <S.ModalWrap>
       <S.ModalStyle>
