@@ -48,6 +48,12 @@ const RequestClass = () => {
       setModal(false);
       ReGetRequestChange();
     },
+    onError: () => {
+      showToast({
+        type: 'error',
+        message: `교실이동 ${state === 'NO' ? '거절' : '수락'}에 실패하였습니다`,
+      });
+    },
   });
 
   const handleFloorChange = (selectedOption: number | string) => {
@@ -80,17 +86,21 @@ const RequestClass = () => {
       >
         <SubTitle>교실 이동 신청한 학생</SubTitle>
         <Wrap>
-          {GetRequestChange?.map((item) => (
-            <ClassMoveList
-              onClick={() =>
-                handleAcceptListClick(item.user_id, item.user_name)
-              }
-              name={getStudentString(item)}
-              preClass={item.move}
-              nextClass={item.classroom_name}
-              moveTime={`${item.start}교시 ~ ${item.end}교시`}
-            />
-          ))}
+          {GetRequestChange?.length ? (
+            GetRequestChange?.map((item) => (
+              <ClassMoveList
+                onClick={() =>
+                  handleAcceptListClick(item.user_id, item.user_name)
+                }
+                name={getStudentString(item)}
+                preClass={item.move}
+                nextClass={item.classroom_name}
+                moveTime={`${item.start}교시 ~ ${item.end}교시`}
+              />
+            ))
+          ) : (
+            <p>교실이동 신청학생이 없습니다</p>
+          )}
         </Wrap>
       </Layout>
       <BottomButtonWrap
