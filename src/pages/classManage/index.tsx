@@ -17,10 +17,6 @@ const ClassManage = () => {
     selectedClass,
   );
 
-  useEffect(() => {
-    ReGetClassStatus();
-  }, [selectedClass, selectedGrade]);
-
   const handleGrade = (option: string | number) => {
     setSelectedGrade(Number(option));
   };
@@ -54,10 +50,12 @@ const ClassManage = () => {
       <ContentWrap>
         {GetStudentStatus?.students?.map((item) => (
           <ClassList
+            key={item.user_id}
             id={item.user_id}
             name={item.name}
             number={setStudentNum(item)}
             status6={item.status}
+            refetchStatus={ReGetClassStatus}
           />
         ))}
       </ContentWrap>
