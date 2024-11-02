@@ -116,6 +116,7 @@ const RequestClass = () => {
         secondContent="수락"
         secondSize="standard"
         secondOnclick={() => {
+          setState('OK');
           setModal(true);
         }}
         secondType="main"
