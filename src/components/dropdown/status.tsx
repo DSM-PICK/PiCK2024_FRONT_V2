@@ -103,13 +103,19 @@ const StatusDrop = ({ status, onChange, type }: StatusDropProps) => {
       {isDropdownVisible && (
         <DropdownMenu>
           {type === 'ATTENDANCE'
-            ? attendanceStatus.map((item) => (
-                <DropdownItem onClick={() => handleOptionClick(item)}>
+            ? attendanceStatus.map((item, index) => (
+                <DropdownItem
+                  key={`attendance-${item}-${index}`}
+                  onClick={() => handleOptionClick(item)}
+                >
                   {item}
                 </DropdownItem>
               ))
-            : homeroomStatus.map((item) => (
-                <DropdownItem onClick={() => handleOptionClick(item)}>
+            : homeroomStatus.map((item, index) => (
+                <DropdownItem
+                  key={`homeroom-${item}-${index}`}
+                  onClick={() => handleOptionClick(item)}
+                >
                   {item}
                 </DropdownItem>
               ))}

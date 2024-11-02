@@ -47,8 +47,8 @@ export const SelfStudyCheck = () => {
         <TitleContainer>
           <PeriodText>목요일</PeriodText>
           <PeriodMap>
-            {period.map((item) => (
-              <PeriodText>{item}</PeriodText>
+            {period.map((item, index) => (
+              <PeriodText key={index}>{item}</PeriodText>
             ))}
           </PeriodMap>
         </TitleContainer>
@@ -88,7 +88,7 @@ const TitleContainer = styled.div`
 const PeriodMap = styled.div`
   display: flex;
   justify-content: flex-end;
-  gap: 120px;
+  gap: clamp(60px, 10vw, 120px);
   padding: 16px 20px;
 `;
 
