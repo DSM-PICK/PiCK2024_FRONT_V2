@@ -3,7 +3,7 @@ import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import { DayTimeTable } from '@/components/timetable';
 import { theme } from '@/styles/theme';
-import { Class_numOption, GradeOption } from '@/utils/dropdown';
+import { NotAllClassOption, NotAllGradeOption } from '@/utils/dropdown';
 import { useState } from 'react';
 import { styled } from 'styled-components';
 
@@ -32,12 +32,12 @@ export const TimeTable = () => {
       right={
         <>
           <Dropdown
-            options={GradeOption}
+            options={NotAllGradeOption}
             value={selectedGrade}
             changeHandler={handleGradeChange}
           />
           <Dropdown
-            options={Class_numOption}
+            options={NotAllClassOption}
             value={selectedClass}
             changeHandler={handleClassChange}
           />

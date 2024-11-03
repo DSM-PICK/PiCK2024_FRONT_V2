@@ -56,8 +56,9 @@ const NoticePage = () => {
           </S.NoticeTopRight>
         </S.NoticeWrap>
         <div>
-          {filteredNotices.map((notice: SimpleNoticeType) => (
+          {filteredNotices.map((notice: SimpleNoticeType, index) => (
             <NoticeList
+              index={index + 1}
               key={notice.id}
               id={notice.id}
               teacher={notice.teacher}

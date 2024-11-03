@@ -12,7 +12,7 @@ export const MenuWrap = styled.div`
   top: 0;
   right: 0;
   background-color: ${theme.color.normal.white};
-  z-index: 1;
+  z-index: 2;
 
   &.open {
     animation: slidein 0.5s forwards;

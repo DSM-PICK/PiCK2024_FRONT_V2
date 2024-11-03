@@ -7,7 +7,7 @@ interface TabbarProps {
   onTabPress: (tab: string) => void;
 }
 
-const Tabbar: React.FC<TabbarProps> = ({ selectedTab, onTabPress }) => {
+const Tabbar = ({ selectedTab, onTabPress }: TabbarProps) => {
   const translateX = useRef(0);
 
   useEffect(() => {

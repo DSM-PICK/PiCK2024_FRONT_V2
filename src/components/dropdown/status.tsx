@@ -7,13 +7,15 @@ import arrowLeft from '@/assets/svg/statusArrowLeft.svg';
 interface StatusDropProps {
   status: string;
   onChange: (newState: string) => Promise<void>;
-  type?: 'NO';
+  type?: 'HOMEROOM' | 'ATTENDANCE';
 }
 
 const StatusDrop = ({ status, onChange, type }: StatusDropProps) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>(status);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const homeroomStatus = ['출석', '현체', '귀가', '취업', '자퇴'];
+  const attendanceStatus = ['출석', '이동', '외출', '귀가', '현체', '무단'];
 
   useEffect(() => {
     setSelectedOption(status);
@@ -51,6 +53,8 @@ const StatusDrop = ({ status, onChange, type }: StatusDropProps) => {
         return 'GO_OUT';
       case '이동':
         return 'MOVEMENT';
+      case '무단':
+        return 'DISALLOWED';
       default:
         return '';
     }
@@ -73,6 +77,7 @@ const StatusDrop = ({ status, onChange, type }: StatusDropProps) => {
       case '취업':
         return theme.color.main[500];
       case '자퇴':
+      case '무단':
         return theme.color.error[500];
       case '외출':
       case '이동':
@@ -97,21 +102,23 @@ const StatusDrop = ({ status, onChange, type }: StatusDropProps) => {
       </DropdownButton>
       {isDropdownVisible && (
         <DropdownMenu>
-          <DropdownItem onClick={() => handleOptionClick('출석')}>
-            출석
-          </DropdownItem>
-          <DropdownItem onClick={() => handleOptionClick('현체')}>
-            현체
-          </DropdownItem>
-          <DropdownItem onClick={() => handleOptionClick('귀가')}>
-            귀가
-          </DropdownItem>
-          <DropdownItem onClick={() => handleOptionClick('취업')}>
-            취업
-          </DropdownItem>
-          <DropdownItem onClick={() => handleOptionClick('자퇴')}>
-            자퇴
-          </DropdownItem>
+          {type === 'ATTENDANCE'
+            ? attendanceStatus.map((item, index) => (
+                <DropdownItem
+                  key={`attendance-${item}-${index}`}
+                  onClick={() => handleOptionClick(item)}
+                >
+                  {item}
+                </DropdownItem>
+              ))
+            : homeroomStatus.map((item, index) => (
+                <DropdownItem
+                  key={`homeroom-${item}-${index}`}
+                  onClick={() => handleOptionClick(item)}
+                >
+                  {item}
+                </DropdownItem>
+              ))}
         </DropdownMenu>
       )}
     </DropdownContainer>
