@@ -19,6 +19,7 @@ import { TimeTable } from '@/pages/titmetable';
 import { SelfStudyCheck } from '@/pages/selfStudyCheck';
 import Main from '@/pages/Main';
 import Login from '@/pages/login';
+import ClubPage from '@/pages/club';
 
 export const Router = createBrowserRouter([
   {
@@ -122,6 +123,10 @@ export const Router = createBrowserRouter([
       {
         path: 'attendanceCheck',
         element: <SelfStudyCheck />,
+      },
+      {
+        path: 'club',
+        element: <ClubPage />,
       },
     ],
   },
