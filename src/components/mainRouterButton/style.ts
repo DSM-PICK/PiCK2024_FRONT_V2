@@ -8,6 +8,7 @@ export const MainRouterButtonContainer = styled(Link)`
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  width: 100px;
 `;
 
 export const MainRouterImgContainer = styled.div`
@@ -31,8 +32,7 @@ export const MainRouterText = styled.p`
   font-size: ${theme.font.subTitle[2].size};
   font-weight: ${theme.font.subTitle[2].fontweight};
   color: ${theme.color.normal.black};
-  padding: 0;
-  margin: 0;
+  white-space: nowrap;
 `;
 
 export const MainRouterFlexbox = styled.div`
