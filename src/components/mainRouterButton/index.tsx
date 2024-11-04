@@ -55,11 +55,11 @@ const MainRouterButton = () => {
       text: '학급 관리',
       router: '/classManage',
     },
-    // {
-    //   img: clubManagement,
-    //   text: '전공 동아리 관리',
-    //   router: '/club',
-    // },
+    {
+      img: clubManagement,
+      text: '전공 동아리 관리',
+      router: '/club',
+    },
     {
       img: changeTeacher,
       text: '자습감독',
