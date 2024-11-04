@@ -7,6 +7,7 @@ import { SelectTeacher, PostTeacher } from '@/apis/self-study';
 import closeIcon from '@/assets/svg/close.svg';
 import plusIcon from '@/assets/svg/plus.svg';
 import { AddSchedule, DaySchedule, DeleteSchedule } from '@/apis/schedule';
+import { showToast } from '../toast';
 
 interface ModalProp {
   type?: 'check' | 'red' | 'selfStudy' | 'schedule';
@@ -16,17 +17,12 @@ interface ModalProp {
   onConfirm: () => void;
   initialDate?: string;
   setState?: React.Dispatch<React.SetStateAction<boolean>>;
+  refetchStatus: () => void;
 }
 
 interface ChangeProps {
   text: string;
   name: string;
-}
-
-interface DataItem {
-  floor: number;
-  teacher: string;
-  date: string;
 }
 
 interface ScheduleData {
@@ -42,6 +38,7 @@ export const Modal = ({
   type,
   initialDate,
   setState,
+  refetchStatus,
 }: ModalProp) => {
   const [secondData, setSecondData] = useState({ floor: 2, teacher: '' });
   const [thirdData, setThirdData] = useState({ floor: 3, teacher: '' });
@@ -85,8 +82,11 @@ export const Modal = ({
       { id: id },
       {
         onSuccess: () => {
-          alert('삭제에 성공하셨습니다');
-          window.location.reload();
+          showToast({
+            type: 'success',
+            message: '삭제되었습니다',
+          });
+          refetchStatus();
         },
       },
     );
@@ -106,7 +106,12 @@ export const Modal = ({
 
         await postTeacherMutate(postData, {
           onSuccess: () => {
+            showToast({
+              type: 'success',
+              message: '자습감독이 등록되었습니다',
+            });
             setState(false);
+            refetchStatus();
           },
         });
       } catch (error) {
@@ -119,8 +124,11 @@ export const Modal = ({
   const handleModalConfirm = async () => {
     await addScheduleMutate(addSchedule, {
       onSuccess: () => {
-        location.reload();
-        alert('일정이 추가되었습니다');
+        showToast({
+          type: 'success',
+          message: '학사일정이 추가되었습니다',
+        });
+        refetchStatus();
       },
       onError: (error) => {
         console.log(error);
