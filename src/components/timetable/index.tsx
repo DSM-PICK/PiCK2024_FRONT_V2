@@ -54,7 +54,7 @@ export const DayTimeTable = ({
   };
 
   const handleKeyDown = async (
-    event: React.KeyboardEvent<HTMLInputElement>,
+    event: React.KeyboardEvent<HTMLTextAreaElement>,
   ) => {
     if (event.key === 'Enter') {
       onClickBtn();
@@ -87,10 +87,17 @@ const Subject = styled.td`
   border: 1px solid ${theme.color.gray[100]};
 `;
 
-const SubjectInput = styled.input`
-  width: 100%;
-  height: 100%;
+const SubjectInput = styled.textarea`
+  display: table-cell;
   font-size: ${theme.font.heading[3].size};
   font-weight: ${theme.font.heading[3].fontweight};
   outline: none;
+  resize: none;
+  text-align: center;
+  padding-left: 5;
+  padding-right: 50;
+  padding-bottom: 50;
+  padding-top: 50;
+  word-break: break-all;
+  width: 100%;
 `;
