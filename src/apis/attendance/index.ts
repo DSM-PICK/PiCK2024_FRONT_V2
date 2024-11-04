@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { instance } from '..';
-import { ChangeAttendance, attendanceType } from '../type';
+import { AttendanceType, ChangeAttendance, attendanceType } from '../type';
 
 const router = '/attendance';
 
@@ -20,6 +20,18 @@ export const useChangeAttendanceStatus = () => {
   return useMutation<void, Error, ChangeAttendance[]>({
     mutationFn: async (param: ChangeAttendance[]) => {
       await instance.patch(`${router}/total-time/modify`, param);
+    },
+  });
+};
+
+export const useGetClubMemberList = (club: string) => {
+  return useQuery({
+    queryKey: ['useGetClubMemberList', club],
+    queryFn: async () => {
+      const { data } = await instance.get<attendanceType[]>(
+        `${router}/total-time/club?club=${club}`,
+      );
+      return data;
     },
   });
 };
