@@ -21,7 +21,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.PiCK_GITHUB_KEY }}
         with:
           source-directory: 'output'
-          destination-github-username: DSM-PICK
+          destination-github-username: DSM-PiCK
           destination-repository-name: PiCK2024_FRONT_v2
           user-email: ${{ secrets.PiCK_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}

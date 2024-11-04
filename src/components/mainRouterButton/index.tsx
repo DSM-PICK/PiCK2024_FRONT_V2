@@ -37,7 +37,7 @@ const MainRouterButton = () => {
     },
     {
       img: classMoveImg,
-      text: '교실이동',
+      text: '교실 이동 수락',
       router: '/classMove',
     },
     {
@@ -57,7 +57,7 @@ const MainRouterButton = () => {
     },
     {
       img: clubManagement,
-      text: '전공 동아리 관리',
+      text: '전공동아리 관리',
       router: '/club',
     },
     {
@@ -75,11 +75,11 @@ const MainRouterButton = () => {
       text: '학사일정',
       router: '/schedule',
     },
-    {
-      img: timetableChange,
-      text: '시간표',
-      router: '/timetable',
-    },
+    // {
+    //   img: timetableChange,
+    //   text: '시간표',
+    //   router: '/timetable',
+    // },
   ];
 
   return (
