@@ -3,6 +3,7 @@ import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import ClassList from '@/components/list/class';
 import { theme } from '@/styles/theme';
+import { getWeekDay } from '@/utils/date';
 import { NotAllClassOption, NotAllGradeOption } from '@/utils/dropdown';
 import { setStudentNum } from '@/utils/utils';
 import { useState } from 'react';
@@ -45,7 +46,7 @@ export const SelfStudyCheck = () => {
     >
       <Content>
         <TitleContainer>
-          <PeriodText>목요일</PeriodText>
+          <PeriodText>{getWeekDay()}요일</PeriodText>
           <PeriodMap>
             {period.map((item, index) => (
               <PeriodText key={index}>{item}</PeriodText>

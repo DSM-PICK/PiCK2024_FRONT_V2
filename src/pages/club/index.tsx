@@ -11,6 +11,8 @@ import {
   ThirdClub,
   fourthClub,
 } from '@/utils/dropdown';
+import { styled } from 'styled-components';
+import { theme } from '@/styles/theme';
 
 const getClubsByFloor = (floor: number) => {
   switch (floor) {
@@ -29,6 +31,8 @@ const ClubPage = () => {
   const [selectedClub, setSelectedClub] = useState<string>('대동여지도');
   const [selectedFloor, setSelectedFloor] = useState<number>(2);
   const { data: ClubMember } = useGetClubMemberList(selectedClub);
+  const period = ['8교시', '9교시', '10교시'];
+  const allperiod = ['6교시', '7교시', '8교시', '9교시', '10교시'];
 
   const handleClubChange = (selectedOption: number | string) => {
     setSelectedClub(String(selectedOption));
@@ -61,6 +65,16 @@ const ClubPage = () => {
         </>
       }
     >
+      <TitleContainer>
+        <PeriodText>{getWeekDay()}요일</PeriodText>
+        <PeriodMap>
+          {getWeekDay() === '금'
+            ? allperiod.map((item) => (
+                <PeriodText key={item}>{item}</PeriodText>
+              ))
+            : period.map((item) => <PeriodText key={item}>{item}</PeriodText>)}
+        </PeriodMap>
+      </TitleContainer>
       {ClubMember?.map((item) => (
         <ClassList
           refetchStatus={() => {}}
@@ -81,3 +95,27 @@ const ClubPage = () => {
 };
 
 export default ClubPage;
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const PeriodMap = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(60px, 10vw, 120px);
+  padding: 16px 20px;
+`;
+
+const PeriodText = styled.p`
+  font-size: ${theme.font.heading[3].size};
+  font-weight: ${theme.font.heading[3].fontweight};
+`;
