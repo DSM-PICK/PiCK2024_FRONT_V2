@@ -1,28 +1,73 @@
-import React, { useEffect, useState } from 'react';
+import React, { TextareaHTMLAttributes, useEffect, useState } from 'react';
 import { Layout } from '@/components/layout';
 import nextSvg from '@/assets/svg/next.svg';
-import { useNavigate, useParams } from 'react-router-dom';
-import { DetailNotice, useDeleteNotice } from '@/apis/notice';
+import { useNavigate, useNavigation, useParams } from 'react-router-dom';
+import { DetailNotice, useDeleteNotice, useEditNotice } from '@/apis/notice';
 import * as S from '../style';
 import BottomButtonWrap from '@/components/Button/bottom';
 import Modal from '@/components/modal';
 import { showToast } from '@/components/toast';
+import Input from '@/components/input';
+import { Textarea } from '@/components/input/textarea';
 
 const NoticeDetail = () => {
   const params = useParams();
+  const router = useNavigate();
   const noticeId = params.detail || '';
-  const { data: GetDetailNotice } = DetailNotice(noticeId);
+  const { data: GetDetailNotice, refetch: ReGetDetailNotice } =
+    DetailNotice(noticeId);
   const { mutate: DeleteNotice } = useDeleteNotice();
   const [deleteNotice, setDeleteNotice] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
+  const [edit, setEdit] = useState<boolean>(false);
+  const { mutate: ModifyNotice } = useEditNotice();
   useEffect(() => {
     const storedName = localStorage.getItem('name');
     if (storedName) {
       setName(storedName);
     }
   }, []);
+  const [data, setData] = useState({
+    id: noticeId,
+    title: GetDetailNotice?.title,
+    content: GetDetailNotice?.content,
+  });
 
-  const router = useNavigate();
+  useEffect(() => {
+    setData({
+      id: noticeId,
+      title: GetDetailNotice?.title,
+      content: GetDetailNotice?.content,
+    });
+  }, [GetDetailNotice]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const Modify = () => {
+    ModifyNotice(data, {
+      onSuccess: () => {
+        setEdit(false);
+        showToast({
+          type: 'error',
+          message: '공지 수정에 성공하였습니다',
+        });
+        ReGetDetailNotice();
+      },
+      onError: () => {
+        setEdit(false);
+        showToast({
+          type: 'error',
+          message: '공지 수정에 실패하였습니다',
+        });
+      },
+    });
+  };
   return (
     <Layout
       now={
@@ -37,7 +82,18 @@ const NoticeDetail = () => {
           <img src={nextSvg} alt="" /> <span>{GetDetailNotice?.title}</span>
         </>
       }
-      title={GetDetailNotice?.title}
+      title={
+        edit ? (
+          <Input
+            widthtype="login"
+            onChange={handleChange}
+            name="title"
+            value={data.title}
+          />
+        ) : (
+          GetDetailNotice?.title
+        )
+      }
       right={
         <S.NoticeDetailRight>
           <S.NoticeDetailRightText>
@@ -49,12 +105,23 @@ const NoticeDetail = () => {
         </S.NoticeDetailRight>
       }
     >
-      <S.NoticeDetailContent>{GetDetailNotice?.content}</S.NoticeDetailContent>
+      <S.NoticeDetailContent>
+        {edit ? (
+          <Textarea
+            onChange={handleChange}
+            name="content"
+            value={data.content}
+            placeholder=""
+          />
+        ) : (
+          GetDetailNotice?.content
+        )}
+      </S.NoticeDetailContent>
       {GetDetailNotice?.teacher === name && (
         <BottomButtonWrap
           second
-          firstContent="수정"
-          firstOnclick={() => {}}
+          firstContent={edit ? '완료' : '수정'}
+          firstOnclick={edit ? () => Modify() : () => setEdit(true)}
           firstSize="standard"
           firstType="black"
           secondContent="삭제"
@@ -73,6 +140,7 @@ const NoticeDetail = () => {
               { id: noticeId },
               {
                 onSuccess: () => {
+                  router('/notice');
                   showToast({
                     type: 'success',
                     message: '공지가 삭제되었습니다.',

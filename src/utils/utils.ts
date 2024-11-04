@@ -68,6 +68,10 @@ export const useChangeStatusName = (status: string) => {
       return '자퇴';
     case 'GO_OUT':
       return '외출';
+    case 'MOVEMENT':
+      return '이동';
+    case 'DISALLOWED':
+      return '무단';
     default:
       return '';
   }

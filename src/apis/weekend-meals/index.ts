@@ -13,7 +13,7 @@ export const GetAllMeals = () => {
   return useQuery<GetAllMealsType[]>({
     queryKey: [],
     queryFn: async () => {
-      const { data } = await instance.get(`${router}/hey`);
+      const { data } = await instance.get(`${router}/application-list`);
       return data;
     },
   });

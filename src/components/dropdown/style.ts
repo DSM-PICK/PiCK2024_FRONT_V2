@@ -10,7 +10,9 @@ export const DropdownClickContainer = styled.div<DropdownClickProp>`
   position: absolute;
   flex-direction: column;
   top: 120%;
-  width: 140px;
+  width: 100%;
+  max-height: 250px;
+  overflow-y: auto;
   border-radius: 12px;
   background-color: ${theme.color.normal.white};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -28,6 +30,7 @@ export const DropdownClick = styled.div<DropdownClickProp>`
   border-radius: 12px;
   background-color: ${theme.color.normal.white};
   border: 1px solid ${theme.color.normal.white};
+  width: 100%;
 
   &:hover {
     background-color: ${theme.color.main[50]};
@@ -36,11 +39,13 @@ export const DropdownClick = styled.div<DropdownClickProp>`
 
 export const DropdownTitle = styled.div`
   position: relative;
-  width: 140px;
+  min-width: 140px;
   height: 49px;
   border: 2px solid ${theme.color.gray[300]};
   border-radius: 12px;
   box-sizing: border-box;
+  padding: 0 8px;
+  gap: 12px;
 
   display: flex;
   align-items: center;

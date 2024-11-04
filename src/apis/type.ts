@@ -15,6 +15,12 @@ export interface SelectedDaySelfStudTeacher {
   teacher: string;
 }
 
+export interface EditNotice {
+  id: string;
+  title: string;
+  content: string;
+}
+
 export interface TodayMealsType {
   date: string;
   meal_list: {

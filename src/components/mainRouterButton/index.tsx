@@ -21,11 +21,6 @@ interface MainRouterButtonType {
 const MainRouterButton = () => {
   const mainRouterButtonArray: MainRouterButtonType[] = [
     {
-      img: classMoveImg,
-      text: '교실이동',
-      router: '/classMove',
-    },
-    {
       img: outingAllow,
       text: '외출 수락',
       router: '/outAccept',
@@ -41,6 +36,11 @@ const MainRouterButton = () => {
       router: '/previousList',
     },
     {
+      img: classMoveImg,
+      text: '교실이동',
+      router: '/classMove',
+    },
+    {
       img: weekendMeals,
       text: '주말 급식 신청',
       router: '/weekendMeal',
@@ -52,33 +52,33 @@ const MainRouterButton = () => {
     },
     {
       img: classAttendance,
-      text: '학급 출석',
+      text: '학급 관리',
       router: '/classManage',
     },
-    // {
-    //   img: clubManagement,
-    //   text: '전공 동아리 관리',
-    //   router: '/club',
-    // },
+    {
+      img: clubManagement,
+      text: '전공 동아리 관리',
+      router: '/club',
+    },
     {
       img: changeTeacher,
-      text: '자습감독 변경',
+      text: '자습감독',
       router: '/self-study',
-    },
-    {
-      img: academicCalendar,
-      text: '학사 일정 변경',
-      router: '/schedule',
-    },
-    {
-      img: timetableChange,
-      text: '시간표 변경',
-      router: '/timetable',
     },
     {
       img: selfStudyImg,
       text: '자습시간 출결',
       router: '/attendanceCheck',
+    },
+    {
+      img: academicCalendar,
+      text: '학사일정',
+      router: '/schedule',
+    },
+    {
+      img: timetableChange,
+      text: '시간표',
+      router: '/timetable',
     },
   ];
 

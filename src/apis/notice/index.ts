@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { instance } from '@/apis';
 import {
+  EditNotice,
   NoticeDetailType,
   SimpleNoticeType,
   UploadNoticeType,
@@ -43,6 +44,14 @@ export const useDeleteNotice = () => {
   return useMutation<void, Error, { id: string }>({
     mutationFn: async (param) => {
       await instance.delete(`${router}/delete/${param.id}`);
+    },
+  });
+};
+
+export const useEditNotice = () => {
+  return useMutation<void, Error, EditNotice>({
+    mutationFn: async (param) => {
+      await instance.patch(`${router}/modify`, param);
     },
   });
 };

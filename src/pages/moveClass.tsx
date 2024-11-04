@@ -52,16 +52,20 @@ const MoveClass = () => {
     >
       <SubTitle>교실 이동 중인 학생</SubTitle>
       <Wrap>
-        {ChangingClass?.map((item) => (
-          <ClassMoveList
-            notSelect
-            onClick={() => {}}
-            name={getStudentString(item)}
-            preClass={item.move}
-            nextClass={item.classroom_name}
-            moveTime={`${item.start}교시 ~ ${item.end}교시`}
-          />
-        ))}
+        {ChangingClass?.length ? (
+          ChangingClass?.map((item) => (
+            <ClassMoveList
+              notSelect
+              onClick={() => {}}
+              name={getStudentString(item)}
+              preClass={item.move}
+              nextClass={item.classroom_name}
+              moveTime={`${item.start}교시 ~ ${item.end}교시`}
+            />
+          ))
+        ) : (
+          <p>교실 이동중인 학생이 없습니다</p>
+        )}
       </Wrap>
     </Layout>
   );

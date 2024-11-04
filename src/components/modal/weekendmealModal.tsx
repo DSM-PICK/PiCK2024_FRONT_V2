@@ -65,6 +65,17 @@ export const WeekendMealModal = ({
     setMonth(data);
   };
 
+  useEffect(() => {
+    if (!weekendMealInfo?.[0]?.data || !weekendMealInfo?.[1]?.data) return;
+    const { start, end } = weekendMealInfo[0].data;
+    const { month } = weekendMealInfo[1].data;
+    if (start && end) {
+      setEndData(end);
+      setStartData(start);
+      setMonth(month);
+    }
+  }, [weekendMealInfo?.[0]?.data, weekendMealInfo?.[1]?.data]);
+
   const handleDateChange = (date: any) => {
     selectedDate.selectDate(date);
     if (isStartOpen) {
@@ -91,12 +102,6 @@ export const WeekendMealModal = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  // useEffect(() => {
-  //   setEndData(weekendMealInfo[0].data?.end!);
-  //   setStartData(weekendMealInfo[0].data?.start!);
-  //   setMonth(weekendMealInfo[1].data?.month!);
-  // }, [weekendMealInfo]);
 
   return (
     <S.ModalWrap>
