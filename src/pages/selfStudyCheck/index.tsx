@@ -26,8 +26,8 @@ export const SelfStudyCheck = () => {
   };
   return (
     <Layout
-      now="출석체크"
-      title="출석체크"
+      now="자습시간 출결"
+      title="자습시간 출결"
       right={
         <>
           <Dropdown

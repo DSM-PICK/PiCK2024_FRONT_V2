@@ -6,7 +6,7 @@ import { theme } from '@/styles/theme';
 import styled from 'styled-components';
 import { GetClassStatus } from '@/apis/status';
 import { setStudentNum } from '@/utils/utils';
-import { Class_numOption, GradeOption } from '@/utils/dropdown';
+import { NotAllClassOption, NotAllGradeOption } from '@/utils/dropdown';
 
 const ClassManage = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(1);
@@ -32,12 +32,12 @@ const ClassManage = () => {
       right={
         <>
           <Dropdown
-            options={GradeOption}
+            options={NotAllGradeOption}
             value={selectedGrade}
             changeHandler={handleGrade}
           />
           <Dropdown
-            options={Class_numOption}
+            options={NotAllClassOption}
             value={selectedClass}
             changeHandler={handleClass}
           />
