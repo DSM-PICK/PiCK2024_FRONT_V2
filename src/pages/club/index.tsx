@@ -1,18 +1,45 @@
+import { useState } from 'react';
 import { useGetClubMemberList } from '@/apis/attendance';
 import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import ClassList from '@/components/list/class';
 import { getWeekDay } from '@/utils/date';
-import { clubOptions } from '@/utils/dropdown';
 import { setStudentNum } from '@/utils/utils';
-import { useState } from 'react';
+import {
+  NotAllFloorOption,
+  SecondClub,
+  ThirdClub,
+  fourthClub,
+} from '@/utils/dropdown';
+
+const getClubsByFloor = (floor: number) => {
+  switch (floor) {
+    case 2:
+      return SecondClub;
+    case 3:
+      return ThirdClub;
+    case 4:
+      return fourthClub;
+    default:
+      return [];
+  }
+};
 
 const ClubPage = () => {
   const [selectedClub, setSelectedClub] = useState<string>('대동여지도');
+  const [selectedFloor, setSelectedFloor] = useState<number>(2);
   const { data: ClubMember } = useGetClubMemberList(selectedClub);
 
   const handleClubChange = (selectedOption: number | string) => {
     setSelectedClub(String(selectedOption));
+  };
+
+  const handleFloorChange = (selectedOption: number | string) => {
+    setSelectedFloor(Number(selectedOption));
+    const clubs = getClubsByFloor(Number(selectedOption));
+    if (clubs.length > 0) {
+      setSelectedClub(clubs[0].value);
+    }
   };
 
   return (
@@ -20,11 +47,18 @@ const ClubPage = () => {
       now="전공동아리"
       title="전공동아리"
       right={
-        <Dropdown
-          options={clubOptions}
-          value={selectedClub}
-          changeHandler={handleClubChange}
-        />
+        <>
+          <Dropdown
+            options={NotAllFloorOption}
+            value={selectedFloor}
+            changeHandler={handleFloorChange}
+          />
+          <Dropdown
+            options={getClubsByFloor(selectedFloor)}
+            value={selectedClub}
+            changeHandler={handleClubChange}
+          />
+        </>
       }
     >
       {ClubMember?.map((item) => (
