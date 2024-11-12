@@ -7,11 +7,11 @@ import { useState, useEffect } from 'react';
 import Modal from '@/components/modal';
 import Dropdown from '@/components/dropdown';
 import { FloorOption } from '@/utils/dropdown';
-import { toast } from 'react-toastify';
 import useSelectionStore from '@/stores/useSelect';
 import { showToast } from '@/components/toast';
 import { Toggle } from '@/components/toggle';
 import { useGetEarlyReturnList } from '@/apis/early-return';
+import { getStudentString } from '@/utils/utils';
 
 const OutList = () => {
   const {
@@ -89,7 +89,7 @@ const OutList = () => {
                 <OutAcceptList
                   type={currentMenu}
                   key={index}
-                  name={item.user_name}
+                  name={getStudentString(item)}
                   content={item.reason}
                   date={`${item.start.slice(0, 5)} ~ ${item.end.slice(0, 5)}`}
                   onClick={() => handleAcceptListClick(item.id, item.user_name)}
@@ -103,7 +103,7 @@ const OutList = () => {
               <OutAcceptList
                 type={currentMenu}
                 key={item.class_num}
-                name={item.user_name}
+                name={getStudentString(item)}
                 content={item.reason}
                 date={item.start.slice(0, 5)}
                 onClick={() => {}}
