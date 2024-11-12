@@ -3,7 +3,7 @@ import '@/styles/theme';
 import { theme } from '@/styles/theme';
 
 export const Container = styled.section`
-  width: 100%;
+  min-width: 1000px;
   display: flex;
   flex-direction: column;
   align-items: center;

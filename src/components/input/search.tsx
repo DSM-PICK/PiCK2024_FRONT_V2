@@ -2,6 +2,7 @@ import * as S from './style';
 import React, { useEffect, useRef, useState } from 'react';
 import search from '@/assets/svg/search.svg';
 import { GetAllTeacher } from '@/apis/admin';
+import useTeacherListInformation from '@/stores/teacherlist';
 
 interface ChangeProps {
   text: string;
@@ -26,7 +27,7 @@ const SearchInput = ({
   value,
   type,
 }: InputProp) => {
-  const { data: teacherData } = GetAllTeacher();
+  const { teacher } = useTeacherListInformation();
   const [filteredTeachers, setFilteredTeachers] = useState<string[]>([]);
   const [list, setList] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -37,8 +38,10 @@ const SearchInput = ({
 
     if (type === 'self') {
       setList(true);
-      const filteredList = teacherData?.filter((teacher: string) =>
-        teacher.toLowerCase().includes(inputValue.toLowerCase()),
+      const filteredList = teacher?.filter((teacher: string) =>
+        teacher
+          .toLowerCase()
+          .includes(inputValue.toLowerCase() || value.toLowerCase()),
       );
       setFilteredTeachers(filteredList || ['']);
     }
