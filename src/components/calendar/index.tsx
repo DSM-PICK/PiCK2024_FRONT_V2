@@ -199,7 +199,7 @@ const Calendar = ({ type }: CalendarProp) => {
       </Width>
       {modal && selectedDate && (
         <Modal
-          refetchStatus={ReSelfStudyData}
+          refetchStatus={type === 'schedule' ? ReScheduleData : ReSelfStudyData}
           type={type}
           title={`${selectedMonth}월 ${selectedDay}일 ${selectedWeekday}`}
           subTitle="오늘의 자습감독 선생님"

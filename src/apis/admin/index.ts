@@ -5,6 +5,7 @@ import { cookie } from '@/utils/auth';
 import { Login } from './request';
 import { instance } from '@/apis';
 import { MynameType } from '@/apis/type';
+import useTeacherListInformation from '@/stores/teacherlist';
 
 const router = 'admin';
 
@@ -57,16 +58,16 @@ export const MyName = () => {
   });
 };
 
-export const GetAllTeacher = () => {
-  return useQuery<string[]>({
+export const useGetAllTeacher = () => {
+  const { teacher, setTeacher } = useTeacherListInformation();
+
+  return useQuery({
     queryKey: ['GetAllTeacher'],
     queryFn: async () => {
-      try {
-        const { data } = await instance.get(`${router}/all`);
-        return data;
-      } catch (error) {
-        console.log('');
-      }
+      const { data } = await instance.get(`${router}/all`);
+      setTeacher(data);
+      return data;
     },
+    enabled: teacher.length === 0,
   });
 };

@@ -58,7 +58,7 @@ export const Modal = ({
   const { mutate: postTeacherMutate } = PostTeacher();
   const { mutate: addScheduleMutate } = AddSchedule();
   const { mutate: Delete } = DeleteSchedule();
-  const { data: Schedule } = DaySchedule(date);
+  const { data: Schedule, refetch: reSchedule } = DaySchedule(date);
 
   useEffect(() => {
     if (!SelectSelfList?.length) return;
@@ -86,6 +86,7 @@ export const Modal = ({
             type: 'success',
             message: '삭제되었습니다',
           });
+          reSchedule();
           refetchStatus();
         },
       },
@@ -128,6 +129,7 @@ export const Modal = ({
           type: 'success',
           message: '학사일정이 추가되었습니다',
         });
+        setState(false);
         refetchStatus();
       },
       onError: (error) => {

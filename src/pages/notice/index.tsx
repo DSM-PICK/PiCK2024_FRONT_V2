@@ -19,9 +19,8 @@ const NoticePage = () => {
 
   const notices: SimpleNoticeType[] = Array.isArray(data) ? data : [];
 
-  const filteredNotices = notices.filter(
-    (notice: SimpleNoticeType) =>
-      notice.title.includes(searchTerm) || notice.id.includes(searchTerm),
+  const filteredNotices = notices.filter((notice: SimpleNoticeType) =>
+    notice.title.includes(searchTerm),
   );
 
   return (
@@ -43,7 +42,7 @@ const NoticePage = () => {
             <SearchInput
               type="Search"
               value={searchTerm}
-              placeholder="입력하세요"
+              placeholder="검색할 공지의 제목을 입력해주세요"
               onChange={handleSearchChange}
             />
           </>

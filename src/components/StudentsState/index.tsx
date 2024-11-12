@@ -13,7 +13,7 @@ const StudentsState = ({ type, person }: StudentsStateType) => {
   const buttonText =
     type === 'outing' ? '외출자 목록 보기' : '교실 이동 학생 보기';
   const img = type === 'outing' ? outingImg : classroomMovementImg;
-  const rout = type === 'outing' ? 'outList' : 'classMove';
+  const rout = type === 'outing' ? 'outList' : '/classMoveList';
   return (
     <S.StudentsStateContainer>
       <S.StudentsStateFlexbox>

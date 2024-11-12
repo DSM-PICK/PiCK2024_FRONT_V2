@@ -11,6 +11,7 @@ import { showToast } from '@/components/toast';
 import { Toggle } from '@/components/toggle';
 import Modal from '@/components/modal';
 import { useAcceptModal } from '@/hook/useModal';
+import { getStudentString } from '@/utils/utils';
 
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
@@ -102,10 +103,15 @@ const OutAccept = () => {
           {GetOutRequest?.length ? (
             GetOutRequest.map((item, index) => (
               <OutAcceptList
+                type={currentMenu}
                 key={index}
-                name={item.user_name}
+                name={getStudentString(item)}
                 content={item.reason}
-                date={item.end ? `${item.start}~${item.end}` : `${item.start}`}
+                date={
+                  item.end
+                    ? `${item.start.slice(0, 5)} ~ ${item.end.slice(0, 5)}`
+                    : `${item.start.slice(0, 5)}`
+                }
                 onClick={() => handleAcceptListClick(item.id, item.user_name)}
               />
             ))
@@ -137,6 +143,7 @@ const OutAccept = () => {
       />
       {modal && (
         <Modal
+          refetchStatus={() => {}}
           type="check"
           title={useAcceptModal({
             students: selectedStudentName,

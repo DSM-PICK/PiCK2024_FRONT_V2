@@ -69,7 +69,7 @@ const RequestClass = () => {
           <>
             <Button
               onClick={() => {
-                nav('accpet');
+                nav('/classMoveList');
               }}
               size="small"
               type="main"
@@ -123,6 +123,7 @@ const RequestClass = () => {
       />
       {modal && (
         <Modal
+          refetchStatus={() => {}}
           type="check"
           onCancel={() => {
             setModal(false);
