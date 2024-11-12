@@ -18,12 +18,9 @@ export const OutAcceptWrap = styled.div<AcceptListProp>`
       isActive && type === 'application'
         ? theme.color.main[500]
         : theme.color.main[50]};
-  &:hover {
-    border: 2px solid
-      ${({ type }) =>
-        type === 'application' ? theme.color.main[500] : 'transparent'};
-  }
+  cursor: pointer;
 `;
+
 export const OutAcceptTitle = styled.p`
   font-size: ${theme.font.heading[3].size};
   font-weight: ${theme.font.heading[3].fontweight};
