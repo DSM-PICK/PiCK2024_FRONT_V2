@@ -1,7 +1,6 @@
 import * as S from './style';
 import React, { useEffect, useRef, useState } from 'react';
 import search from '@/assets/svg/search.svg';
-import { GetAllTeacher } from '@/apis/admin';
 import useTeacherListInformation from '@/stores/teacherlist';
 
 interface ChangeProps {
