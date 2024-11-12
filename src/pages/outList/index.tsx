@@ -87,6 +87,7 @@ const OutList = () => {
             OutListFloorData?.length ? (
               OutListFloorData?.map((item, index) => (
                 <OutAcceptList
+                  type={currentMenu}
                   key={index}
                   name={item.user_name}
                   content={item.reason}
@@ -100,6 +101,7 @@ const OutList = () => {
           ) : earlyreturnListData?.length ? (
             earlyreturnListData?.map((item) => (
               <OutAcceptList
+                type={currentMenu}
                 key={item.class_num}
                 name={item.user_name}
                 content={item.reason}
