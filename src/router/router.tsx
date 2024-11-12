@@ -72,16 +72,12 @@ export const Router = createBrowserRouter([
       },
       {
         path: 'classMove',
-        children: [
-          {
-            path: 'accpet',
-            element: <MoveClass />,
-          },
-          {
-            path: '',
-            element: <RequestClass />,
-          },
-        ],
+        element: <RequestClass />,
+      },
+
+      {
+        path: 'classMoveList',
+        element: <MoveClass />,
       },
       {
         path: 'classManage',
