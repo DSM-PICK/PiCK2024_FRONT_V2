@@ -58,13 +58,13 @@ export const SelfStudyCheck = () => {
           <ClassList
             refetchStatus={() => {}}
             key={item.id}
-            name={item.user_name}
-            number={setStudentNum(item)}
-            id={item.id}
-            status6={item.status6}
-            status7={item.status7}
-            status8={item.status8}
-            status9={item.status9}
+                name={item.user_name}
+                number={setStudentNum(item)}
+                id={item.id}
+                status6={item.status6}
+                status7={item.status7}
+                status8={item.status8}
+                status9={item.status9}
             status10={item.status10}
             self="attendance"
           />
