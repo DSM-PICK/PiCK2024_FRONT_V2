@@ -105,7 +105,11 @@ const OutAccept = () => {
                 key={index}
                 name={item.user_name}
                 content={item.reason}
-                date={item.end ? `${item.start}~${item.end}` : `${item.start}`}
+                date={
+                  item.end
+                    ? `${item.start.slice(0, 5)} ~ ${item.end.slice(0, 5)}`
+                    : `${item.start.slice(0, 5)}`
+                }
                 onClick={() => handleAcceptListClick(item.id, item.user_name)}
               />
             ))
@@ -137,6 +141,7 @@ const OutAccept = () => {
       />
       {modal && (
         <Modal
+          refetchStatus={() => {}}
           type="check"
           title={useAcceptModal({
             students: selectedStudentName,
