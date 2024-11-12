@@ -69,11 +69,13 @@ const OutList = () => {
         right={
           <>
             <Toggle onChange={setCurrentMenu} />
-            <Dropdown
-              options={FloorOption}
-              value={selectedFloor}
-              changeHandler={handleFloorChange}
-            />
+            {currentMenu === 'application' && (
+              <Dropdown
+                options={FloorOption}
+                value={selectedFloor}
+                changeHandler={handleFloorChange}
+              />
+            )}
           </>
         }
       >
@@ -88,7 +90,7 @@ const OutList = () => {
                   key={index}
                   name={item.user_name}
                   content={item.reason}
-                  date={`${item.start} ~ ${item.end}`}
+                  date={`${item.start.slice(0, 5)} ~ ${item.end.slice(0, 5)}`}
                   onClick={() => handleAcceptListClick(item.id, item.user_name)}
                 />
               ))
@@ -101,7 +103,7 @@ const OutList = () => {
                 key={item.class_num}
                 name={item.user_name}
                 content={item.reason}
-                date={item.start}
+                date={item.start.slice(0, 5)}
                 onClick={() => {}}
               />
             ))
@@ -121,6 +123,7 @@ const OutList = () => {
       )}
       {modal && (
         <Modal
+          refetchStatus={() => {}}
           type="red"
           title={`${
             selectedStudentName.length > 1
