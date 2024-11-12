@@ -98,9 +98,9 @@ export const TeacherList = styled.div`
   background-color: ${theme.color.normal.white};
   width: 100%;
   top: 110%;
+  height: 200px;
+  overflow: auto;
   z-index: 1;
-  max-height: 256px;
-  min-height: fit-content;
   overflow-y: scroll;
   border: 1px solid ${theme.color.gray[100]};
   border-radius: 12px;
