@@ -3,6 +3,7 @@ import { theme } from '@/styles/theme';
 
 interface AcceptListProp {
   isActive: boolean;
+  type: 'application' | 'early-return';
 }
 export const OutAcceptWrap = styled.div<AcceptListProp>`
   display: flex;
@@ -13,10 +14,14 @@ export const OutAcceptWrap = styled.div<AcceptListProp>`
   min-width: min-content;
   background-color: ${theme.color.main[50]};
   border: 2px solid
-    ${({ isActive }) =>
-      isActive ? theme.color.main[500] : theme.color.main[50]};
+    ${({ isActive, type }) =>
+      isActive && type === 'application'
+        ? theme.color.main[500]
+        : theme.color.main[50]};
   &:hover {
-    border: 2px solid ${theme.color.main[500]};
+    border: 2px solid
+      ${({ type }) =>
+        type === 'application' ? theme.color.main[500] : 'transparent'};
   }
 `;
 export const OutAcceptTitle = styled.p`

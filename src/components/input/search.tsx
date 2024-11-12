@@ -27,7 +27,7 @@ const SearchInput = ({
   type,
 }: InputProp) => {
   const { teacher } = useTeacherListInformation();
-  const [filteredTeachers, setFilteredTeachers] = useState<string[]>([]);
+  const [filteredTeachers, setFilteredTeachers] = useState<string[]>(teacher);
   const [list, setList] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -37,12 +37,14 @@ const SearchInput = ({
 
     if (type === 'self') {
       setList(true);
-      const filteredList = teacher?.filter((teacher: string) =>
-        teacher
-          .toLowerCase()
-          .includes(inputValue.toLowerCase() || value.toLowerCase()),
-      );
-      setFilteredTeachers(filteredList || ['']);
+
+      const filteredList = inputValue
+        ? teacher?.filter((teacher: string) =>
+            teacher.toLowerCase().includes(inputValue.toLowerCase()),
+          )
+        : teacher;
+
+      setFilteredTeachers(filteredList || []);
     }
   };
 

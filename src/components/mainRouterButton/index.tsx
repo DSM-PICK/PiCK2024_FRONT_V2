@@ -37,7 +37,7 @@ const MainRouterButton = () => {
     },
     {
       img: classMoveImg,
-      text: '교실이동',
+      text: '교실 이동 수락',
       router: '/classMove',
     },
     {

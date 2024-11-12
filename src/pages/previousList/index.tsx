@@ -43,7 +43,7 @@ const PreviousList = () => {
       }
     >
       <ContentWrap>
-        {Loading && <p>로딩중~</p>}
+        {Loading && <p>로딩중...</p>}
         {filteredStudents?.map((item) => (
           <StoryList
             id={item.id}
