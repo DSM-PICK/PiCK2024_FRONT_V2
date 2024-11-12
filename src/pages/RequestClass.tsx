@@ -123,6 +123,7 @@ const RequestClass = () => {
       />
       {modal && (
         <Modal
+        refetchStatus={()=>{}}
           type="check"
           onCancel={() => {
             setModal(false);
