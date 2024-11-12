@@ -48,8 +48,8 @@ const ClubPage = () => {
 
   return (
     <Layout
-      now="전공동아리"
-      title="전공동아리"
+      now="전공동아리 출결"
+      title="전공동아리 출결"
       right={
         <>
           <Dropdown
