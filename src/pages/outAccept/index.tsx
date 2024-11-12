@@ -11,6 +11,7 @@ import { showToast } from '@/components/toast';
 import { Toggle } from '@/components/toggle';
 import Modal from '@/components/modal';
 import { useAcceptModal } from '@/hook/useModal';
+import { getStudentString } from '@/utils/utils';
 
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
@@ -102,8 +103,9 @@ const OutAccept = () => {
           {GetOutRequest?.length ? (
             GetOutRequest.map((item, index) => (
               <OutAcceptList
+                type={currentMenu}
                 key={index}
-                name={item.user_name}
+                name={getStudentString(item)}
                 content={item.reason}
                 date={
                   item.end
