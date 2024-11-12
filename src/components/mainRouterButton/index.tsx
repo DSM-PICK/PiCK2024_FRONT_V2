@@ -57,7 +57,7 @@ const MainRouterButton = () => {
     },
     {
       img: clubManagement,
-      text: '전공 동아리 관리',
+      text: '전공동아리 출결',
       router: '/club',
     },
     {
