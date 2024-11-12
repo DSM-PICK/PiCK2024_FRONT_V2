@@ -75,11 +75,11 @@ const MainRouterButton = () => {
       text: '학사일정',
       router: '/schedule',
     },
-    {
-      img: timetableChange,
-      text: '시간표',
-      router: '/timetable',
-    },
+    // {
+    //   img: timetableChange,
+    //   text: '시간표',
+    //   router: '/timetable',
+    // },
   ];
 
   return (
