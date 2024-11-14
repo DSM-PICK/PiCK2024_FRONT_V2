@@ -59,6 +59,7 @@ const OutList = () => {
 
   useEffect(() => {
     refetchOutList();
+    resetSelection();
   }, [selectedFloor]);
 
   return (
@@ -93,6 +94,7 @@ const OutList = () => {
                   content={item.reason}
                   date={`${item.start.slice(0, 5)} ~ ${item.end.slice(0, 5)}`}
                   onClick={() => handleAcceptListClick(item.id, item.user_name)}
+                  active={selectedStudents.includes(item.id)}
                 />
               ))
             ) : (
@@ -106,6 +108,7 @@ const OutList = () => {
                 name={getStudentString(item)}
                 content={item.reason}
                 date={item.start.slice(0, 5)}
+                active={selectedStudents.includes(item.id)}
                 onClick={() => {}}
               />
             ))

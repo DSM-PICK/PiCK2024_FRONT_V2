@@ -67,6 +67,7 @@ const OutAccept = () => {
       newGrade === 5 ? 5 : selectedClass === 5 ? 1 : selectedClass,
     );
     setSelectedGrade(newGrade);
+    resetSelection();
   };
   const handleClassChange = (selectedOption: number | string) => {
     const newClass = Number(selectedOption);
@@ -74,6 +75,7 @@ const OutAccept = () => {
       newClass === 5 ? 5 : selectedGrade === 5 ? 1 : selectedGrade,
     );
     setSelectedClass(newClass);
+    resetSelection();
   };
 
   const disabled = selectedStudents.length === 0;
@@ -103,6 +105,7 @@ const OutAccept = () => {
           {GetOutRequest?.length ? (
             GetOutRequest.map((item, index) => (
               <OutAcceptList
+                active={selectedStudents.includes(item.id)}
                 type={currentMenu}
                 key={index}
                 name={getStudentString(item)}
