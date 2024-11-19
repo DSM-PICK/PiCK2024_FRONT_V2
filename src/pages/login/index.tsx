@@ -98,9 +98,6 @@ const Login = () => {
           로그인
         </Button>
       </S.ContentWrap>
-      <S.Pickman>
-        <img src={pickman} />
-      </S.Pickman>
     </S.LoginWrap>
   );
 };
