@@ -11,6 +11,7 @@ import { styled } from 'styled-components';
 
 export const SelfStudyCheck = () => {
   const period = ['8교시', '9교시', '10교시'];
+  const fullperiod = ['6교시', '7교시', '8교시', '9교시', '10교시'];
   const [selectedGrade, setSelectedGrade] = useState<number>(1);
   const [selectedClass, setSelectedClass] = useState<number>(1);
   const { data: attendanceData } = useGetAttendanceStatus(
@@ -48,9 +49,13 @@ export const SelfStudyCheck = () => {
         <TitleContainer>
           <PeriodText>{getWeekDay()}요일</PeriodText>
           <PeriodMap>
-            {period.map((item, index) => (
-              <PeriodText key={index}>{item}</PeriodText>
-            ))}
+            {getWeekDay() === '금'
+              ? fullperiod.map((item, index) => (
+                  <PeriodText key={index}>{item}</PeriodText>
+                ))
+              : period.map((item, index) => (
+                  <PeriodText key={index}>{item}</PeriodText>
+                ))}
           </PeriodMap>
         </TitleContainer>
 
@@ -58,15 +63,15 @@ export const SelfStudyCheck = () => {
           <ClassList
             refetchStatus={() => {}}
             key={item.id}
-                name={item.user_name}
-                number={setStudentNum(item)}
-                id={item.id}
-                status6={item.status6}
-                status7={item.status7}
-                status8={item.status8}
-                status9={item.status9}
+            name={item.user_name}
+            number={setStudentNum(item)}
+            id={item.id}
+            status6={item.status6}
+            status7={item.status7}
+            status8={item.status8}
+            status9={item.status9}
             status10={item.status10}
-            self="attendance"
+            self={getWeekDay() === '금' ? 'club' : 'attendance'}
           />
         ))}
       </Content>
