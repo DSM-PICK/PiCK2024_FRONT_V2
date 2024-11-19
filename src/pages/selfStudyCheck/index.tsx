@@ -50,11 +50,11 @@ export const SelfStudyCheck = () => {
           <PeriodText>{getWeekDay()}요일</PeriodText>
           <PeriodMap>
             {getWeekDay() === '금'
-              ? fullperiod.map((item, index) => (
-                  <PeriodText key={index}>{item}</PeriodText>
+              ? fullperiod.map((item) => (
+                  <PeriodText key={item}>{item}</PeriodText>
                 ))
-              : period.map((item, index) => (
-                  <PeriodText key={index}>{item}</PeriodText>
+              : period.map((item) => (
+                  <PeriodText key={item}>{item}</PeriodText>
                 ))}
           </PeriodMap>
         </TitleContainer>
