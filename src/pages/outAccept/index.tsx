@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Layout } from '@/components/layout';
 import OutAcceptList from '@/components/list';
 import BottomButtonWrap from '@/components/Button/bottom';
@@ -12,6 +12,7 @@ import { Toggle } from '@/components/toggle';
 import Modal from '@/components/modal';
 import { useAcceptModal } from '@/hook/useModal';
 import { getStudentString } from '@/utils/utils';
+import { Button } from '@/components/Button';
 
 const OutAccept = () => {
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
@@ -126,24 +127,30 @@ const OutAccept = () => {
           )}
         </OutAcceptContainer>
       </Layout>
-      <BottomButtonWrap
-        firstContent="거절하기"
-        secondContent="수락하기"
-        disabled={disabled}
-        firstOnclick={() => {
-          setState('NO');
-          setModal(true);
-        }}
-        firstSize="standard"
-        firstType="error"
-        second={true}
-        secondOnclick={() => {
-          setState('OK');
-          setModal(true);
-        }}
-        secondSize="standard"
-        secondType="main"
-      />
+      <BottomButtonWrap>
+        <Button
+          disabled={disabled}
+          onClick={() => {
+            setState('NO');
+            setModal(true);
+          }}
+          size="standard"
+          type="error"
+        >
+          거절하기
+        </Button>
+        <Button
+          disabled={disabled}
+          onClick={() => {
+            setState('OK');
+            setModal(true);
+          }}
+          size="standard"
+          type="main"
+        >
+          수락하기
+        </Button>
+      </BottomButtonWrap>
       {modal && (
         <Modal
           refetchStatus={() => {}}

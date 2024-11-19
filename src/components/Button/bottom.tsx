@@ -1,53 +1,13 @@
 import { styled } from 'styled-components';
 import { Button } from '.';
+import React from 'react';
 
 interface BottomProp {
-  firstOnclick: () => void;
-  firstType: 'main' | 'error' | 'black' | 'error2';
-  firstSize: 'small' | 'standard';
-  firstContent: string;
-  second?: boolean;
-  secondOnclick?: () => void;
-  secondType?: 'main' | 'error' | 'black' | 'error2';
-  secondSize?: 'small' | 'standard';
-  disabled?: boolean;
-  secondContent?: string;
+  children: React.ReactNode;
 }
 
-const BottomButtonWrap = ({
-  firstOnclick,
-  firstType,
-  firstSize,
-  firstContent,
-  disabled,
-  second,
-  secondOnclick,
-  secondSize,
-  secondType,
-  secondContent,
-}: BottomProp) => {
-  return (
-    <BottomButton>
-      <Button
-        onClick={firstOnclick}
-        type={firstType}
-        size={firstSize}
-        disabled={disabled}
-      >
-        {firstContent}
-      </Button>
-      {second && secondSize && secondType && secondOnclick && (
-        <Button
-          onClick={secondOnclick}
-          type={secondType}
-          disabled={disabled}
-          size={secondSize}
-        >
-          {secondContent}
-        </Button>
-      )}
-    </BottomButton>
-  );
+const BottomButtonWrap = ({ children }: BottomProp) => {
+  return <BottomButton>{children}</BottomButton>;
 };
 
 export default BottomButtonWrap;

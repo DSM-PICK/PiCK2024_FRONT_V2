@@ -12,6 +12,7 @@ import { showToast } from '@/components/toast';
 import { Toggle } from '@/components/toggle';
 import { useGetEarlyReturnList } from '@/apis/early-return';
 import { getStudentString } from '@/utils/utils';
+import { Button } from '@/components/Button';
 
 const OutList = () => {
   const {
@@ -118,13 +119,16 @@ const OutList = () => {
         </S.OutListContainer>
       </Layout>
       {currentMenu === 'application' && (
-        <BottomButtonWrap
-          firstContent="복귀 시키기"
-          firstOnclick={() => setModal(true)}
-          firstSize="standard"
-          firstType="main"
-          disabled={disabled}
-        />
+        <BottomButtonWrap>
+          <Button
+            onClick={() => setModal(true)}
+            size="standard"
+            type="main"
+            disabled={disabled}
+          >
+            복귀 시키기
+          </Button>
+        </BottomButtonWrap>
       )}
       {modal && (
         <Modal
