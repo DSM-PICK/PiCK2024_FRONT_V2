@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { theme } from '@/styles/theme';
 import StatusDrop from '../dropdown/status';
@@ -36,6 +36,7 @@ const ClassList = ({
 }: ClassListProp) => {
   const { mutate: ChangeMutate } = ChangeStudentStatus();
   const { mutateAsync: AlltimeChange } = useChangeAttendanceStatus();
+
   const [statuses, setStatuses] = useState<Status[]>([
     status6,
     status7,
@@ -43,6 +44,10 @@ const ClassList = ({
     status9,
     status10,
   ]);
+
+  useEffect(() => {
+    setStatuses([status6, status7, status8, status9, status10]);
+  }, [status6, status7, status8, status9, status10]);
 
   const updateStatus = async (newStatus: Status, index: number) => {
     const updatedStatuses = statuses.map((status, i) =>
@@ -138,7 +143,6 @@ const ListWrap = styled.div`
   align-items: center;
   padding: 16px 20px;
   background-color: ${theme.color.main[50]};
-
   border-radius: 12px;
   min-width: fit-content;
 `;

@@ -1,7 +1,7 @@
-import React, { TextareaHTMLAttributes, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout } from '@/components/layout';
 import nextSvg from '@/assets/svg/next.svg';
-import { useNavigate, useNavigation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DetailNotice, useDeleteNotice, useEditNotice } from '@/apis/notice';
 import * as S from '../style';
 import BottomButtonWrap from '@/components/Button/bottom';
@@ -9,6 +9,7 @@ import Modal from '@/components/modal';
 import { showToast } from '@/components/toast';
 import Input from '@/components/input';
 import { Textarea } from '@/components/input/textarea';
+import { Button } from '@/components/Button';
 
 const NoticeDetail = () => {
   const params = useParams();
@@ -118,20 +119,26 @@ const NoticeDetail = () => {
         )}
       </S.NoticeDetailContent>
       {GetDetailNotice?.teacher === name && (
-        <BottomButtonWrap
-          second
-          firstContent={edit ? '완료' : '수정'}
-          firstOnclick={edit ? () => Modify() : () => setEdit(true)}
-          firstSize="standard"
-          firstType="black"
-          secondContent="삭제"
-          secondOnclick={() => setDeleteNotice(true)}
-          secondSize="standard"
-          secondType="error2"
-        />
+        <BottomButtonWrap>
+          <Button
+            size="standard"
+            type="black"
+            onClick={() => (edit ? Modify() : setEdit(true))}
+          >
+            {edit ? '완료' : '수정'}
+          </Button>
+          <Button
+            onClick={() => setDeleteNotice(true)}
+            type="error2"
+            size="standard"
+          >
+            삭제
+          </Button>
+        </BottomButtonWrap>
       )}
       {deleteNotice && (
         <Modal
+          refetchStatus={() => {}}
           title="이 공지를 삭제하시겠습니까?"
           subTitle="삭제 시에는 복구 시킬 수 없습니다."
           onCancel={() => setDeleteNotice(false)}

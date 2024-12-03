@@ -13,6 +13,7 @@ export const useGetAttendanceStatus = (grade: number, class_num: number) => {
       );
       return data;
     },
+    staleTime: 100 * 1,
   });
 };
 

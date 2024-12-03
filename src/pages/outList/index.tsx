@@ -12,6 +12,7 @@ import { showToast } from '@/components/toast';
 import { Toggle } from '@/components/toggle';
 import { useGetEarlyReturnList } from '@/apis/early-return';
 import { getStudentString } from '@/utils/utils';
+import { Button } from '@/components/Button';
 
 const OutList = () => {
   const {
@@ -59,6 +60,7 @@ const OutList = () => {
 
   useEffect(() => {
     refetchOutList();
+    resetSelection();
   }, [selectedFloor]);
 
   return (
@@ -93,6 +95,7 @@ const OutList = () => {
                   content={item.reason}
                   date={`${item.start.slice(0, 5)} ~ ${item.end.slice(0, 5)}`}
                   onClick={() => handleAcceptListClick(item.id, item.user_name)}
+                  active={selectedStudents.includes(item.id)}
                 />
               ))
             ) : (
@@ -106,6 +109,7 @@ const OutList = () => {
                 name={getStudentString(item)}
                 content={item.reason}
                 date={item.start.slice(0, 5)}
+                active={selectedStudents.includes(item.id)}
                 onClick={() => {}}
               />
             ))
@@ -115,13 +119,16 @@ const OutList = () => {
         </S.OutListContainer>
       </Layout>
       {currentMenu === 'application' && (
-        <BottomButtonWrap
-          firstContent="복귀 시키기"
-          firstOnclick={() => setModal(true)}
-          firstSize="standard"
-          firstType="main"
-          disabled={disabled}
-        />
+        <BottomButtonWrap>
+          <Button
+            onClick={() => setModal(true)}
+            size="standard"
+            type="main"
+            disabled={disabled}
+          >
+            복귀 시키기
+          </Button>
+        </BottomButtonWrap>
       )}
       {modal && (
         <Modal
