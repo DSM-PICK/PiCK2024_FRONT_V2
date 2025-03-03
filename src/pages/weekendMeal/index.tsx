@@ -10,9 +10,10 @@ import { ClassDownLoadExcel, DownLoad } from '@/apis/meal';
 import { setStudentNum } from '@/utils/utils';
 import { Class_numOption, GradeOption } from '@/utils/dropdown';
 import { WeekendMealModal } from '@/components/modal/weekendmealModal';
+import { BeatLoader } from 'react-spinners';
 
 const WeekedMeal = () => {
-  const { data: GetAllList } = GetAllMeals();
+  const { data: GetAllList, isLoading } = GetAllMeals();
   const { downloadExcel } = DownLoad();
   const [selectedGrade, setSelectedGrade] = useState<number>(5);
   const [selectedClass, setSelectedClass] = useState<number>(5);
@@ -84,6 +85,7 @@ const WeekedMeal = () => {
             <p>상태</p>
           </NoticeWrap>
           <div>
+            {isLoading && <BeatLoader style={{ display: 'flex' }} />}
             {GetAllList?.map((item) => (
               <>
                 <WeekEndList

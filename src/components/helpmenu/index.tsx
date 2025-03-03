@@ -27,7 +27,7 @@ const HelfMenu = () => {
         <HelpContent
           onClick={() => {
             window.location.href =
-              'https://onyx-badge-bf9.notion.site/PiCK-6078a88d316c479daf209c18185abfa0?pvs=74';
+              'https://glaze-pumpkin-22e.notion.site/1a6a632f482c81a791c8f6ccf1a65453';
           }}
           content="픽 사용 설명서"
           icon={<img src={light} alt="" />}

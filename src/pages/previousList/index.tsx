@@ -4,6 +4,7 @@ import { Layout } from '@/components/layout';
 import StoryList from '@/components/story/story';
 import { getStudentString, setStudentNum } from '@/utils/utils';
 import { useState } from 'react';
+import { BeatLoader, SyncLoader } from 'react-spinners';
 import { styled } from 'styled-components';
 
 const PreviousList = () => {
@@ -43,7 +44,7 @@ const PreviousList = () => {
       }
     >
       <ContentWrap>
-        {Loading && <p>로딩중...</p>}
+        {Loading && <BeatLoader style={{ display: 'flex' }} />}
         {filteredStudents?.map((item) => (
           <StoryList
             id={item.id}

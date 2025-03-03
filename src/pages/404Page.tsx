@@ -7,7 +7,7 @@ const NotFound = () => {
   const nav = useNavigate();
   return (
     <ContentWrap>
-      <Title>아직 개발중인 페이지 입니다.</Title>
+      <Title>404 페이지를 찾을 수 없습니다</Title>
       <Button
         onClick={() => {
           nav(-1);
