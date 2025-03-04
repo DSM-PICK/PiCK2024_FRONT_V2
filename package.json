@@ -8,7 +8,6 @@
     "preview": "vite preview",
     "test": "vitest",
     "eject": "react-scripts eject",
-    "vercel-deploy": "yarn build",
     "lint": "vite lint",
     "type:check": "tex --noEmit"
   },
@@ -40,7 +39,6 @@
     "react-toastify": "^10.0.5",
     "styled-components": "^6.1.9",
     "typescript": "^4.4.2",
-    "vercel": "^37.8.0",
     "vite": "^5.3.1",
     "vite-plugin-svgr": "^4.2.0",
     "zustand": "^4.5.2"

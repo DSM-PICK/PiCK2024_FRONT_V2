@@ -4,23 +4,31 @@ import useCalendarContext from './useCalendarContext';
 import { theme } from '@/styles/theme';
 import { useSwipeable } from 'react-swipeable';
 
+// CalendarBody 컴포넌트의 props 인터페이스 정의
 interface CalendarBodyProp {
   onClickDate: (date: string) => void;
 }
 
+// CalendarBody 컴포넌트 정의
 const CalendarBody = ({ onClickDate }: CalendarBodyProp) => {
+  // CalendarContext에서 dispatch 함수 가져오기
   const { dispatch } = useCalendarContext();
+  // 요일 배열 정의
   const weeks = ['일', '월', '화', '수', '목', '금', '토'];
+  // CalendarContext에서 필요한 값들 가져오기
   const { daysInMonth, selectedDate, currentDate } = useCalendarContext();
 
+  // 다음 달로 변경하는 함수
   const handleChangeMonth = () => {
     dispatch.handleNextMonth();
   };
 
+  // 이전 달로 변경하는 함수
   const handleChangePreMonth = () => {
     dispatch.handlePrevMonth();
   };
 
+  // 스와이프 핸들러 정의
   const handlers = useSwipeable({
     onSwipedLeft: handleChangeMonth,
     onSwipedRight: handleChangePreMonth,
@@ -29,12 +37,15 @@ const CalendarBody = ({ onClickDate }: CalendarBodyProp) => {
   });
 
   return (
+    // 스와이프 핸들러를 Container에 적용
     <Container {...handlers}>
+      {/* 요일을 표시하는 부분 */}
       <DayWrapper>
         {weeks.map((week) => (
           <CalendarItem key={week}>{week}</CalendarItem>
         ))}
       </DayWrapper>
+      {/* 날짜를 표시하는 부분 */}
       <DayWrapper>
         {daysInMonth.map((date) => (
           <Day
@@ -54,6 +65,7 @@ const CalendarBody = ({ onClickDate }: CalendarBodyProp) => {
 
 export default CalendarBody;
 
+// 스타일드 컴포넌트 정의
 const Container = styled.div`
   display: flex;
   flex-direction: column;

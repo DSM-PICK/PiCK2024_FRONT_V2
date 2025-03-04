@@ -52,6 +52,7 @@ const HelfMenu = () => {
       </S.AlarmWrap>
       {logoutModal && (
         <Modal
+          refetchStatus={() => { }}
           onCancel={() => {
             setLogoutModal(false);
           }}
