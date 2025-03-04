@@ -20,4 +20,5 @@ jobs:
         with:
           environment: prod
           access_key: ${{ secrets.XQUAER_ACCESS_KEY }}
-          github_token: ${{ secrets.WEB_ADMINPICK_ }}
+          github_token: ${{ secrets.PICK_WEB_ADMIN }}
+
