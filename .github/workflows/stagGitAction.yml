@@ -20,4 +20,4 @@ jobs:
         with:
           environment: stag
           access_key: ${{ secrets.XQUAER_ACCESS_KEY }}
-          github_token: ${{ secrets.PICK_GITHUB_KEY }}
+          github_token: ${{ secrets.PICK_WEB_ADMIN }}
