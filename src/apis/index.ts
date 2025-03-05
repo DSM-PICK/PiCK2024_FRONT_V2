@@ -56,9 +56,9 @@ instance.interceptors.response.use(
               cookie.set('access_token', data.access_token);
               cookie.set('refresh_token', data.refresh_token);
             })
-          // .catch(() => {
-          //   window.location.href = '/';
-          // });
+            .catch(() => {
+              window.location.href = '/';
+            });
         } catch (refreshError) {
           return Promise.reject(refreshError);
         }
