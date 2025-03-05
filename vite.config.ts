@@ -1,10 +1,11 @@
 import * as path from "path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import envCompatiblePlugin from 'vite-plugin-env-compatible'
 
 export default defineConfig({
   base: "./",
-  plugins: [react()],
+  plugins: [react(), envCompatiblePlugin()],
   assetsInclude: ["**/*.jpg"],
   server: {
     host: "0.0.0.0",
@@ -28,6 +29,6 @@ export default defineConfig({
     },
   },
   define: {
-    "process.env": {},
+    "process.env": process.env,
   },
 });

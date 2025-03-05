@@ -18,7 +18,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const CHATKEY = import.meta.env.VITE_PUBLIC_CHAT_KEY || '';
+const CHATKEY = process.env.VITE_PUBLIC_CHAT_KEY || '';
 
 ChannelService.loadScript();
 
