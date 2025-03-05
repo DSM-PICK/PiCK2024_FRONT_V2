@@ -12,6 +12,8 @@ const router = 'admin';
 export const useLogin = () => {
   const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 
+  console.log(BASEURL, router)
+
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
 
