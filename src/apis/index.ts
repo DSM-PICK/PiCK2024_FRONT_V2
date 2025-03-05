@@ -16,8 +16,10 @@ export const refreshInstance: AxiosInstance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     if (typeof window !== 'undefined') {
-      const accessToken = cookie.get('access_token');
-      config.headers.Authorization = `Bearer ${accessToken}`;
+      const accessToken = cookie.get('access_token')
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
     }
     return config;
   },
@@ -54,9 +56,9 @@ instance.interceptors.response.use(
               cookie.set('access_token', data.access_token);
               cookie.set('refresh_token', data.refresh_token);
             })
-            .catch(() => {
-              window.location.href = '/';
-            });
+          // .catch(() => {
+          //   window.location.href = '/';
+          // });
         } catch (refreshError) {
           return Promise.reject(refreshError);
         }
