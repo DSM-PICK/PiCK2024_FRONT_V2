@@ -1,6 +1,6 @@
 FROM node:21.5.0
 
-WORKDIR /user/src/app
+WORKDIR /user/src
 
 COPY package.json .
 
@@ -13,4 +13,3 @@ RUN yarn build
 EXPOSE 3000
 
 CMD ["yarn", "dev"]
-
