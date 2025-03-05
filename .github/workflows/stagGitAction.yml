@@ -21,3 +21,8 @@ jobs:
           environment: stag
           access_key: ${{ secrets.XQUAER_ACCESS_KEY }}
           github_token: ${{ secrets.PICK_WEB_ADMIN }}
+        env:
+          VITE_SERVER_BASE_URL: ${{ secrets.STAG_BASE_URL }}
+          VITE_PUBLIC_CHAT_KEY: ${{ secrets.VITE_PUBLIC_CHAT_KEY }}
+          VITE_PUBLIC_FILE_APP: ${{ secrets.STAG_FILE_URL }}
+
