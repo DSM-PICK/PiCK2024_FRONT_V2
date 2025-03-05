@@ -10,6 +10,6 @@ COPY . .
 
 RUN yarn build
 
-EXPOSE 3000
+EXPOSE 3000 --host
 
 CMD ["yarn", "dev"]
