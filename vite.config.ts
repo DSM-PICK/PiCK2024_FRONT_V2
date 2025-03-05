@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react()],
   assetsInclude: ["**/*.jpg"],
   server: {
+    host: "0.0.0.0",
     port: 3000,
   },
   resolve: {
