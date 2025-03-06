@@ -21,4 +21,7 @@ jobs:
           environment: prod
           access_key: ${{ secrets.XQUAER_ACCESS_KEY }}
           github_token: ${{ secrets.PICK_WEB_ADMIN }}
-
+        buildargs: |
+            VITE_SERVER_BASE_URL=${{ secrets.VITE_PROD_SERVER_BASE_URL }}
+            VITE_PUBLIC_FILE_APP=${{ secrets.VITE_PUBLIC_FILE_APP }}
+            VITE_PUBLIC_CHAT_KEY=${{ secrets.VITE_PUBLIC_CHAT_KEY }}
