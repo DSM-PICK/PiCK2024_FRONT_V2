@@ -22,6 +22,6 @@ jobs:
           access_key: ${{ secrets.XQUAER_ACCESS_KEY }}
           github_token: ${{ secrets.PICK_WEB_ADMIN }}
           buildargs: |
-          BASE_URL: ${{ secrets.STAG_BASE_URL }}
-          FILE_URL: ${{ secrets.VITE_PUBLIC_CHAT_KEY }}
-          VITE_PUBLIC_CHAT_KEY: ${{ secrets.STAG_FILE_URL }}
+          VITE_SERVER_BASE_URL: ${{ secrets.VITE_SERVER_BASE_URL }}
+          VITE_PUBLIC_FILE_APP: ${{ secrets.VITE_PUBLIC_FILE_APP }}
+          VITE_PUBLIC_CHAT_KEY: ${{ secrets.VITE_PUBLIC_CHAT_KEY }}
