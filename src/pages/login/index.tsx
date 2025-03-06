@@ -31,7 +31,7 @@ const Login = () => {
       ...prevData,
       [name]: value,
     }));
-  };
+  }; // input 값 변경
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>,
@@ -39,11 +39,11 @@ const Login = () => {
     if (event.key === 'Enter') {
       onClickBtn();
     }
-  };
+  }; // 엔터키 눌렀을 때
 
-  const disabled = data.admin_id === '' || data.password === '';
+  const disabled = data.admin_id === '' || data.password === ''; // 버튼 비활성화
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // 페이지 이동
 
   const onClickBtn = async () => {
     try {
@@ -62,7 +62,7 @@ const Login = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; // 로그인 버튼 클릭
 
   return (
     <S.LoginWrap>

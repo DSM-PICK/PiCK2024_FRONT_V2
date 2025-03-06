@@ -2,7 +2,7 @@ import Input from '@/components/input';
 import { Textarea } from '@/components/input/textarea';
 import { Layout } from '@/components/layout';
 import { theme } from '@/styles/theme';
-import { useState } from 'react';
+import { TextareaHTMLAttributes, useState } from 'react';
 import styled from 'styled-components';
 import BugReportImg from '@/assets/svg/BugReportIcon.svg';
 import ImgModal from '@/components/modal/imgModal';
@@ -71,7 +71,7 @@ const BugReport = () => {
       toast.error('버그 제보에 실패했습니다.');
     }
   };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,
@@ -125,20 +125,14 @@ const BugReport = () => {
         {data.file_name.map((item, index) => (
           <ImgWrap key={index}>
             <ImgD
-              src={`${import.meta.env.VITE_PUBLIC_FILE_APP}${item}`}
+              src={`${process.env.VITE_PUBLIC_FILE_APP}${item}`}
               alt={`Uploaded ${index}`}
             />
             <Button onClick={() => handleRemoveImage(index)}>&times;</Button>
           </ImgWrap>
         ))}
       </Imgcontainer>
-      <BottomButtonWrap
-        firstContent="버그제보"
-        firstOnclick={Bug}
-        firstSize="small"
-        firstType="main"
-        firstDisabled={disabled}
-      />
+      <BottomButton><Button disabled={disabled} onClick={Bug}>버그 제보</Button></BottomButton>
     </Layout>
   );
 };

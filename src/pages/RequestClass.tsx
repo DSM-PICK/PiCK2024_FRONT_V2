@@ -103,27 +103,19 @@ const RequestClass = () => {
           )}
         </Wrap>
       </Layout>
-      <BottomButtonWrap
-        firstContent="거절"
-        disabled={disabled}
-        firstOnclick={() => {
+      <BottomButtonWrap>
+        <Button type="error" size='standard' disabled={disabled} onClick={() => {
           setState('NO');
-          AccpetList();
-        }}
-        firstSize="standard"
-        firstType="error"
-        second={true}
-        secondContent="수락"
-        secondSize="standard"
-        secondOnclick={() => {
+          AccpetList()
+        }}>거절</Button>
+        <Button type='main' size='standard' disabled={disabled} onClick={() => {
           setState('OK');
-          setModal(true);
-        }}
-        secondType="main"
-      />
+          setModal(true)
+        }}>수락</Button>
+      </BottomButtonWrap>
       {modal && (
         <Modal
-          refetchStatus={() => {}}
+          refetchStatus={() => { }}
           type="check"
           onCancel={() => {
             setModal(false);

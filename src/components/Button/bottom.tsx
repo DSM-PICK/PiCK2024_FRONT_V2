@@ -6,6 +6,7 @@ interface BottomProp {
   children: React.ReactNode;
 }
 
+// 하단 버튼 컴포넌트
 const BottomButtonWrap = ({ children }: BottomProp) => {
   return <BottomButton>{children}</BottomButton>;
 };

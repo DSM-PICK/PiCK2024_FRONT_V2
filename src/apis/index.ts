@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { cookie } from '@/utils/auth';
 
-const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
+const BASEURL = process.env.VITE_SERVER_BASE_URL;
 
 export const instance: AxiosInstance = axios.create({
   baseURL: BASEURL,
@@ -16,7 +16,7 @@ export const refreshInstance: AxiosInstance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     if (typeof window !== 'undefined') {
-      const accessToken = cookie.get('access_token');
+      const accessToken = cookie.get('access_token')
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;

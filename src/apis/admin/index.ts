@@ -7,18 +7,17 @@ import { instance } from '@/apis';
 import { MynameType } from '@/apis/type';
 import useTeacherListInformation from '@/stores/teacherlist';
 
-const router = 'admin';
+const router = '/admin';
+const BASEURL = process.env.VITE_SERVER_BASE_URL;
 
 export const useLogin = () => {
-  const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
-
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
 
   const loginMutation = useMutation({
     mutationFn: (param: Login) => {
       return axios
-        .post(`${BASEURL}/${router}/login`, {
+        .post(`${BASEURL}${router}/login`, {
           ...param,
         })
         .then((response) => {

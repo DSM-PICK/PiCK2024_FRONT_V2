@@ -9,6 +9,7 @@ interface buttonProp {
   disabled?: boolean;
 }
 
+// 버튼 컴포넌트
 export const Button = ({
   children,
   onClick,

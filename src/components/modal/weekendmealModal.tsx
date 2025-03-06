@@ -42,6 +42,7 @@ export const WeekendMealModal = ({
     endData!,
     month! - 1,
     {
+
       onSuccess: () => {
         showToast({
           type: 'success',
@@ -161,7 +162,7 @@ export const WeekendMealModal = ({
         </Content>
         <S.ButtonWrap>
           <S.CancelButton onClick={onCancel}>취소</S.CancelButton>
-          <S.ConfirmButton onClick={ChangePeriod}>확인</S.ConfirmButton>
+          <S.ConfirmButton onClick={() => ChangePeriod()}>확인</S.ConfirmButton>
         </S.ButtonWrap>
       </S.ModalStyle>
     </S.ModalWrap>

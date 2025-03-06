@@ -11,30 +11,40 @@ interface WeeklyCalendarProps {
   onDateSelect: (date: string) => void;
 }
 
+// WeeklyCalendar 컴포넌트 정의
 const WeeklyCalendar = ({
   selectedDate,
   onBackToMonthlyClick,
   onDateSelect,
 }: WeeklyCalendarProps) => {
+  // CalendarContext에서 currentDate 가져오기
   const { currentDate } = useCalendarContext();
+  // 주의 시작 날짜 계산
   const startDate = startOfWeek(selectedDate, { weekStartsOn: 0 });
+  // 요일 배열 정의
   const weeks = ['일', '월', '화', '수', '목', '금', '토'];
+  // 주의 날짜 배열 생성
   const daysOfWeek = Array.from({ length: 7 }, (_, i) => addDays(startDate, i));
+  // 선택된 날짜인지 확인하는 함수
   const isSelectedDate = (date: Date) => isSameDay(date, selectedDate);
 
   return (
     <Container>
+      {/* 월간 달력으로 돌아가는 버튼 */}
       <img src={upArrow} onClick={onBackToMonthlyClick} />
 
+      {/* 현재 연도와 월을 표시 */}
       <DateTitle>
         {currentDate.year}년 {currentDate.month}월
       </DateTitle>
       <ContainerWrap>
+        {/* 요일을 표시하는 부분 */}
         <DayWrapper>
           {weeks.map((week) => (
             <CalendarItem key={week}>{week}</CalendarItem>
           ))}
         </DayWrapper>
+        {/* 날짜를 표시하는 부분 */}
         <Header>
           {daysOfWeek.map((date, index) => (
             <Day
@@ -53,6 +63,7 @@ const WeeklyCalendar = ({
 
 export default WeeklyCalendar;
 
+// 스타일드 컴포넌트 정의
 const DateTitle = styled.p`
   font-size: ${theme.font.label[1].size};
   font-weight: ${theme.font.label[1].fontweight};
