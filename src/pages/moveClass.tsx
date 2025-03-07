@@ -29,7 +29,7 @@ const MoveClass = () => {
 
   return (
     <Layout
-      title="교실 이동 중인 학생"
+      title="교실 이동 현황"
       now={
         <>
           <p
@@ -39,7 +39,7 @@ const MoveClass = () => {
           >
             교실 이동 수락
           </p>
-          <img src={nextSvg} alt="" /> <p>교실 이동 중인 학생</p>
+          <img src={nextSvg} alt="" /> <p>교실 이동 현황</p>
         </>
       }
       right={
@@ -50,7 +50,7 @@ const MoveClass = () => {
         />
       }
     >
-      <SubTitle>교실 이동 중인 학생</SubTitle>
+      <SubTitle>교실 이동 현황</SubTitle>
       <Wrap>
         {ChangingClass?.length ? (
           ChangingClass?.map((item) => (

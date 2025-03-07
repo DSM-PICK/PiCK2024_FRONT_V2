@@ -10,7 +10,7 @@ const NotFound = () => {
       <Title>404 페이지를 찾을 수 없습니다</Title>
       <Button
         onClick={() => {
-          nav(-1);
+          nav("/main");
         }}
         type="main"
         size="standard"
