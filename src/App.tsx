@@ -3,7 +3,6 @@ import { Router } from './router/router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GlobalStyle, theme } from './styles/theme';
 import { ThemeProvider } from 'styled-components';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import 'react-toastify/dist/ReactToastify.css';
 import Toast from './components/toast';
 import * as ChannelService from '@channel.io/channel-web-sdk-loader';
@@ -31,7 +30,6 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Toast />
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
         <GlobalStyle />
         <RouterProvider router={Router} />
       </QueryClientProvider>

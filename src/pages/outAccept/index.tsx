@@ -107,7 +107,7 @@ const OutAccept = () => {
             GetOutRequest.map((item, index) => (
               <OutAcceptList
                 active={selectedStudents.includes(item.id)}
-                type={currentMenu}
+                type={`${currentMenu}accept`}
                 key={index}
                 name={getStudentString(item)}
                 content={item.reason}
@@ -153,7 +153,7 @@ const OutAccept = () => {
       </BottomButtonWrap>
       {modal && (
         <Modal
-          refetchStatus={() => {}}
+          refetchStatus={() => { }}
           type="check"
           title={useAcceptModal({
             students: selectedStudentName,
