@@ -6,7 +6,7 @@ interface OutAcceptProp {
   date: string;
   content: string;
   onClick: () => void;
-  type: 'application' | 'early-return';
+  type: 'application' | 'early-return' | 'applicationList' | 'early-returnList';
   active?: boolean;
 }
 
@@ -19,7 +19,7 @@ const OutAcceptList = ({
   active,
 }: OutAcceptProp) => {
   return (
-    <S.OutAcceptWrap type={type} draggable isActive={active!} onClick={onClick}>
+    <S.OutAcceptWrap type={`${type}accept`} draggable isActive={active!} onClick={onClick}>
       <S.OutAcceptTitle>{name}</S.OutAcceptTitle>
       <div>외출</div>
       <S.OutAcceptDate>{date}</S.OutAcceptDate>

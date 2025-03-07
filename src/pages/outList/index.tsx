@@ -89,7 +89,7 @@ const OutList = () => {
             OutListFloorData?.length ? (
               OutListFloorData?.map((item, index) => (
                 <OutAcceptList
-                  type={currentMenu}
+                  type={`${currentMenu}List`}
                   key={index}
                   name={getStudentString(item)}
                   content={item.reason}
@@ -104,13 +104,13 @@ const OutList = () => {
           ) : earlyreturnListData?.length ? (
             earlyreturnListData?.map((item) => (
               <OutAcceptList
-                type={currentMenu}
+                type={`${currentMenu}List`}
                 key={item.class_num}
                 name={getStudentString(item)}
                 content={item.reason}
                 date={item.start.slice(0, 5)}
                 active={selectedStudents.includes(item.id)}
-                onClick={() => {}}
+                onClick={() => { }}
               />
             ))
           ) : (
@@ -132,17 +132,15 @@ const OutList = () => {
       )}
       {modal && (
         <Modal
-          refetchStatus={() => {}}
+          refetchStatus={() => { }}
           type="red"
-          title={`${
-            selectedStudentName.length > 1
-              ? `${selectedStudentName[0]} 학생 외 ${
-                  selectedStudentName.length - 1
-                }명을 복귀시키겠습니까?`
-              : selectedStudentName.length === 1
-                ? `${selectedStudentName[0]}을 복귀시키겠습니까?`
-                : ''
-          }`}
+          title={`${selectedStudentName.length > 1
+            ? `${selectedStudentName[0]} 학생 외 ${selectedStudentName.length - 1
+            }명을 복귀시키겠습니까?`
+            : selectedStudentName.length === 1
+              ? `${selectedStudentName[0]}을 복귀시키겠습니까?`
+              : ''
+            }`}
           subTitle="복귀 시에는 외출이 끝나게 됩니다."
           onCancel={() => {
             setModal(false);

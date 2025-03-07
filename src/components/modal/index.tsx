@@ -67,10 +67,10 @@ export const Modal = ({
       2: setSecondData,
       3: setThirdData,
       4: setFourthData,
-    };
+    } as const;
 
     SelectSelfList.forEach((val) => {
-      const setter = setters[val.floor];
+      const setter = setters[val.floor as 2, 3, 4];
       if (setter) {
         setter({ floor: val.floor, teacher: val.teacher });
       }
@@ -123,19 +123,21 @@ export const Modal = ({
   };
 
   const handleModalConfirm = async () => {
-    await addScheduleMutate(addSchedule, {
-      onSuccess: () => {
-        showToast({
-          type: 'success',
-          message: '학사일정이 추가되었습니다',
-        });
-        setState(false);
-        refetchStatus();
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    });
+    if (setState) {
+      await addScheduleMutate(addSchedule, {
+        onSuccess: () => {
+          showToast({
+            type: 'success',
+            message: '학사일정이 추가되었습니다',
+          });
+          setState(false);
+          refetchStatus();
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      });
+    }
   };
 
   const SecondhandleChange = ({ text, name }: ChangeProps) => {

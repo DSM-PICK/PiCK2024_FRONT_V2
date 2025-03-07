@@ -104,7 +104,7 @@ const WeekedMeal = () => {
           <Wrap>
             <div>
               <ResTitle>
-                응답자({selectedGrade}-{selectedClass})
+                신청({selectedGrade}-{selectedClass})
               </ResTitle>
             </div>
             {GetClassList?.map(
@@ -123,7 +123,7 @@ const WeekedMeal = () => {
           <Wrap>
             <div>
               <ResTitle>
-                미응답자({selectedGrade}-{selectedClass})
+                미신청({selectedGrade}-{selectedClass})
               </ResTitle>
             </div>
             {GetClassList?.map(

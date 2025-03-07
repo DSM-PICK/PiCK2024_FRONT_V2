@@ -3,7 +3,7 @@ import { theme } from '@/styles/theme';
 
 interface AcceptListProp {
   isActive: boolean;
-  type: 'application' | 'early-return';
+  type: 'applicationaccept' | 'early-returnaccept' | 'applicationList' | 'early-returnList';
 }
 export const OutAcceptWrap = styled.div<AcceptListProp>`
   display: flex;
@@ -15,9 +15,9 @@ export const OutAcceptWrap = styled.div<AcceptListProp>`
   background-color: ${theme.color.main[50]};
   border: 2px solid
     ${({ isActive, type }) =>
-      isActive && type === 'application'
-        ? theme.color.main[500]
-        : theme.color.main[50]};
+    isActive && type !== 'early-returnaccept'
+      ? theme.color.main[500]
+      : theme.color.main[50]};
   cursor: pointer;
 `;
 
