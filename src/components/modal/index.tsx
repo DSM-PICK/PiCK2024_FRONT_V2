@@ -67,10 +67,10 @@ export const Modal = ({
       2: setSecondData,
       3: setThirdData,
       4: setFourthData,
-    } as const;
+    };
 
     SelectSelfList.forEach((val) => {
-      const setter = setters[val.floor as 2, 3, 4];
+      const setter = setters[val.floor as (2 | 3 | 4)];
       if (setter) {
         setter({ floor: val.floor, teacher: val.teacher });
       }
