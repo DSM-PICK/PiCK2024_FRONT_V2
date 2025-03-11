@@ -67,7 +67,7 @@ export const Modal = ({
       2: setSecondData,
       3: setThirdData,
       4: setFourthData,
-    };
+    } as const;
 
     SelectSelfList.forEach((val) => {
       const setter = setters[val.floor as (2 | 3 | 4)];
@@ -117,6 +117,10 @@ export const Modal = ({
         });
       } catch (error) {
         setState(false);
+        showToast({
+          type: 'error',
+          message: '자습감독 등록에 실패했습니다',
+        });
         console.error(error);
       }
     }
@@ -134,6 +138,10 @@ export const Modal = ({
           refetchStatus();
         },
         onError: (error) => {
+          showToast({
+            type: 'error',
+            message: '학사일정 추가에 실패했습니다',
+          });
           console.log(error);
         },
       });
@@ -218,11 +226,11 @@ export const Modal = ({
             </S.ScheduleTitle>
             <S.FixContent>
               {Schedule?.map((item) => (
-                <S.ScheduleItem>
+                <S.ScheduleItem key={item.id}>
                   <S.ScheduleItemText>{item.event_name}</S.ScheduleItemText>
                   <img
                     src={closeIcon}
-                    alt=""
+                    alt="일정 삭제"
                     width={20}
                     height={20}
                     onClick={() => onClickDelete(item.id)}
