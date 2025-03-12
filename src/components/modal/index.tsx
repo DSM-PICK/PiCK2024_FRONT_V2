@@ -8,6 +8,7 @@ import closeIcon from '@/assets/svg/close.svg';
 import plusIcon from '@/assets/svg/plus.svg';
 import { AddSchedule, DaySchedule, DeleteSchedule } from '@/apis/schedule';
 import { showToast } from '../toast';
+import { useGetAllTeacher } from '@/apis/admin';
 
 interface ModalProp {
   type?: 'check' | 'red' | 'selfStudy' | 'schedule';
@@ -49,6 +50,7 @@ export const Modal = ({
       ? format(new Date(initialDate), 'yyyy-MM-dd')
       : format(new Date(), 'yyyy-MM-dd'),
   });
+  useGetAllTeacher();
 
   const date = initialDate
     ? format(new Date(initialDate), 'yyyy-MM-dd')
