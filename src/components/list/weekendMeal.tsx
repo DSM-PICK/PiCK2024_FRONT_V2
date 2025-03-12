@@ -5,7 +5,7 @@ import MealDrop from '../dropdown/mealStatus';
 interface ListProp {
   number: string;
   name: string;
-  status: 'OK' | 'NO' | 'QUIET';
+  status: 'OK' | 'NO';
   id: string;
   grade: boolean;
 }
@@ -21,16 +21,15 @@ const WeekEndList = ({ number, name, status, id, grade }: ListProp) => {
         return '미신청';
       case 'OK':
         return '신청';
-      case 'QUIET':
-        return '미응답';
     }
   };
   return (
     <ContentWrap type={grade}>
       <Title>{number}</Title>
       <Title>{name}</Title>
-      {status !== 'QUIET' && <Option status={status}>{StatusChange()}</Option>}
-      {status === 'QUIET' && <MealDrop id={id} />}
+      <OptionWrap>
+        <Option status={status}>{StatusChange()}</Option>
+      </OptionWrap>
     </ContentWrap>
   );
 };
@@ -50,9 +49,16 @@ const Title = styled.p`
 `;
 
 const Option = styled.div<BadgeProps>`
+  text-align: center;
   background-color: ${({ status, theme }) =>
     status === 'OK' ? theme.color.main[500] : theme.color.main[300]};
   padding: 8px 20px;
   border-radius: 12px;
   color: ${theme.color.normal.white};
 `;
+
+const OptionWrap = styled.div`
+  width: 82px;
+  display:flex;
+  justify-content: end;
+`

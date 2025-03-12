@@ -59,7 +59,6 @@ const OutList = () => {
   }, [currentMenu]);
 
   useEffect(() => {
-    refetchOutList();
     resetSelection();
   }, [selectedFloor]);
 
@@ -87,10 +86,10 @@ const OutList = () => {
         <S.OutListContainer>
           {currentMenu === 'application' ? (
             OutListFloorData?.length ? (
-              OutListFloorData?.map((item, index) => (
+              OutListFloorData?.map((item) => (
                 <OutAcceptList
                   type={`${currentMenu}List`}
-                  key={index}
+                  key={item.id}
                   name={getStudentString(item)}
                   content={item.reason}
                   date={`${item.start.slice(0, 5)} ~ ${item.end.slice(0, 5)}`}
@@ -103,9 +102,10 @@ const OutList = () => {
             )
           ) : earlyreturnListData?.length ? (
             earlyreturnListData?.map((item) => (
-              <OutAcceptList
+
+              < OutAcceptList
                 type={`${currentMenu}List`}
-                key={item.class_num}
+                key={item.id}
                 name={getStudentString(item)}
                 content={item.reason}
                 date={item.start.slice(0, 5)}
