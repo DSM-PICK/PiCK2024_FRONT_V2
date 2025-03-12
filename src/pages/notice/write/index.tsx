@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { UploadNotice } from '@/apis/notice';
 import { Textarea } from '@/components/input/textarea';
 import { showToast } from '@/components/toast';
+import { Button } from '@/components/Button';
 
 const NoticeWrite = () => {
   const router = useNavigate();
@@ -88,13 +89,12 @@ const NoticeWrite = () => {
           onChange={handleChange}
         />
       </Layout>
-      <BottomButtonWrap
-        firstContent="공지작성"
-        disabled={disabled}
-        firstOnclick={Upload}
-        firstSize="standard"
-        firstType="main"
-      />
+      <BottomButtonWrap>
+        <Button onClick={Upload} disabled={disabled} type="main" size="standard">
+          공지 등록
+        </Button>
+      </BottomButtonWrap>
+
     </>
   );
 };

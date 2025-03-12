@@ -1,7 +1,7 @@
 export interface GetAllMealsType {
   id: string;
   user_name: string;
-  status: 'OK' | 'NO' | 'QUIET';
+  status: 'OK' | 'NO';
   grade: number;
   class_num: number;
   num: number;

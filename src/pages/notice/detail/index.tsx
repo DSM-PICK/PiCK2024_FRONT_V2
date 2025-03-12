@@ -55,7 +55,7 @@ const NoticeDetail = () => {
       onSuccess: () => {
         setEdit(false);
         showToast({
-          type: 'error',
+          type: 'success',
           message: '공지 수정에 성공하였습니다',
         });
         ReGetDetailNotice();
@@ -138,7 +138,7 @@ const NoticeDetail = () => {
       )}
       {deleteNotice && (
         <Modal
-          refetchStatus={() => {}}
+          refetchStatus={() => { }}
           title="이 공지를 삭제하시겠습니까?"
           subTitle="삭제 시에는 복구 시킬 수 없습니다."
           onCancel={() => setDeleteNotice(false)}
