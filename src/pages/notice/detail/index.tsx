@@ -42,7 +42,7 @@ const NoticeDetail = () => {
     });
   }, [GetDetailNotice]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,

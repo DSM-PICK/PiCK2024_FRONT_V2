@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { MutateOptions, useMutation, useQuery } from '@tanstack/react-query';
 import { instance } from '@/apis';
 import {
   SelectedDaySelfStudTeacher,
@@ -34,14 +34,13 @@ export const SelfstudyGet = (month: string, year: string) => {
   });
 };
 
-export const PostTeacher = () => {
-  return useMutation<void, Error, postTeacherProp>({
-    mutationFn: async (param) => {
-      try {
-        await instance.post(`/self-study/register`, param);
-      } catch (error) {
-        console.log('');
-      }
+export const PostTeacher = (option: MutateOptions<void, Error, postTeacherProp>) => {
+  return useMutation({
+    ...option,
+    mutationFn: async (param: postTeacherProp) => {
+
+      await instance.post(`/self-study/register`, param);
+
     },
   });
 };
