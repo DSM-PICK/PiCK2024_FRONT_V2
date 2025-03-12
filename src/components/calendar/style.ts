@@ -115,7 +115,7 @@ export const ScheduleContent = styled.div`
   align-items: center;
 `;
 
-export const ScheduleList = styled.p`
+export const ScheduleList = styled.div`
   font-size: ${theme.font.heading[4].size};
   color: ${theme.color.normal.black};
   display: flex;
