@@ -57,7 +57,27 @@ export const Modal = ({
     : format(new Date(), 'yyyy-MM-dd');
 
   const { data: SelectSelfList } = SelectTeacher(date);
-  const { mutate: postTeacherMutate } = PostTeacher();
+  const { mutate: postTeacherMutate } = PostTeacher({
+    onSuccess: () => {
+      showToast({
+        type: 'success',
+        message: '자습감독 등록에 성공하였습니다.'
+      })
+    },
+    onError: (error) => {
+      if (error.message === "Request failed with status code 404") {
+        showToast({
+          type: 'error',
+          message: "해당 선생님을 찾을 수 없습니다."
+        })
+      } else {
+        showToast({
+          type: 'error',
+          message: "에러가 발생하였습니다. 잠시후 시도해주세요"
+        })
+      }
+    }
+  });
   const { mutate: addScheduleMutate } = AddSchedule();
   const { mutate: Delete } = DeleteSchedule();
   const { data: Schedule, refetch: reSchedule } = DaySchedule(date);
@@ -107,22 +127,14 @@ export const Modal = ({
           ],
         };
 
-        await postTeacherMutate(postData, {
-          onSuccess: () => {
-            showToast({
-              type: 'success',
-              message: '자습감독이 등록되었습니다',
-            });
-            setState(false);
-            refetchStatus();
-          },
-        });
+        await postTeacherMutate(postData);
       } catch (error) {
         setState(false);
         showToast({
           type: 'error',
           message: '자습감독 등록에 실패했습니다',
-        });
+        }
+        );
         console.error(error);
       }
     }
