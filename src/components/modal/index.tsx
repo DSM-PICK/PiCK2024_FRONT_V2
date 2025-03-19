@@ -63,6 +63,11 @@ export const Modal = ({
         type: 'success',
         message: '자습감독 등록에 성공하였습니다.'
       })
+      if (setState) {
+        setState(false)
+        refetchStatus();
+      }
+
     },
     onError: (error) => {
       if (error.message === "Request failed with status code 404") {
