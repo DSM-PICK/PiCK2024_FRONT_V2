@@ -23,7 +23,7 @@ export const SelfStudyCheck = () => {
 
   const handleGradeChange = (option: number | string) => {
     const grade = Number(option)
-    setSelectedGrade(Number(option))
+    setSelectedGrade(grade)
     setDropdownInfo({
       grade: grade,
       class_num: selectedClass,
