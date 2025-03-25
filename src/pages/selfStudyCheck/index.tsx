@@ -2,6 +2,7 @@ import { useGetAttendanceStatus } from '@/apis/attendance';
 import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import ClassList from '@/components/list/class';
+import useDropdownInformation from '@/stores/useDropdown';
 import { theme } from '@/styles/theme';
 import { getWeekDay } from '@/utils/date';
 import { NotAllClassOption, NotAllGradeOption } from '@/utils/dropdown';
@@ -12,19 +13,30 @@ import { styled } from 'styled-components';
 export const SelfStudyCheck = () => {
   const period = ['8교시', '9교시', '10교시'];
   const fullperiod = ['6교시', '7교시', '8교시', '9교시', '10교시'];
-  const [selectedGrade, setSelectedGrade] = useState<number>(1);
-  const [selectedClass, setSelectedClass] = useState<number>(1);
+  const { dropdownInfo, setDropdownInfo } = useDropdownInformation();
+  const [selectedGrade, setSelectedGrade] = useState<number>(dropdownInfo?.grade || 1);
+  const [selectedClass, setSelectedClass] = useState<number>(dropdownInfo?.class_num || 1);
   const { data: attendanceData } = useGetAttendanceStatus(
     selectedGrade,
     selectedClass,
   );
 
   const handleGradeChange = (option: number | string) => {
-    setSelectedGrade(Number(option));
+    const grade = Number(option)
+    setSelectedGrade(grade)
+    setDropdownInfo({
+      grade: grade,
+      class_num: selectedClass,
+    });
   };
 
   const handleClassChange = (option: number | string) => {
-    setSelectedClass(Number(option));
+    const classNum = Number(option)
+    setSelectedClass(classNum)
+    setDropdownInfo({
+      grade: selectedGrade,
+      class_num: classNum,
+    });
   };
   return (
     <Layout
