@@ -2,7 +2,6 @@ import Input from '@/components/input';
 import * as S from '@/pages/login/style';
 import { Button } from '@/components/Button/index';
 import { useState } from 'react';
-import pickman from '@/assets/svg/pickman.svg';
 import { useLogin } from '@/apis/admin';
 import { saveToken } from '@/utils/auth';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +30,7 @@ const Login = () => {
       ...prevData,
       [name]: value,
     }));
-  }; // input 값 변경
+  }; 
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>,
@@ -39,11 +38,11 @@ const Login = () => {
     if (event.key === 'Enter') {
       onClickBtn();
     }
-  }; // 엔터키 눌렀을 때
+  }; 
 
-  const disabled = data.admin_id === '' || data.password === ''; // 버튼 비활성화
+  const disabled = data.admin_id === '' || data.password === ''; 
 
-  const navigate = useNavigate(); // 페이지 이동
+  const navigate = useNavigate(); 
 
   const onClickBtn = async () => {
     try {
@@ -62,7 +61,7 @@ const Login = () => {
     } catch (error) {
       console.log(error);
     }
-  }; // 로그인 버튼 클릭
+  };
 
   return (
     <S.LoginWrap>

@@ -73,7 +73,7 @@ export const Menu = styled.div`
   background-color: ${theme.color.normal.black};
   opacity: 0.5;
   top: 0;
-  z-index: 1;
+  z-index: 2;
 `;
 
 export const SelfStudyListWrap = styled.div`
