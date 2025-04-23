@@ -9,7 +9,7 @@ import { styled } from 'styled-components';
 
 const PreviousList = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const { data: GetCount, isLoading: Loading } = AllList();
+  const { data: GetCount, isLoading } = AllList();
 
   const handleSearchChange = ({
     text,
@@ -43,8 +43,16 @@ const PreviousList = () => {
         />
       }
     >
+      {isLoading && (
+        <BeatLoader
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      )}
       <ContentWrap>
-        {Loading && <BeatLoader style={{ display: 'flex' }} />}
         {filteredStudents?.map((item) => (
           <StoryList
             id={item.id}
