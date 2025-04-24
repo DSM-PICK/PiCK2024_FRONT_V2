@@ -6,7 +6,11 @@ interface OutAcceptProp {
   date: string;
   content: string;
   onClick: () => void;
-  type: 'applicationaccept' | 'early-returnaccept' | 'applicationList' | 'early-returnList';
+  type:
+    | 'applicationaccept'
+    | 'early-returnaccept'
+    | 'applicationList'
+    | 'early-returnList';
   active?: boolean;
 }
 
