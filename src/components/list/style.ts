@@ -15,7 +15,7 @@ export const OutAcceptWrap = styled.div<AcceptListProp>`
   background-color: ${theme.color.main[50]};
   border: 2px solid
     ${({ isActive, type }) =>
-    isActive && type !== 'early-returnaccept'
+    isActive && type !== 'early-returnList'
       ? theme.color.main[500]
       : theme.color.main[50]};
   cursor: pointer;

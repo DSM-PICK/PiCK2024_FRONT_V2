@@ -85,7 +85,15 @@ const WeekedMeal = () => {
             <p>상태</p>
           </NoticeWrap>
           <div>
-            {isLoading && <BeatLoader style={{ display: 'flex' }} />}
+            {isLoading && (
+              <BeatLoader
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              />
+            )}
             {GetAllList?.map((item) => (
               <>
                 <WeekEndList
