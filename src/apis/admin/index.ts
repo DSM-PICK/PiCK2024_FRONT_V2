@@ -8,7 +8,7 @@ import { MynameType } from '@/apis/type';
 import useTeacherListInformation from '@/stores/teacherlist';
 
 const router = '/admin';
-const BASEURL = process.env.VITE_SERVER_BASE_URL;
+const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export const useLogin = () => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
