@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { cookie } from '@/utils/auth';
 
-const BASEURL = process.env.VITE_SERVER_BASE_URL;
+const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 
 export const instance: AxiosInstance = axios.create({
   baseURL: BASEURL,
