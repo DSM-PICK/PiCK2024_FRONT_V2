@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 import { cookie } from '@/utils/auth';
 
 const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -24,22 +24,15 @@ instance.interceptors.response.use(
   async (error: AxiosError) => {
     if (axios.isAxiosError(error) && error.response) {
       const { status } = error.response;
-      if (status === 401) {
-        const originalConfig = error.config as
-          | (AxiosRequestConfig & { _retry?: boolean })
-          | undefined;
-        if (!originalConfig) return Promise.reject(error);
-        if (originalConfig._retry) return Promise.reject(error);
+      const originalRequest = error.config as typeof error.config & {
+        _retry?: boolean;
+      };
 
-        if (originalConfig.url?.includes('/admin/refresh')) {
-          return Promise.reject(error);
-        }
+      if (status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
 
-        originalConfig._retry = true;
-
+        const refreshToken = cookie.get('refresh_token');
         try {
-          const refreshToken = cookie.get('refresh_token');
-
           const response = await axios.put(`${BASEURL}/admin/refresh`, null, {
             headers: {
               'X-Refresh-Token': `${refreshToken}`,
@@ -49,12 +42,10 @@ instance.interceptors.response.use(
           cookie.set('access_token', data.access_token);
           cookie.set('refresh_token', data.refresh_token);
 
-          originalConfig.headers = {
-            ...(originalConfig.headers || {}),
-            Authorization: `Bearer ${data.access_token}`,
-          };
-
-          return instance(originalConfig);
+          if (originalRequest) {
+            originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
+            return instance(originalRequest);
+          }
         } catch (refreshError) {
           window.location.href = '/';
           return Promise.reject(refreshError);
