@@ -22,13 +22,13 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    if (axios.isAxiosError(error) && error.response) {
-      const { status } = error.response;
+    if (axios.isAxiosError(error)) {
+      const status = error.code;
       const originalRequest = error.config as typeof error.config & {
         _retry?: boolean;
       };
 
-      if (status === 401 && !originalRequest._retry) {
+      if (status === 'ERR_NETWORK' && !originalRequest._retry) {
         originalRequest._retry = true;
 
         const refreshToken = cookie.get('refresh_token');
