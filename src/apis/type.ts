@@ -142,3 +142,9 @@ export interface ChangeAttendance {
   user_id: string;
   status_list: string[];
 }
+
+export interface Email {
+  mail: string;
+  message: string;
+  title: string;
+}
