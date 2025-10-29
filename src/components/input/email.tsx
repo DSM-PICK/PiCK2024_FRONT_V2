@@ -87,16 +87,20 @@ export const EmailInput = ({
   onResend,
 }: EmailInputProps) => {
   const [changeText, setChangeText] = useState<boolean>(false);
+  const [value, setValue] = useState<string>('');
   const domain = 'dsm.hs.kr';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     onChange?.(val);
+    setValue(val);
   };
 
   const handleResend = () => {
-    if (onResend) onResend();
-    if (!changeText) setChangeText(!changeText);
+    if (onResend && value) {
+      onResend();
+      setChangeText(true);
+    }
   };
 
   return (

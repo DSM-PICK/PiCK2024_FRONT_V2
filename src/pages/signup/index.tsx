@@ -1,4 +1,3 @@
-// src/pages/signup/index.tsx
 import Input from '@/components/input';
 import * as S from '@/pages/signup/style';
 import { Button } from '@/components/Button';
@@ -23,6 +22,7 @@ type Form = {
   grade: number;
   classNum: number;
   name: string;
+  deviceToken: string;
 };
 
 type Errors = Partial<
@@ -67,6 +67,7 @@ const initialState: State = {
     grade: 0,
     classNum: 0,
     name: '',
+    deviceToken: '',
   },
   errors: {},
   ui: {
@@ -198,6 +199,7 @@ const Signup = () => {
       class_num: form.isHomeroom ? Number(form.classNum) : 0,
       code: form.code.trim(),
       secret_key: form.secretKey.trim(),
+      device_token: form.deviceToken,
     };
 
     signup(payload, {
@@ -206,8 +208,8 @@ const Signup = () => {
         navigate('/main');
       },
       onError: (err: any) => {
-        const code = err?.response?.data?.code;
-        if (code === 'SECRET_KEY_MISS_MATCH') {
+        const code = err?.response?.data?.message;
+        if (code === 'Secret Key Miss Match') {
           dispatch({
             type: 'SET_ERROR',
             field: 'secretKey',
@@ -215,7 +217,7 @@ const Signup = () => {
           });
           return;
         }
-        if (code === 'EMAIL_CODE_MISSMATCH') {
+        if (code === 'Email Mismatch') {
           dispatch({
             type: 'SET_ERROR',
             field: 'code',
@@ -239,7 +241,7 @@ const Signup = () => {
     !form.password ||
     !form.passwordCheck ||
     !form.name ||
-    ui.isSend ||
+    !ui.isSend ||
     !!errors.password ||
     !!errors.passwordCheck ||
     (form.isHomeroom && (form.grade === 0 || form.classNum === 0));
