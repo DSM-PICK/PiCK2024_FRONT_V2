@@ -39,3 +39,21 @@ export const Pickman = styled.image`
 export const Error = styled.p`
   color: ${theme.color.error[500]};
 `;
+
+export const BottomBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const LinkText = styled.span`
+  margin-left: 2px;
+  font-size: ${theme.font.button[2].size};
+  font-size: ${theme.font.button[2].fontweight};
+  color: ${theme.color.main[500]};
+  &:hover {
+    color: ${theme.color.main[900]};
+    text-decoration: underline;
+    font-weight: 500;
+  }
+`;
