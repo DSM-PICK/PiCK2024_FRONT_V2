@@ -6,11 +6,6 @@ import { useLogin } from '@/apis/admin';
 import { saveToken } from '@/utils/auth';
 import { useNavigate } from 'react-router-dom';
 
-interface ChangeProps {
-  text: string;
-  name: string;
-}
-
 interface LoginType {
   admin_id: string;
   password: string;
@@ -30,7 +25,7 @@ const Login = () => {
       ...prevData,
       [name]: value,
     }));
-  }; 
+  };
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>,
@@ -38,11 +33,11 @@ const Login = () => {
     if (event.key === 'Enter') {
       onClickBtn();
     }
-  }; 
+  };
 
-  const disabled = data.admin_id === '' || data.password === ''; 
+  const disabled = data.admin_id === '' || data.password === '';
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const onClickBtn = async () => {
     try {
@@ -88,14 +83,22 @@ const Login = () => {
           error={error}
         />
         {error && <S.Error>아이디와 비밀번호를 다시 확인해주세요</S.Error>}
-        <Button
-          onClick={onClickBtn}
-          type="main"
-          size="standard"
-          disabled={disabled}
-        >
-          로그인
-        </Button>
+        <S.BottomBox>
+          <p>
+            계정이 없으신가요?
+            <S.LinkText onClick={() => navigate('/signup')}>
+              회원가입
+            </S.LinkText>
+          </p>
+          <Button
+            onClick={onClickBtn}
+            type="main"
+            size="standard"
+            disabled={disabled}
+          >
+            로그인
+          </Button>
+        </S.BottomBox>
       </S.ContentWrap>
     </S.LoginWrap>
   );

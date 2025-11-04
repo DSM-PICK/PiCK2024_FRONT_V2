@@ -20,6 +20,7 @@ import { SelfStudyCheck } from '@/pages/selfStudyCheck';
 import Main from '@/pages/Main';
 import Login from '@/pages/login';
 import ClubPage from '@/pages/club';
+import Signup from '@/pages/signup';
 
 export const Router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const Router = createBrowserRouter([
       {
         path: '',
         element: <Login />,
+      },
+      {
+        path: 'signup',
+        element: <Signup />,
       },
       {
         path: '*',
