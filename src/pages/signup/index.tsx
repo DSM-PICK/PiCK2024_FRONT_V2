@@ -1,13 +1,13 @@
 import Input from '@/components/input';
 import * as S from '@/pages/signup/style';
 import { Button } from '@/components/Button';
-import { useReducer, useCallback } from 'react';
+import { useReducer, useCallback, useState } from 'react';
 import { useSignup } from '@/apis/admin';
 import { useNavigate } from 'react-router-dom';
 import { EmailInput } from '@/components/input/email';
 import Dropdown from '@/components/dropdown';
 import { saveToken } from '@/utils/auth';
-import { useEmailAuth } from '@/apis/mail';
+import { useEmailAuth, useEmailCheck } from '@/apis/mail';
 
 const PW_REGEX =
   /^(?=\S+$)(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,30}$/;
@@ -105,9 +105,48 @@ const Signup = () => {
   const navigate = useNavigate();
   const { mutate: signup } = useSignup();
   const { mutate: emailAuth, isPending: isSending } = useEmailAuth();
+  const { mutate: checkEmailCode } = useEmailCheck();
 
+  const [isEmailLocked, setIsEmailLocked] = useState<boolean>(false);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { form, errors, ui } = state;
+
+  const handleVerifyCode = () => {
+    if (!form.email || !form.code) {
+      dispatch({
+        type: 'SET_ERROR',
+        field: 'code',
+        message: '이메일과 인증 코드를 모두 입력해주세요.',
+      });
+      return;
+    }
+
+    checkEmailCode(
+      { email: form.email, code: form.code },
+      {
+        onSuccess: (data) => {
+          console.log(data);
+          if (data) {
+            setIsEmailLocked(true);
+            dispatch({ type: 'CLEAR_ERROR', field: 'code' });
+          } else {
+            dispatch({
+              type: 'SET_ERROR',
+              field: 'code',
+              message: '인증 코드가 올바르지 않습니다.',
+            });
+          }
+        },
+        onError: () => {
+          dispatch({
+            type: 'SET_ERROR',
+            field: 'code',
+            message: '인증 코드가 올바르지 않습니다.',
+          });
+        },
+      },
+    );
+  };
 
   const handleMailBtn = useCallback(() => {
     if (!form.email || isSending) return;
@@ -221,8 +260,9 @@ const Signup = () => {
           dispatch({
             type: 'SET_ERROR',
             field: 'code',
-            message: '인증코드가 잘못되었습니다',
+            message: '인증코드가 만료되었습니다',
           });
+          setIsEmailLocked(false);
           return;
         }
         dispatch({
@@ -281,25 +321,28 @@ const Signup = () => {
               if (errors.email)
                 dispatch({ type: 'CLEAR_ERROR', field: 'email' });
             }}
-            onResend={handleMailBtn}
+            onButtonClick={handleMailBtn}
+            disabled={isEmailLocked}
+            mainText="발송"
+            subText="재발송"
+            domain="dsm.hs.kr"
+            placeholder="학교 이메일을 입력해주세요"
           />
           {errors.email && <S.Error>{errors.email}</S.Error>}
         </S.SectionWrap>
         <S.SectionWrap>
-          <Input
+          <EmailInput
             label="인증 코드"
-            placeholder="인증 코드를 입력해주세요"
-            value={form.code}
-            name="code"
-            onChange={(e) => {
-              dispatch({
-                type: 'SET_FORM',
-                field: 'code',
-                value: e.target.value,
-              });
+            onChange={(value) => {
+              dispatch({ type: 'SET_FORM', field: 'code', value });
               if (errors.code) dispatch({ type: 'CLEAR_ERROR', field: 'code' });
             }}
-            widthtype="login"
+            onButtonClick={handleVerifyCode}
+            disabled={isEmailLocked}
+            mainText="확인"
+            subText="확인"
+            domain=""
+            placeholder="인증 코드를 입력해주세요"
           />
           {errors.code && <S.Error>{errors.code}</S.Error>}
         </S.SectionWrap>

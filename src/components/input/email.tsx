@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
 
@@ -6,7 +6,12 @@ interface EmailInputProps {
   label: string;
   resendLabel?: string;
   onChange?: (value: string) => void;
-  onResend: () => void;
+  onButtonClick: () => void;
+  disabled: boolean;
+  mainText: string;
+  subText: string;
+  domain: string;
+  placeholder: string;
 }
 
 const Container = styled.div`
@@ -22,18 +27,21 @@ const Label = styled.label`
   font-weight: ${theme.font.label[1].fontweight};
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ disabled: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: ${theme.color.gray[50]};
-  border: 1px solid transparent;
+  border: 1px solid
+    ${({ disabled }) => (disabled ? theme.color.main[900] : 'none')};
   border-radius: 8px;
   padding: 12px 24px;
   height: 48px;
-
+  opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
   &:hover {
-    border-color: ${theme.color.main[500]};
+    border-color: ${({ disabled }) =>
+      disabled ? 'none' : theme.color.main[500]};
   }
 `;
 
@@ -53,6 +61,11 @@ const Input = styled.input`
   }
   outline: none;
   caret-color: ${theme.color.main[500]};
+
+  &:disabled {
+    color: ${theme.color.gray[500]};
+    cursor: not-allowed;
+  }
 `;
 
 const Domain = styled.span`
@@ -79,16 +92,26 @@ const ResendButton = styled.button`
   &:hover {
     background: ${theme.color.main[100]};
   }
+
+  &:disabled {
+    background: ${theme.color.gray[100]};
+    color: ${theme.color.gray[400]};
+    cursor: not-allowed;
+  }
 `;
 
 export const EmailInput = ({
   label = '이메일',
   onChange,
-  onResend,
+  onButtonClick,
+  disabled = false,
+  mainText,
+  subText,
+  domain,
+  placeholder,
 }: EmailInputProps) => {
   const [changeText, setChangeText] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
-  const domain = 'dsm.hs.kr';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -96,25 +119,30 @@ export const EmailInput = ({
     setValue(val);
   };
 
-  const handleResend = () => {
-    if (onResend && value) {
-      onResend();
+  const handleButtonClick = () => {
+    if (onButtonClick && value) {
+      onButtonClick();
       setChangeText(true);
     }
   };
 
+  useEffect(() => {
+    console.log(disabled);
+  }, [disabled]);
+
   return (
     <Container>
       <Label>{label}</Label>
-      <Wrapper>
+      <Wrapper disabled={disabled}>
         <Input
           type="text"
-          placeholder="학교 이메일을 입력해주세요"
+          placeholder={placeholder}
           onChange={handleChange}
+          disabled={disabled}
         />
         <Domain>{domain}</Domain>
-        <ResendButton onClick={handleResend}>
-          {changeText ? '재발송' : '발송'}
+        <ResendButton onClick={handleButtonClick}>
+          {changeText ? subText : mainText}
         </ResendButton>
       </Wrapper>
     </Container>
