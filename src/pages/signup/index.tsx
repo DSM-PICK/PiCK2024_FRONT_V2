@@ -1,105 +1,17 @@
 import Input from '@/components/input';
 import * as S from '@/pages/signup/style';
 import { Button } from '@/components/Button';
-import { useReducer, useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useSignup } from '@/apis/admin';
 import { useNavigate } from 'react-router-dom';
 import { EmailInput } from '@/components/input/email';
 import Dropdown from '@/components/dropdown';
 import { saveToken } from '@/utils/auth';
 import { useEmailAuth, useEmailCheck } from '@/apis/mail';
+import { useSignupStore } from '@/stores/useSignup';
 
 const PW_REGEX =
   /^(?=\S+$)(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,30}$/;
-
-type Form = {
-  secretKey: string;
-  email: string; // account_id
-  code: string;
-  password: string;
-  passwordCheck: string;
-  isHomeroom: boolean;
-  grade: number;
-  classNum: number;
-  name: string;
-  deviceToken: string;
-};
-
-type Errors = Partial<
-  Record<
-    | 'secretKey'
-    | 'email'
-    | 'code'
-    | 'password'
-    | 'passwordCheck'
-    | 'name'
-    | 'gradeClass'
-    | 'global',
-    string
-  >
->;
-
-type UIState = {
-  isSend: boolean;
-};
-
-type State = {
-  form: Form;
-  errors: Errors;
-  ui: UIState;
-};
-
-type Action =
-  | { type: 'SET_FORM'; field: keyof Form; value: string | number | boolean }
-  | { type: 'SET_ERROR'; field: keyof Errors; message: string }
-  | { type: 'CLEAR_ERROR'; field: keyof Errors }
-  | { type: 'RESET_ERRORS' }
-  | { type: 'SET_UI'; field: keyof UIState; value: boolean };
-
-const initialState: State = {
-  form: {
-    secretKey: '',
-    email: '',
-    code: '',
-    password: '',
-    passwordCheck: '',
-    isHomeroom: false,
-    grade: 0,
-    classNum: 0,
-    name: '',
-    deviceToken: '',
-  },
-  errors: {},
-  ui: {
-    isSend: false,
-  },
-};
-
-function reducer(state: State, action: Action): State {
-  switch (action.type) {
-    case 'SET_FORM':
-      return {
-        ...state,
-        form: { ...state.form, [action.field]: action.value },
-      };
-    case 'SET_ERROR':
-      return {
-        ...state,
-        errors: { ...state.errors, [action.field]: action.message },
-      };
-    case 'CLEAR_ERROR': {
-      const next = { ...state.errors };
-      delete next[action.field];
-      return { ...state, errors: next };
-    }
-    case 'RESET_ERRORS':
-      return { ...state, errors: {} };
-    case 'SET_UI':
-      return { ...state, ui: { ...state.ui, [action.field]: action.value } };
-    default:
-      return state;
-  }
-}
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -107,42 +19,36 @@ const Signup = () => {
   const { mutate: emailAuth, isPending: isSending } = useEmailAuth();
   const { mutate: checkEmailCode } = useEmailCheck();
 
-  const [isEmailLocked, setIsEmailLocked] = useState<boolean>(false);
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { form, errors, ui } = state;
+  const {
+    form,
+    errors,
+    ui,
+    setForm,
+    setError,
+    clearError,
+    setUI,
+    resetErrors,
+  } = useSignupStore();
 
   const handleVerifyCode = () => {
     if (!form.email || !form.code) {
-      dispatch({
-        type: 'SET_ERROR',
-        field: 'code',
-        message: '이메일과 인증 코드를 모두 입력해주세요.',
-      });
+      setError('code', '이메일과 인증 코드를 모두 입력해주세요.');
       return;
     }
 
     checkEmailCode(
       { email: form.email, code: form.code },
       {
-        onSuccess: (data) => {
-          console.log(data);
+        onSuccess: (data: boolean) => {
           if (data) {
-            setIsEmailLocked(true);
-            dispatch({ type: 'CLEAR_ERROR', field: 'code' });
+            clearError('code');
+            setUI('isEmailLocked', true);
           } else {
-            dispatch({
-              type: 'SET_ERROR',
-              field: 'code',
-              message: '인증 코드가 올바르지 않습니다.',
-            });
+            setError('code', '인증 코드가 올바르지 않습니다.');
           }
         },
         onError: () => {
-          dispatch({
-            type: 'SET_ERROR',
-            field: 'code',
-            message: '인증 코드가 올바르지 않습니다.',
-          });
+          setError('code', '인증 코드가 올바르지 않습니다.');
         },
       },
     );
@@ -156,79 +62,61 @@ const Signup = () => {
       {
         onError: (err: any) => {
           if (err?.response?.status === 409) {
-            dispatch({
-              type: 'SET_ERROR',
-              field: 'email',
-              message: '이미 가입된 이메일입니다.',
-            });
+            setError('email', '이미 가입된 이메일입니다.');
             return;
           }
-          dispatch({
-            type: 'SET_ERROR',
-            field: 'email',
-            message: '인증 메일 발송에 실패했습니다.',
-          });
+          setError('email', '인증 메일 발송에 실패했습니다.');
         },
         onSuccess: () => {
-          dispatch({ type: 'CLEAR_ERROR', field: 'email' });
-          dispatch({ type: 'SET_UI', field: 'isSend', value: true });
+          clearError('email');
+          setUI('isSend', true);
         },
       },
     );
-  }, [form.email, isSending, emailAuth]);
+  }, [form.email, isSending, emailAuth, setError, clearError, setUI]);
 
   const onChangePassword = (val: string) => {
-    dispatch({ type: 'SET_FORM', field: 'password', value: val });
+    setForm('password', val);
 
     if (!val || PW_REGEX.test(val)) {
-      dispatch({ type: 'CLEAR_ERROR', field: 'password' });
+      clearError('password');
     } else {
-      dispatch({
-        type: 'SET_ERROR',
-        field: 'password',
-        message: '비밀번호는 8~30자, 영문/숫자/특수문자를 포함해야 합니다.',
-      });
+      setError(
+        'password',
+        '비밀번호는 8~30자, 영문/숫자/특수문자를 포함해야 합니다.',
+      );
     }
 
     if (form.passwordCheck && form.passwordCheck !== val) {
-      dispatch({
-        type: 'SET_ERROR',
-        field: 'passwordCheck',
-        message: '비밀번호가 일치하지 않습니다.',
-      });
+      setError('passwordCheck', '비밀번호가 일치하지 않습니다.');
     } else {
-      dispatch({ type: 'CLEAR_ERROR', field: 'passwordCheck' });
+      clearError('passwordCheck');
     }
   };
 
   const onChangePasswordCheck = (val: string) => {
-    dispatch({ type: 'SET_FORM', field: 'passwordCheck', value: val });
+    setForm('passwordCheck', val);
     if (!val || form.password === val) {
-      dispatch({ type: 'CLEAR_ERROR', field: 'passwordCheck' });
+      clearError('passwordCheck');
     } else {
-      dispatch({
-        type: 'SET_ERROR',
-        field: 'passwordCheck',
-        message: '비밀번호가 일치하지 않습니다.',
-      });
+      setError('passwordCheck', '비밀번호가 일치하지 않습니다.');
     }
   };
 
   const handleGradeChange = (value: string | number) => {
-    dispatch({ type: 'SET_FORM', field: 'grade', value: Number(value) });
-    if (errors.gradeClass)
-      dispatch({ type: 'CLEAR_ERROR', field: 'gradeClass' });
+    setForm('grade', Number(value));
+    if (errors.gradeClass) clearError('gradeClass');
   };
 
   const handleClassChange = (value: string | number) => {
-    dispatch({ type: 'SET_FORM', field: 'classNum', value: Number(value) });
-    if (errors.gradeClass)
-      dispatch({ type: 'CLEAR_ERROR', field: 'gradeClass' });
+    setForm('classNum', Number(value));
+    if (errors.gradeClass) clearError('gradeClass');
   };
 
   const submit = () => {
-    dispatch({ type: 'CLEAR_ERROR', field: 'secretKey' });
-    dispatch({ type: 'CLEAR_ERROR', field: 'code' });
+    clearError('secretKey');
+    clearError('code');
+    resetErrors();
 
     const payload = {
       account_id: form.email,
@@ -249,34 +137,19 @@ const Signup = () => {
       onError: (err: any) => {
         const code = err?.response?.data?.message;
         if (code === 'Secret Key Miss Match') {
-          dispatch({
-            type: 'SET_ERROR',
-            field: 'secretKey',
-            message: '시크릿키가 잘못되었습니다',
-          });
+          setError('secretKey', '시크릿키가 잘못되었습니다');
           return;
         }
         if (code === 'Email Mismatch') {
-          dispatch({
-            type: 'SET_ERROR',
-            field: 'code',
-            message: '인증코드가 만료되었습니다',
-          });
-          setIsEmailLocked(false);
+          setError('code', '인증코드가 만료되었습니다');
+          setUI('isEmailLocked', false);
           return;
         }
         if (code === 'Duplicate User') {
-          dispatch({
-            type: 'SET_ERROR',
-            field: 'global',
-            message: '이미 가입한 계정입니다',
-          });
+          setError('global', '이미 가입한 계정입니다');
+          return;
         }
-        dispatch({
-          type: 'SET_ERROR',
-          field: 'global',
-          message: err?.response?.data?.message || '회원가입에 실패했습니다.',
-        });
+        setError('global', '회원가입에 실패했습니다.');
       },
     });
   };
@@ -307,13 +180,8 @@ const Signup = () => {
             value={form.secretKey}
             name="secret_key"
             onChange={(e) => {
-              dispatch({
-                type: 'SET_FORM',
-                field: 'secretKey',
-                value: e.target.value,
-              });
-              if (errors.secretKey)
-                dispatch({ type: 'CLEAR_ERROR', field: 'secretKey' });
+              setForm('secretKey', e.target.value);
+              if (errors.secretKey) clearError('secretKey');
             }}
             widthtype="login"
           />
@@ -324,12 +192,11 @@ const Signup = () => {
           <EmailInput
             label="이메일"
             onChange={(value) => {
-              dispatch({ type: 'SET_FORM', field: 'email', value });
-              if (errors.email)
-                dispatch({ type: 'CLEAR_ERROR', field: 'email' });
+              setForm('email', value);
+              if (errors.email) clearError('email');
             }}
             onButtonClick={handleMailBtn}
-            disabled={isEmailLocked}
+            disabled={ui.isEmailLocked}
             mainText="발송"
             subText="재발송"
             domain="dsm.hs.kr"
@@ -337,15 +204,16 @@ const Signup = () => {
           />
           {errors.email && <S.Error>{errors.email}</S.Error>}
         </S.SectionWrap>
+
         <S.SectionWrap>
           <EmailInput
             label="인증 코드"
             onChange={(value) => {
-              dispatch({ type: 'SET_FORM', field: 'code', value });
-              if (errors.code) dispatch({ type: 'CLEAR_ERROR', field: 'code' });
+              setForm('code', value);
+              if (errors.code) clearError('code');
             }}
             onButtonClick={handleVerifyCode}
-            disabled={isEmailLocked}
+            disabled={ui.isEmailLocked}
             mainText="확인"
             subText="확인"
             domain=""
@@ -353,6 +221,7 @@ const Signup = () => {
           />
           {errors.code && <S.Error>{errors.code}</S.Error>}
         </S.SectionWrap>
+
         <S.SectionWrap>
           <Input
             label="비밀번호"
@@ -388,13 +257,7 @@ const Signup = () => {
               <S.CheckboxInput
                 type="checkbox"
                 checked={form.isHomeroom}
-                onChange={(e) =>
-                  dispatch({
-                    type: 'SET_FORM',
-                    field: 'isHomeroom',
-                    value: e.target.checked,
-                  })
-                }
+                onChange={(e) => setForm('isHomeroom', e.target.checked)}
               />
             </S.CheckboxContainer>
 
@@ -434,12 +297,8 @@ const Signup = () => {
             value={form.name}
             name="name"
             onChange={(e) => {
-              dispatch({
-                type: 'SET_FORM',
-                field: 'name',
-                value: e.target.value,
-              });
-              if (errors.name) dispatch({ type: 'CLEAR_ERROR', field: 'name' });
+              setForm('name', e.target.value);
+              if (errors.name) clearError('name');
             }}
             widthtype="login"
           />
@@ -452,7 +311,7 @@ const Signup = () => {
           size="standard"
           disabled={disabled}
         >
-          {'회원가입'}
+          회원가입
         </Button>
         {errors.global && <S.Error>{errors.global}</S.Error>}
       </S.ContentWrap>

@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { Email } from '../type';
 import axios from 'axios';
-import { instance } from '..';
 
 const BASEURL = import.meta.env.VITE_SERVER_BASE_URL;
 const router = '/mail';
