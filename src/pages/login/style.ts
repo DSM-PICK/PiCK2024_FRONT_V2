@@ -49,11 +49,10 @@ export const BottomBox = styled.div`
 export const LinkText = styled.span`
   margin-left: 2px;
   font-size: ${theme.font.button[2].size};
-  font-size: ${theme.font.button[2].fontweight};
+  font-weight: ${theme.font.button[2].fontweight};
   color: ${theme.color.main[500]};
   &:hover {
     color: ${theme.color.main[900]};
     text-decoration: underline;
-    font-weight: 500;
   }
 `;
