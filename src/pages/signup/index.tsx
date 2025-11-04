@@ -265,6 +265,13 @@ const Signup = () => {
           setIsEmailLocked(false);
           return;
         }
+        if (code === 'Duplicate User') {
+          dispatch({
+            type: 'SET_ERROR',
+            field: 'global',
+            message: '이미 가입한 계정입니다',
+          });
+        }
         dispatch({
           type: 'SET_ERROR',
           field: 'global',
