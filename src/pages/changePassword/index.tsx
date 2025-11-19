@@ -120,6 +120,7 @@ const ChangePassword = () => {
       {
         onSuccess: () => {
           alert('비밀번호가 변경되었습니다.');
+          navigate('/');
         },
         onError: (err: any) => {
           const code = err?.response?.data?.message;
