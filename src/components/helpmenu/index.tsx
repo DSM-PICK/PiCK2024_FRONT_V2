@@ -49,10 +49,17 @@ const HelfMenu = () => {
           content="로그아웃"
           icon={<img src={out} alt="" />}
         />
+        <HelpContent
+          onClick={() => {
+            navigate('/passwordChange');
+          }}
+          content="비밀번호 변경"
+          icon={<img src={change} alt="" />}
+        />
       </S.AlarmWrap>
       {logoutModal && (
         <Modal
-          refetchStatus={() => { }}
+          refetchStatus={() => {}}
           onCancel={() => {
             setLogoutModal(false);
           }}
