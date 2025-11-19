@@ -36,8 +36,9 @@ const ChangePassword = () => {
     setErrors((prev) => ({ ...prev, [field]: '' }));
 
   const { mutate: emailAuth, isPending: isSending } = useEmailAuth();
-  const { mutate: checkEmailCode } = useEmailCheck();
-  const { mutate: changePassword } = useChangePassword();
+  const { mutate: checkEmailCode, isPending: isVerifying } = useEmailCheck();
+  const { mutate: changePassword, isPending: isSubmitting } =
+    useChangePassword();
 
   const handleMailBtn = useCallback(() => {
     if (!email || isSending) return;
@@ -159,9 +160,9 @@ const ChangePassword = () => {
               clearError('code');
             }}
             onButtonClick={handleVerifyCode}
-            disabled={isEmailLocked}
-            mainText="확인"
-            subText="확인"
+            disabled={isEmailLocked || isVerifying}
+            mainText={isVerifying ? '확인 중...' : '확인'}
+            subText={isVerifying ? '확인 중...' : '확인'}
             domain=""
             placeholder="인증 코드를 입력해주세요"
           />
@@ -200,7 +201,7 @@ const ChangePassword = () => {
           onClick={submit}
           type="main"
           size="standard"
-          disabled={disabled}
+          disabled={disabled || isSubmitting}
         >
           비밀번호 변경
         </Button>
