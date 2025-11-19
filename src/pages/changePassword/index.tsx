@@ -100,7 +100,7 @@ const ChangePassword = () => {
     !code ||
     !password ||
     !passwordCheck ||
-    !isSend ||
+    !isEmailLocked ||
     !!errors.password ||
     !!errors.passwordCheck;
 
