@@ -19,7 +19,6 @@ const ChangePassword = () => {
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
-  const [isSend, setIsSend] = useState(false);
   const [isEmailLocked, setIsEmailLocked] = useState(false);
 
   const [errors, setErrors] = useState({
@@ -49,7 +48,6 @@ const ChangePassword = () => {
         onError: () => setError('email', '이메일 발송에 실패했습니다.'),
         onSuccess: () => {
           clearError('email');
-          setIsSend(true);
         },
       },
     );
