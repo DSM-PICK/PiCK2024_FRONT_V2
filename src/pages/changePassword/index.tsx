@@ -113,14 +113,16 @@ const ChangePassword = () => {
           navigate('/');
         },
         onError: (err: any) => {
-          const msg = err?.response?.data?.message;
-
-          if (msg === 'Email Mismatch') {
-            setError('code', '인증코드가 만료되었습니다. 다시 시도해주세요.');
-            setIsEmailLocked(false);
+          const code = err?.response?.data?.message;
+          const status = err?.response?.data?.status;
+          if (code === '만료된 이메일 인증코드 입니다') {
+            setError('code', code);
             return;
           }
-
+          if (status === 404) {
+            setError('global', code);
+            return;
+          }
           setError('global', '비밀번호 변경에 실패했습니다.');
         },
       },
