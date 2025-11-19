@@ -1,12 +1,13 @@
+import { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Input from '@/components/input';
 import * as S from '@/pages/changePassword/style';
 import { Button } from '@/components/Button';
-import { useCallback } from 'react';
 import { EmailInput } from '@/components/input/email';
+
 import { useEmailAuth, useEmailCheck } from '@/apis/mail';
-import { useChangePasswordStore } from '@/stores/useChangePassword';
 import { useChangePassword } from '@/apis/admin';
-import { useNavigate } from 'react-router-dom';
 
 const PW_REGEX =
   /^(?=\S+$)(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,30}$/;
@@ -14,21 +15,26 @@ const PW_REGEX =
 const ChangePassword = () => {
   const navigate = useNavigate();
 
-  const {
-    email,
-    code,
-    password,
-    passwordCheck,
-    isSend,
-    isEmailLocked,
-    errors,
-    setChangePasswordEmail,
-    setChangePasswordCode,
-    setChangePassword,
-    setChangePasswordCheck,
-    setChangePasswordError,
-    clearChangePasswordError,
-  } = useChangePasswordStore();
+  const [email, setEmail] = useState('');
+  const [code, setCode] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [isSend, setIsSend] = useState(false);
+  const [isEmailLocked, setIsEmailLocked] = useState(false);
+
+  const [errors, setErrors] = useState({
+    email: '',
+    code: '',
+    password: '',
+    passwordCheck: '',
+    global: '',
+  });
+
+  const setError = (field: string, message: string) =>
+    setErrors((prev) => ({ ...prev, [field]: message }));
+
+  const clearError = (field: string) =>
+    setErrors((prev) => ({ ...prev, [field]: '' }));
 
   const { mutate: emailAuth, isPending: isSending } = useEmailAuth();
   const { mutate: checkEmailCode } = useEmailCheck();
@@ -40,12 +46,10 @@ const ChangePassword = () => {
     emailAuth(
       { mail: email, title: 'PiCK 인증 코드', message: '비밀번호 재설정' },
       {
-        onError: () => {
-          setChangePasswordError('email', '이메일 발송에 실패했습니다.');
-        },
+        onError: () => setError('email', '이메일 발송에 실패했습니다.'),
         onSuccess: () => {
-          clearChangePasswordError('email');
-          useChangePasswordStore.setState({ isSend: true });
+          clearError('email');
+          setIsSend(true);
         },
       },
     );
@@ -53,7 +57,7 @@ const ChangePassword = () => {
 
   const handleVerifyCode = () => {
     if (!email || !code) {
-      setChangePasswordError('code', '이메일과 인증 코드를 모두 입력해주세요.');
+      setError('code', '이메일과 인증 코드를 모두 입력해주세요.');
       return;
     }
 
@@ -62,43 +66,33 @@ const ChangePassword = () => {
       {
         onSuccess: (data: boolean) => {
           if (data) {
-            clearChangePasswordError('code');
-            useChangePasswordStore.setState({ isEmailLocked: true });
+            clearError('code');
+            setIsEmailLocked(true);
           } else {
-            setChangePasswordError('code', '인증 코드가 올바르지 않습니다.');
+            setError('code', '인증 코드가 올바르지 않습니다.');
           }
         },
-        onError: () => {
-          setChangePasswordError('code', '인증 코드가 올바르지 않습니다.');
-        },
+        onError: () => setError('code', '인증 코드가 올바르지 않습니다.'),
       },
     );
   };
 
   const onChangePasswordInput = (val: string) => {
-    setChangePassword(val);
+    setPassword(val);
 
-    if (!val || PW_REGEX.test(val)) {
-      clearChangePasswordError('password');
-    } else {
-      setChangePasswordError('password', '비밀번호 형식이 올바르지 않습니다.');
-    }
+    if (!val || PW_REGEX.test(val)) clearError('password');
+    else setError('password', '비밀번호 형식이 올바르지 않습니다.');
 
-    if (passwordCheck && passwordCheck !== val) {
-      setChangePasswordError('passwordCheck', '비밀번호가 일치하지 않습니다.');
-    } else {
-      clearChangePasswordError('passwordCheck');
-    }
+    if (passwordCheck && passwordCheck !== val)
+      setError('passwordCheck', '비밀번호가 일치하지 않습니다.');
+    else clearError('passwordCheck');
   };
 
   const onChangePasswordCheckInput = (val: string) => {
-    setChangePasswordCheck(val);
+    setPasswordCheck(val);
 
-    if (!val || password === val) {
-      clearChangePasswordError('passwordCheck');
-    } else {
-      setChangePasswordError('passwordCheck', '비밀번호가 일치하지 않습니다.');
-    }
+    if (!val || password === val) clearError('passwordCheck');
+    else setError('passwordCheck', '비밀번호가 일치하지 않습니다.');
   };
 
   const disabled =
@@ -112,27 +106,22 @@ const ChangePassword = () => {
 
   const submit = () => {
     changePassword(
-      {
-        admin_id: email,
-        code: code,
-        password: password,
-      },
+      { admin_id: email, code, password },
       {
         onSuccess: () => {
           alert('비밀번호가 변경되었습니다.');
           navigate('/');
         },
         onError: (err: any) => {
-          const code = err?.response?.data?.message;
-          const status = err?.response?.data?.status;
-          if (code === '만료된 이메일 인증코드 입니다') {
-            setChangePasswordError('code', code);
+          const msg = err?.response?.data?.message;
+
+          if (msg === 'Email Mismatch') {
+            setError('code', '인증코드가 만료되었습니다. 다시 시도해주세요.');
+            setIsEmailLocked(false);
             return;
           }
-          if (status === 404) {
-            setChangePasswordError('global', code);
-          }
-          setChangePasswordError('global', '비밀번호 변경에 실패했습니다.');
+
+          setError('global', '비밀번호 변경에 실패했습니다.');
         },
       },
     );
@@ -148,9 +137,9 @@ const ChangePassword = () => {
         <S.SectionWrap>
           <EmailInput
             label="이메일"
-            onChange={(value) => {
-              setChangePasswordEmail(value);
-              clearChangePasswordError('email');
+            onChange={(v) => {
+              setEmail(v);
+              clearError('email');
             }}
             onButtonClick={handleMailBtn}
             disabled={isEmailLocked}
@@ -161,12 +150,13 @@ const ChangePassword = () => {
           />
           {errors.email && <S.Error>{errors.email}</S.Error>}
         </S.SectionWrap>
+
         <S.SectionWrap>
           <EmailInput
             label="인증 코드"
-            onChange={(value) => {
-              setChangePasswordCode(value);
-              clearChangePasswordError('code');
+            onChange={(v) => {
+              setCode(v);
+              clearError('code');
             }}
             onButtonClick={handleVerifyCode}
             disabled={isEmailLocked}
@@ -177,6 +167,7 @@ const ChangePassword = () => {
           />
           {errors.code && <S.Error>{errors.code}</S.Error>}
         </S.SectionWrap>
+
         <S.SectionWrap>
           <Input
             label="비밀번호"
@@ -190,6 +181,7 @@ const ChangePassword = () => {
           />
           {errors.password && <S.Error>{errors.password}</S.Error>}
         </S.SectionWrap>
+
         <S.SectionWrap>
           <Input
             label="비밀번호 확인"
