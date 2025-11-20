@@ -115,7 +115,7 @@ const ChangePassword = () => {
           const code = err?.response?.data?.message;
           const status = err?.response?.data?.status;
           if (status === 401) {
-            setError('code', code + '인증을 다시 진행해주세요');
+            setError('code', `${code} 인증을 다시 진행해주세요`);
             setIsEmailLocked(false);
             return;
           }
