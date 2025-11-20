@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Input from '@/components/input';
@@ -40,7 +40,7 @@ const ChangePassword = () => {
   const { mutate: changePassword, isPending: isSubmitting } =
     useChangePassword();
 
-  const handleMailBtn = useCallback(() => {
+  const handleMailBtn = () => {
     if (!email || isSending) return;
 
     emailAuth(
@@ -52,7 +52,7 @@ const ChangePassword = () => {
         },
       },
     );
-  }, [email, isSending]);
+  };
 
   const handleVerifyCode = () => {
     if (!email || !code) {
