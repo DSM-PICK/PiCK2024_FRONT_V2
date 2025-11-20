@@ -114,8 +114,9 @@ const ChangePassword = () => {
         onError: (err: any) => {
           const code = err?.response?.data?.message;
           const status = err?.response?.data?.status;
-          if (code === '만료된 이메일 인증코드 입니다') {
-            setError('code', code);
+          if (status === 401) {
+            setError('code', code + '인증을 다시 진행해주세요');
+            setIsEmailLocked(false);
             return;
           }
           if (status === 404) {
