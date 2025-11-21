@@ -144,9 +144,9 @@ const ChangePassword = () => {
               clearError('email');
             }}
             onButtonClick={handleMailBtn}
-            disabled={isEmailLocked}
-            mainText="발송"
-            subText="재발송"
+            disabled={isEmailLocked || isSending}
+            mainText={isSending ? '발송 중...' : '발송'}
+            subText={isSending ? '발송 중...' : '재발송'}
             domain="dsm.hs.kr"
             placeholder="학교 이메일을 입력해주세요"
           />
