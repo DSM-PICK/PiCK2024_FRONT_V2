@@ -61,15 +61,21 @@ const Signup = () => {
       { mail: form.email, title: 'PiCK 인증 코드', message: '이메일 인증' },
       {
         onError: (err: any) => {
-          if (err?.response?.status === 409) {
-            setError('email', '이미 가입된 이메일입니다.');
+          const status: number = err?.response?.data?.status;
+          const code: string = err?.response?.data?.message;
+          if (status === 409) {
+            setError('email', code);
+            return;
+          }
+          if (status === 429) {
+            setError('email', code);
             return;
           }
           setError('email', '인증 메일 발송에 실패했습니다.');
         },
         onSuccess: () => {
           clearError('email');
-          setUI('isSend', true);
+          setUI('isSend', !ui.isSend);
         },
       },
     );
@@ -161,7 +167,7 @@ const Signup = () => {
     !form.password ||
     !form.passwordCheck ||
     !form.name ||
-    !ui.isSend ||
+    !ui.isEmailLocked ||
     !!errors.password ||
     !!errors.passwordCheck ||
     (form.isHomeroom && (form.grade === 0 || form.classNum === 0));
