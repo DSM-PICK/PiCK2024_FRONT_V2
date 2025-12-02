@@ -54,7 +54,7 @@ const Signup = () => {
     );
   };
 
-  const handleMailBtn = useCallback(() => {
+  const handleMailBtn = () => {
     if (!form.email || isSending) return;
 
     emailAuth(
@@ -63,6 +63,7 @@ const Signup = () => {
         onError: (err: any) => {
           const status: number = err?.response?.data?.status;
           const code: string = err?.response?.data?.message;
+
           if (status === 409) {
             setError('email', code);
             return;
@@ -79,7 +80,7 @@ const Signup = () => {
         },
       },
     );
-  }, [form.email, isSending, emailAuth, setError, clearError, setUI]);
+  };
 
   const onChangePassword = (val: string) => {
     setForm('password', val);
