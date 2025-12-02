@@ -1,7 +1,6 @@
 import Input from '@/components/input';
 import * as S from '@/pages/signup/style';
 import { Button } from '@/components/Button';
-import { useCallback } from 'react';
 import { useSignup } from '@/apis/admin';
 import { useNavigate } from 'react-router-dom';
 import { EmailInput } from '@/components/input/email';
