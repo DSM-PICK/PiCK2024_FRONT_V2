@@ -152,7 +152,7 @@ export const EmailInput = ({
         <Domain>{domain}</Domain>
         <ResendButton
           onClick={handleButtonClick}
-          disabled={!!domain && !!timer}
+          disabled={disabled || (!!domain && isTimerRunning)}
         >
           {isTimerRunning
             ? `${Math.floor(timer / 60)}:${timer % 60 < 10 ? '0' : ''}${timer % 60}`
