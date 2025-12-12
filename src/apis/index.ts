@@ -21,9 +21,9 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => response,
-  async (error: AxiosError) => {
+  async (error: any) => {
     if (axios.isAxiosError(error)) {
-      const status = (error?.response?.data as any)?.message;
+      const status = error?.response?.data.status;
       const originalRequest = error.config as typeof error.config & {
         _retry?: boolean;
       };
