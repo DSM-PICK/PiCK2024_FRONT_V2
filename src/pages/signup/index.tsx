@@ -142,20 +142,24 @@ const Signup = () => {
       },
       onError: (err: any) => {
         const code = err?.response?.data?.message;
-        if (code === 'Secret Key Miss Match') {
-          setError('secretKey', '시크릿키가 잘못되었습니다');
-          return;
+        const status = err?.response?.data?.status;
+        if (status === 401) {
+          if (code === '비밀 키가 일치하지 않습니다') {
+            setError('secretKey', code);
+            return;
+          }
+          if (code === '만료된 이메일 인증 코드입니다') {
+            setError('code', code);
+            setUI('isEmailLocked', false);
+            return;
+          }
         }
-        if (code === 'Email Mismatch') {
-          setError('code', '인증코드가 만료되었습니다');
-          setUI('isEmailLocked', false);
-          return;
-        }
-        if (code === 'Duplicate User') {
+        if (status === 409) {
           setError('global', '이미 가입한 계정입니다');
           return;
         }
         setError('global', '회원가입에 실패했습니다.');
+        console.log(code, status);
       },
     });
   };
