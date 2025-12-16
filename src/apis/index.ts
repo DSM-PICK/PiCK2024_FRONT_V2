@@ -21,16 +21,15 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => response,
-  async (error: AxiosError) => {
+  async (error: any) => {
     if (axios.isAxiosError(error)) {
-      const status = error.code;
+      const status = error?.response?.data.status;
       const originalRequest = error.config as typeof error.config & {
         _retry?: boolean;
       };
 
-      if (status === 'ERR_NETWORK' && !originalRequest._retry) {
+      if (status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
-
         const refreshToken = cookie.get('refresh_token');
         try {
           const response = await axios.put(`${BASEURL}/admin/refresh`, null, {
