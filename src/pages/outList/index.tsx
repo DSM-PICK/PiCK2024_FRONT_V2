@@ -10,7 +10,6 @@ import { FloorOption } from '@/utils/dropdown';
 import useSelectionStore from '@/stores/useSelect';
 import { showToast } from '@/components/toast';
 import { Toggle } from '@/components/toggle';
-import { useGetEarlyReturnList } from '@/apis/early-return';
 import { getStudentString } from '@/utils/utils';
 import { Button } from '@/components/Button';
 
@@ -30,7 +29,11 @@ const OutList = () => {
     'OK',
     'application',
   );
-  const { data: earlyreturnListData } = useGetEarlyReturnList();
+  const { data: earlyreturnListData } = OutListFloor(
+    selectedFloor,
+    'OK',
+    'early-return',
+  );
   const [modal, setModal] = useState<boolean>(false);
   const { mutate: Return } = ReturnSchool(selectedStudents, {
     onSuccess: () => {
@@ -70,13 +73,11 @@ const OutList = () => {
         right={
           <>
             <Toggle onChange={setCurrentMenu} />
-            {currentMenu === 'application' && (
-              <Dropdown
-                options={FloorOption}
-                value={selectedFloor}
-                changeHandler={handleFloorChange}
-              />
-            )}
+            <Dropdown
+              options={FloorOption}
+              value={selectedFloor}
+              changeHandler={handleFloorChange}
+            />
           </>
         }
       >
