@@ -86,6 +86,19 @@ export const useSignup = () => {
   };
 };
 
+export const useChangePassword = () => {
+  return useMutation({
+    mutationFn: async (param: {
+      admin_id: string;
+      password: string;
+      code: string;
+    }) => {
+      const { data } = await instance.post(`${router}/password`, param);
+      return data;
+    },
+  });
+};
+
 export const MyName = () => {
   return useMutation<MynameType, Error, null>({
     mutationFn: async () => {

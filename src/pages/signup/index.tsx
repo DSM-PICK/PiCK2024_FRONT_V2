@@ -1,7 +1,6 @@
 import Input from '@/components/input';
 import * as S from '@/pages/signup/style';
 import { Button } from '@/components/Button';
-import { useCallback } from 'react';
 import { useSignup } from '@/apis/admin';
 import { useNavigate } from 'react-router-dom';
 import { EmailInput } from '@/components/input/email';
@@ -54,26 +53,33 @@ const Signup = () => {
     );
   };
 
-  const handleMailBtn = useCallback(() => {
+  const handleMailBtn = () => {
     if (!form.email || isSending) return;
 
     emailAuth(
       { mail: form.email, title: 'PiCK 인증 코드', message: '이메일 인증' },
       {
         onError: (err: any) => {
-          if (err?.response?.status === 409) {
-            setError('email', '이미 가입된 이메일입니다.');
+          const status: number = err?.response?.data?.status;
+          const code: string = err?.response?.data?.message;
+
+          if (status === 409) {
+            setError('email', code);
+            return;
+          }
+          if (status === 429) {
+            setError('email', code);
             return;
           }
           setError('email', '인증 메일 발송에 실패했습니다.');
         },
         onSuccess: () => {
           clearError('email');
-          setUI('isSend', true);
+          setUI('isSend', !ui.isSend);
         },
       },
     );
-  }, [form.email, isSending, emailAuth, setError, clearError, setUI]);
+  };
 
   const onChangePassword = (val: string) => {
     setForm('password', val);
@@ -136,20 +142,24 @@ const Signup = () => {
       },
       onError: (err: any) => {
         const code = err?.response?.data?.message;
-        if (code === 'Secret Key Miss Match') {
-          setError('secretKey', '시크릿키가 잘못되었습니다');
-          return;
+        const status = err?.response?.data?.status;
+        if (status === 401) {
+          if (code === '비밀 키가 일치하지 않습니다') {
+            setError('secretKey', code);
+            return;
+          }
+          if (code === '만료된 이메일 인증 코드입니다') {
+            setError('code', code);
+            setUI('isEmailLocked', false);
+            return;
+          }
         }
-        if (code === 'Email Mismatch') {
-          setError('code', '인증코드가 만료되었습니다');
-          setUI('isEmailLocked', false);
-          return;
-        }
-        if (code === 'Duplicate User') {
+        if (status === 409) {
           setError('global', '이미 가입한 계정입니다');
           return;
         }
         setError('global', '회원가입에 실패했습니다.');
+        console.log(code, status);
       },
     });
   };
@@ -161,7 +171,7 @@ const Signup = () => {
     !form.password ||
     !form.passwordCheck ||
     !form.name ||
-    !ui.isSend ||
+    !ui.isEmailLocked ||
     !!errors.password ||
     !!errors.passwordCheck ||
     (form.isHomeroom && (form.grade === 0 || form.classNum === 0));

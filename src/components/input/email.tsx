@@ -4,7 +4,6 @@ import { theme } from '@/styles/theme';
 
 interface EmailInputProps {
   label: string;
-  resendLabel?: string;
   onChange?: (value: string) => void;
   onButtonClick: () => void;
   disabled: boolean;
@@ -94,8 +93,6 @@ const ResendButton = styled.button`
   }
 
   &:disabled {
-    background: ${theme.color.gray[100]};
-    color: ${theme.color.gray[400]};
     cursor: not-allowed;
   }
 `;
@@ -112,6 +109,7 @@ export const EmailInput = ({
 }: EmailInputProps) => {
   const [changeText, setChangeText] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
+  const [timer, setTimer] = useState<number>(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -122,13 +120,24 @@ export const EmailInput = ({
   const handleButtonClick = () => {
     if (onButtonClick && value) {
       onButtonClick();
-      setChangeText(true);
+      if (!!domain) {
+        setTimer(60);
+        setChangeText(true);
+      }
     }
   };
 
   useEffect(() => {
-    console.log(disabled);
-  }, [disabled]);
+    if (timer <= 0) return;
+
+    const interval = setInterval(() => {
+      setTimer((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timer]);
+
+  const isTimerRunning = timer > 0;
 
   return (
     <Container>
@@ -141,8 +150,15 @@ export const EmailInput = ({
           disabled={disabled}
         />
         <Domain>{domain}</Domain>
-        <ResendButton onClick={handleButtonClick}>
-          {changeText ? subText : mainText}
+        <ResendButton
+          onClick={handleButtonClick}
+          disabled={disabled || (!!domain && isTimerRunning)}
+        >
+          {isTimerRunning
+            ? `${Math.floor(timer / 60)}:${timer % 60 < 10 ? '0' : ''}${timer % 60}`
+            : changeText
+              ? subText
+              : mainText}
         </ResendButton>
       </Wrapper>
     </Container>
