@@ -32,7 +32,7 @@ const OutList = () => {
   );
   const { data: earlyreturnListData } = useGetEarlyReturnList();
   const [modal, setModal] = useState<boolean>(false);
-  const { mutate: Return } = ReturnSchool(selectedStudents, {
+  const { mutate: Return, isPending } = ReturnSchool(selectedStudents, {
     onSuccess: () => {
       refetchOutList();
       setModal(false);
@@ -150,6 +150,7 @@ const OutList = () => {
             setModal(false);
           }}
           onConfirm={Return}
+          confirmDisabled={isPending}
         />
       )}
     </>

@@ -17,11 +17,13 @@ const NoticeDetail = () => {
   const noticeId = params.detail || '';
   const { data: GetDetailNotice, refetch: ReGetDetailNotice } =
     DetailNotice(noticeId);
-  const { mutate: DeleteNotice } = useDeleteNotice();
+  const { mutate: DeleteNotice, isPending: isDeletingNotice } =
+    useDeleteNotice();
   const [deleteNotice, setDeleteNotice] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const [edit, setEdit] = useState<boolean>(false);
-  const { mutate: ModifyNotice } = useEditNotice();
+  const { mutate: ModifyNotice, isPending: isModifyingNotice } =
+    useEditNotice();
   useEffect(() => {
     const storedName = localStorage.getItem('name');
     if (storedName) {
@@ -124,6 +126,7 @@ const NoticeDetail = () => {
             size="standard"
             type="black"
             onClick={() => (edit ? Modify() : setEdit(true))}
+            disabled={isModifyingNotice}
           >
             {edit ? '완료' : '수정'}
           </Button>
@@ -157,6 +160,7 @@ const NoticeDetail = () => {
             )
           }
           type="red"
+          confirmDisabled={isDeletingNotice}
         />
       )}
     </Layout>

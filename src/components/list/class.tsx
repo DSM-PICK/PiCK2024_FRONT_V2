@@ -34,8 +34,10 @@ const ClassList = ({
   self,
   refetchStatus,
 }: ClassListProp) => {
-  const { mutate: ChangeMutate } = ChangeStudentStatus();
-  const { mutateAsync: AlltimeChange } = useChangeAttendanceStatus();
+  const { mutate: ChangeMutate, isPending: isChangingStatus } =
+    ChangeStudentStatus();
+  const { mutateAsync: AlltimeChange, isPending: isChangingAttendance } =
+    useChangeAttendanceStatus();
 
   const [statuses, setStatuses] = useState<Status[]>([
     status6,
@@ -50,6 +52,7 @@ const ClassList = ({
   }, [status6, status7, status8, status9, status10]);
 
   const updateStatus = async (newStatus: Status, index: number) => {
+    if (isChangingStatus || isChangingAttendance) return;
     const updatedStatuses = statuses.map((status, i) =>
       i >= index ? newStatus : status,
     );

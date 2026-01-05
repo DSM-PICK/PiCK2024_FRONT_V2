@@ -39,7 +39,7 @@ const OutAccept = () => {
     resetSelection();
   }, [currentMenu]);
 
-  const { mutate: OutAcceptMutate } = useOutAccept(
+  const { mutate: OutAcceptMutate, isPending } = useOutAccept(
     currentMenu,
     state,
     selectedStudents,
@@ -163,6 +163,7 @@ const OutAccept = () => {
           subTitle=""
           onCancel={() => setModal(false)}
           onConfirm={OutAcceptMutate}
+          confirmDisabled={isPending}
         />
       )}
     </>
