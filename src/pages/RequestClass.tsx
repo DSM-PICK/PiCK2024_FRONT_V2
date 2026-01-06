@@ -40,7 +40,6 @@ const RequestClass = () => {
     'QUIET',
   );
   const { mutate: AccpetList, isPending: isAccepting } = AcceptListApi(
-    state,
     selectedStudents,
     {
       onSuccess: () => {
@@ -114,7 +113,7 @@ const RequestClass = () => {
           disabled={disabled || isAccepting}
           onClick={() => {
             setState('NO');
-            AccpetList();
+            AccpetList('NO');
           }}
         >
           거절
@@ -138,7 +137,7 @@ const RequestClass = () => {
           onCancel={() => {
             setModal(false);
           }}
-          onConfirm={AccpetList}
+          onConfirm={() => AccpetList('OK')}
           title={useAcceptModal({
             students: selectedStudentName,
             accept: state,
