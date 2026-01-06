@@ -5,7 +5,7 @@ import Dropdown from '@/components/dropdown';
 import { Layout } from '@/components/layout';
 import { ClassMoveList } from '@/components/list/classmove';
 import Modal from '@/components/modal';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
@@ -39,21 +39,30 @@ const RequestClass = () => {
     selectedFloor,
     'QUIET',
   );
-  const { mutate: AccpetList } = AcceptListApi(state, selectedStudents, {
-    onSuccess: () => {
-      showToast({
-        type: 'success',
-        message: `교실이동이 ${state === 'NO' ? '거절' : '수락'}되었습니다`,
-      });
-      setModal(false);
-      ReGetRequestChange();
+  const { mutate: AccpetList, isPending: isAccepting } = AcceptListApi(
+    selectedStudents,
+    {
+      onSuccess: () => {
+        showToast({
+          type: 'success',
+          message: `교실이동이 ${state === 'NO' ? '거절' : '수락'}되었습니다`,
+        });
+        setModal(false);
+        ReGetRequestChange();
+      },
+      onError: () => {
+        showToast({
+          type: 'error',
+          message: `교실이동 ${state === 'NO' ? '거절' : '수락'}에 실패하였습니다`,
+        });
+      },
     },
-    onError: () => {
-      showToast({
-        type: 'error',
-        message: `교실이동 ${state === 'NO' ? '거절' : '수락'}에 실패하였습니다`,
-      });
-    },
+  );
+
+  const modalTitle = useAcceptModal({
+    students: selectedStudentName,
+    accept: state,
+    option: '교실이동을',
   });
 
   const handleFloorChange = (selectedOption: number | string) => {
@@ -104,29 +113,40 @@ const RequestClass = () => {
         </Wrap>
       </Layout>
       <BottomButtonWrap>
-        <Button type="error" size='standard' disabled={disabled} onClick={() => {
-          setState('NO');
-          AccpetList()
-        }}>거절</Button>
-        <Button type='main' size='standard' disabled={disabled} onClick={() => {
-          setState('OK');
-          setModal(true)
-        }}>수락</Button>
+        <Button
+          type="error"
+          size="standard"
+          disabled={disabled || isAccepting}
+          onClick={() => {
+            setState('NO');
+            AccpetList('NO');
+          }}
+        >
+          거절
+        </Button>
+        <Button
+          type="main"
+          size="standard"
+          disabled={disabled || isAccepting}
+          onClick={() => {
+            setState('OK');
+            setModal(true);
+          }}
+        >
+          수락
+        </Button>
       </BottomButtonWrap>
       {modal && (
         <Modal
-          refetchStatus={() => { }}
+          refetchStatus={() => {}}
           type="check"
           onCancel={() => {
             setModal(false);
           }}
-          onConfirm={AccpetList}
-          title={useAcceptModal({
-            students: selectedStudentName,
-            accept: state,
-            option: '교실이동을',
-          })}
+          onConfirm={() => AccpetList('OK')}
+          title={modalTitle}
           subTitle={''}
+          confirmDisabled={isAccepting}
         />
       )}
     </>

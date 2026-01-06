@@ -12,7 +12,7 @@ interface LoginType {
 }
 
 const Login = () => {
-  const { mutate: Login } = useLogin();
+  const { mutate: Login, isPending } = useLogin();
   const [data, setData] = useState<LoginType>({
     admin_id: '',
     password: '',
@@ -94,7 +94,7 @@ const Login = () => {
             onClick={onClickBtn}
             type="main"
             size="standard"
-            disabled={disabled}
+            disabled={disabled || isPending}
           >
             로그인
           </Button>

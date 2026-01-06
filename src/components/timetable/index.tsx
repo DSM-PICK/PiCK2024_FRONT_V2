@@ -22,7 +22,7 @@ export const DayTimeTable = ({
   selectedGrade,
   selectedClass,
 }: DayTimeTableProps) => {
-  const { mutate: ChangeSubject } = useTimeTableChange();
+  const { mutate: ChangeSubject, isPending } = useTimeTableChange();
 
   const [subjects, setSubjects] = useState<
     { period: number; name: string; id: string }[]
@@ -56,7 +56,7 @@ export const DayTimeTable = ({
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLTextAreaElement>,
   ) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !isPending) {
       onClickBtn();
     }
   };

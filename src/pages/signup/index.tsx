@@ -14,7 +14,7 @@ const PW_REGEX =
 
 const Signup = () => {
   const navigate = useNavigate();
-  const { mutate: signup } = useSignup();
+  const { mutate: signup, isPending } = useSignup();
   const { mutate: emailAuth, isPending: isSending } = useEmailAuth();
   const { mutate: checkEmailCode } = useEmailCheck();
 
@@ -319,7 +319,7 @@ const Signup = () => {
           onClick={submit}
           type="main"
           size="standard"
-          disabled={disabled}
+          disabled={disabled || isPending}
         >
           회원가입
         </Button>
