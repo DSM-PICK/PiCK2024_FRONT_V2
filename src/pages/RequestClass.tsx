@@ -59,6 +59,12 @@ const RequestClass = () => {
     },
   );
 
+  const modalTitle = useAcceptModal({
+    students: selectedStudentName,
+    accept: state,
+    option: '교실이동을',
+  });
+
   const handleFloorChange = (selectedOption: number | string) => {
     setSelectFloor(Number(selectedOption));
   };
@@ -138,11 +144,7 @@ const RequestClass = () => {
             setModal(false);
           }}
           onConfirm={() => AccpetList('OK')}
-          title={useAcceptModal({
-            students: selectedStudentName,
-            accept: state,
-            option: '교실이동을',
-          })}
+          title={modalTitle}
           subTitle={''}
           confirmDisabled={isAccepting}
         />
