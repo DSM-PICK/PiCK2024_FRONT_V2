@@ -123,7 +123,7 @@ export const Modal = ({
     );
   };
 
-  const submitTeachers = async () => {
+  const submitTeachers = () => {
     if (!setState || isPostingTeacher) return;
 
     try {
@@ -136,7 +136,7 @@ export const Modal = ({
         ],
       };
 
-      await postTeacherMutate(postData);
+      postTeacherMutate(postData);
     } catch (error) {
       setState(false);
       showToast({
