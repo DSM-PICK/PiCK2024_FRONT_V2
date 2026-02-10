@@ -18,7 +18,7 @@ const NoticeWrite = () => {
     content: '',
   });
 
-  const { mutate: UploadNoticeMutate } = UploadNotice();
+  const { mutate: UploadNoticeMutate, isPending } = UploadNotice();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -90,11 +90,15 @@ const NoticeWrite = () => {
         />
       </Layout>
       <BottomButtonWrap>
-        <Button onClick={Upload} disabled={disabled} type="main" size="standard">
+        <Button
+          onClick={Upload}
+          disabled={disabled || isPending}
+          type="main"
+          size="standard"
+        >
           공지 등록
         </Button>
       </BottomButtonWrap>
-
     </>
   );
 };
