@@ -28,7 +28,7 @@ const SearchInput = ({
 }: InputProp) => {
   const { teacher } = useTeacherListInformation();
   const [filteredTeachers, setFilteredTeachers] = useState<string[]>(
-    teacher.sort(),
+    teacher.toSorted(),
   );
   const [list, setList] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
