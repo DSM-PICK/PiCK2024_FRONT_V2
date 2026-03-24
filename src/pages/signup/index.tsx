@@ -9,6 +9,8 @@ import { saveToken } from '@/utils/auth';
 import { useEmailAuth, useEmailCheck } from '@/apis/mail';
 import { useSignupStore } from '@/stores/useSignup';
 
+type OSType = 'AOS' | 'IOS' | 'ADMIN' | 'Unknown';
+
 const PW_REGEX =
   /^(?=\S+$)(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,30}$/;
 
@@ -119,6 +121,36 @@ const Signup = () => {
     if (errors.gradeClass) clearError('gradeClass');
   };
 
+  const getOS = (): OSType => {
+    const { userAgent: ua, platform: plt } = navigator;
+
+    // navigator.userAgentData.platform 우선 참조
+    const platform: string =
+      (navigator as any).userAgentData?.platform || plt || '';
+
+    // 1. Android
+    if (/android/i.test(ua)) return 'AOS';
+
+    // 2. iOS (iPhone, iPad, iPod)
+    const isIOS: boolean =
+      /iPhone|iPad|iPod/i.test(ua) ||
+      (/MacIntel/.test(platform) && navigator.maxTouchPoints > 1);
+    if (isIOS) return 'IOS';
+
+    // 3. ADMIN
+    if (
+      /Win/i.test(platform) ||
+      /Windows/i.test(ua) ||
+      /Mac/i.test(platform) ||
+      /Macintosh/i.test(ua) ||
+      /Linux/i.test(platform) ||
+      /Linux/i.test(ua)
+    )
+      return 'ADMIN';
+
+    return 'Unknown';
+  };
+
   const submit = () => {
     clearError('secretKey');
     clearError('code');
@@ -133,6 +165,7 @@ const Signup = () => {
       code: form.code.trim(),
       secret_key: form.secretKey.trim(),
       device_token: form.deviceToken,
+      os: getOS(),
     };
 
     signup(payload, {
