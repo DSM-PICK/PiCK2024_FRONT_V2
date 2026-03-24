@@ -6,17 +6,51 @@ import { useLogin } from '@/apis/admin';
 import { saveToken } from '@/utils/auth';
 import { useNavigate } from 'react-router-dom';
 
+type OSType = 'AOS' | 'IOS' | 'ADMIN' | 'Unknown';
+
 interface LoginType {
   admin_id: string;
   password: string;
+  os: OSType;
 }
 
 const Login = () => {
+  const getOS = (): OSType => {
+    const { userAgent: ua, platform: plt } = navigator;
+
+    // navigator.userAgentData.platform 우선 참조
+    const platform: string =
+      (navigator as any).userAgentData?.platform || plt || '';
+
+    // 1. Android
+    if (/android/i.test(ua)) return 'AOS';
+
+    // 2. iOS (iPhone, iPad, iPod)
+    const isIOS: boolean =
+      /iPhone|iPad|iPod/i.test(ua) ||
+      (/MacIntel/.test(platform) && navigator.maxTouchPoints > 1);
+    if (isIOS) return 'IOS';
+
+    // 3. ADMIN
+    if (
+      /Win/i.test(platform) ||
+      /Windows/i.test(ua) ||
+      /Mac/i.test(platform) ||
+      /Macintosh/i.test(ua) ||
+      /Linux/i.test(platform) ||
+      /Linux/i.test(ua)
+    )
+      return 'ADMIN';
+
+    return 'Unknown';
+  };
+
   const { mutate: Login, isPending } = useLogin();
-  const [data, setData] = useState<LoginType>({
+  const [data, setData] = useState<LoginType>(() => ({
     admin_id: '',
     password: '',
-  });
+    os: getOS(),
+  }));
   const [error, setError] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
