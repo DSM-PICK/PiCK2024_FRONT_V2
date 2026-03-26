@@ -11,6 +11,7 @@ type OSType = 'AOS' | 'IOS' | 'ADMIN' | 'Unknown';
 interface LoginType {
   admin_id: string;
   password: string;
+  device_token: string;
   os: OSType;
 }
 
@@ -49,6 +50,7 @@ const Login = () => {
   const [data, setData] = useState<LoginType>(() => ({
     admin_id: '',
     password: '',
+    device_token: '',
     os: getOS(),
   }));
   const [error, setError] = useState<boolean>(false);
