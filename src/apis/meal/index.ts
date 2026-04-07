@@ -21,6 +21,9 @@ export const TodayMeals = () => {
 
 export const DownLoad = () => {
   const downloadExcel = async () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 2) % 12;
     try {
       const response = await instance.get(`${mealrouter}/excel`, {
         responseType: 'blob',
@@ -28,7 +31,7 @@ export const DownLoad = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', '주말급식리스트.xlsx');
+      link.setAttribute('download', `${year}년 ${month}월 주말급식리스트.xlsx`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
