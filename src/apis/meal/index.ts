@@ -20,10 +20,10 @@ export const TodayMeals = () => {
 };
 
 export const DownLoad = () => {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth() + 2;
   const downloadExcel = async () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 2) % 12;
     try {
       const response = await instance.get(`${mealrouter}/excel`, {
         responseType: 'blob',
