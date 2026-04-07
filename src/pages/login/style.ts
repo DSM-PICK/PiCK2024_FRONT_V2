@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
+import { Link } from 'react-router-dom';
 
 export const LoginWrap = styled.div`
   display: flex;
@@ -46,13 +47,19 @@ export const BottomBox = styled.div`
   justify-content: space-between;
 `;
 
-export const LinkText = styled.span`
+export const LinkText = styled(Link)`
   margin-left: 2px;
   font-size: ${theme.font.caption[2].size};
   font-weight: ${theme.font.caption[2].fontweight};
   color: ${theme.color.main[500]};
+  text-decoration: none;
   &:hover {
     color: ${theme.color.main[900]};
+    text-decoration: underline;
+  }
+  &:focus-visible {
+    outline: 2px solid ${theme.color.main[500]};
+    outline-offset: 2px;
     text-decoration: underline;
   }
 `;

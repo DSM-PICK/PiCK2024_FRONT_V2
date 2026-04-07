@@ -123,13 +123,13 @@ const Login = () => {
           <S.LinkBox>
             <p>
               계정이 없으신가요?
-              <S.LinkText onClick={() => navigate('/signup')}>
+              <S.LinkText to="/signup">
                 회원가입
               </S.LinkText>
             </p>
             <p>
               비밀번호를 잊으셨나요?
-              <S.LinkText onClick={() => navigate('/passwordChange')}>
+              <S.LinkText to="/passwordChange">
                 비밀번호 변경
               </S.LinkText>
             </p>
