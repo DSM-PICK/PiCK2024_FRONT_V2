@@ -120,12 +120,20 @@ const Login = () => {
         />
         {error && <S.Error>아이디와 비밀번호를 다시 확인해주세요</S.Error>}
         <S.BottomBox>
-          <p>
-            계정이 없으신가요?
-            <S.LinkText onClick={() => navigate('/signup')}>
-              회원가입
-            </S.LinkText>
-          </p>
+          <S.LinkBox>
+            <p>
+              계정이 없으신가요?
+              <S.LinkText to="/signup">
+                회원가입
+              </S.LinkText>
+            </p>
+            <p>
+              비밀번호를 잊으셨나요?
+              <S.LinkText to="/passwordChange">
+                비밀번호 변경
+              </S.LinkText>
+            </p>
+          </S.LinkBox>
           <Button
             onClick={onClickBtn}
             type="main"
