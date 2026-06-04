@@ -1,4 +1,5 @@
 import Input from '@/components/input';
+import { EmailInput } from '@/components/input/email';
 import * as S from '@/pages/login/style';
 import { Button } from '@/components/Button/index';
 import { useState } from 'react';
@@ -63,6 +64,13 @@ const Login = () => {
     }));
   };
 
+  const handleAdminIdChange = (value: string) => {
+    setData((prevData) => ({
+      ...prevData,
+      admin_id: value,
+    }));
+  };
+
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>,
   ) => {
@@ -100,12 +108,13 @@ const Login = () => {
         <S.PiCKText>PiCK</S.PiCKText>에 로그인하기
       </S.LoginText>
       <S.ContentWrap>
-        <Input
-          onChange={handleChange}
-          widthtype="login"
+        <EmailInput
+          onChange={handleAdminIdChange}
           value={data.admin_id}
           label="아이디"
           name="admin_id"
+          domain="@dsm.hs.kr"
+          showButton={false}
           error={error}
         />
         <Input

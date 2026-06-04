@@ -1,16 +1,22 @@
 import { useEffect, useState } from 'react';
+import type { ChangeEvent, KeyboardEvent } from 'react';
 import { styled } from 'styled-components';
 import { theme } from '@/styles/theme';
 
 interface EmailInputProps {
   label: string;
+  value?: string;
+  name?: string;
   onChange?: (value: string) => void;
-  onButtonClick: () => void;
-  disabled: boolean;
-  mainText: string;
-  subText: string;
-  domain: string;
-  placeholder: string;
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onButtonClick?: () => void;
+  disabled?: boolean;
+  mainText?: string;
+  subText?: string;
+  domain?: string;
+  placeholder?: string;
+  showButton?: boolean;
+  error?: boolean;
 }
 
 const Container = styled.div`
@@ -26,21 +32,31 @@ const Label = styled.label`
   font-weight: ${theme.font.label[1].fontweight};
 `;
 
-const Wrapper = styled.div<{ disabled: boolean }>`
+const Wrapper = styled.div<{ disabled: boolean; error?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: ${theme.color.gray[50]};
   border: 1px solid
-    ${({ disabled }) => (disabled ? theme.color.main[900] : 'none')};
+    ${({ disabled, error }) =>
+      error
+        ? theme.color.error[500]
+        : disabled
+          ? theme.color.main[900]
+          : 'none'};
   border-radius: 8px;
   padding: 12px 24px;
   height: 48px;
   opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
+
   &:hover {
-    border-color: ${({ disabled }) =>
-      disabled ? 'none' : theme.color.main[500]};
+    border-color: ${({ disabled, error }) =>
+      error
+        ? theme.color.error[500]
+        : disabled
+          ? 'none'
+          : theme.color.main[500]};
   }
 `;
 
@@ -99,26 +115,32 @@ const ResendButton = styled.button`
 
 export const EmailInput = ({
   label = '이메일',
+  value,
+  name,
   onChange,
+  onKeyDown,
   onButtonClick,
   disabled = false,
-  mainText,
-  subText,
-  domain,
-  placeholder,
+  mainText = '',
+  subText = '',
+  domain = '',
+  placeholder = '',
+  showButton = true,
+  error,
 }: EmailInputProps) => {
   const [changeText, setChangeText] = useState<boolean>(false);
-  const [value, setValue] = useState<string>('');
+  const [internalValue, setInternalValue] = useState<string>('');
   const [timer, setTimer] = useState<number>(0);
+  const currentValue = value ?? internalValue;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     onChange?.(val);
-    setValue(val);
+    setInternalValue(val);
   };
 
   const handleButtonClick = () => {
-    if (onButtonClick && value) {
+    if (onButtonClick && currentValue) {
       onButtonClick();
       if (!!domain) {
         setTimer(60);
@@ -142,24 +164,29 @@ export const EmailInput = ({
   return (
     <Container>
       <Label>{label}</Label>
-      <Wrapper disabled={disabled}>
+      <Wrapper disabled={disabled} error={error}>
         <Input
           type="text"
+          name={name}
+          value={currentValue}
           placeholder={placeholder}
           onChange={handleChange}
+          onKeyDown={onKeyDown}
           disabled={disabled}
         />
         <Domain>{domain}</Domain>
-        <ResendButton
-          onClick={handleButtonClick}
-          disabled={disabled || (!!domain && isTimerRunning)}
-        >
-          {isTimerRunning
-            ? `${Math.floor(timer / 60)}:${timer % 60 < 10 ? '0' : ''}${timer % 60}`
-            : changeText
-              ? subText
-              : mainText}
-        </ResendButton>
+        {showButton && (
+          <ResendButton
+            onClick={handleButtonClick}
+            disabled={disabled || (!!domain && isTimerRunning)}
+          >
+            {isTimerRunning
+              ? `${Math.floor(timer / 60)}:${timer % 60 < 10 ? '0' : ''}${timer % 60}`
+              : changeText
+                ? subText
+                : mainText}
+          </ResendButton>
+        )}
       </Wrapper>
     </Container>
   );

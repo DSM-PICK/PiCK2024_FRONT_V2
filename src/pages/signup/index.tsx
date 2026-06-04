@@ -242,7 +242,7 @@ const Signup = () => {
             disabled={ui.isEmailLocked}
             mainText="발송"
             subText="재발송"
-            domain="dsm.hs.kr"
+            domain="@dsm.hs.kr"
             placeholder="학교 이메일을 입력해주세요"
           />
           {errors.email && <S.Error>{errors.email}</S.Error>}
