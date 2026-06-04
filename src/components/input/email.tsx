@@ -43,7 +43,7 @@ const Wrapper = styled.div<{ disabled: boolean; error?: boolean }>`
         ? theme.color.error[500]
         : disabled
           ? theme.color.main[900]
-          : 'none'};
+          : 'transparent'};
   border-radius: 8px;
   padding: 12px 24px;
   height: 48px;
@@ -55,7 +55,7 @@ const Wrapper = styled.div<{ disabled: boolean; error?: boolean }>`
       error
         ? theme.color.error[500]
         : disabled
-          ? 'none'
+          ? 'transparent'
           : theme.color.main[500]};
   }
 `;

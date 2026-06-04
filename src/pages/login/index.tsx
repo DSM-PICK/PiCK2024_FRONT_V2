@@ -110,6 +110,7 @@ const Login = () => {
       <S.ContentWrap>
         <EmailInput
           onChange={handleAdminIdChange}
+          onKeyDown={handleKeyDown}
           value={data.admin_id}
           label="아이디"
           name="admin_id"
